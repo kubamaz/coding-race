@@ -4,6 +4,9 @@ import pygame_gui
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 
+POINTS = 0
+answered_questions = []
+
 #Ustawia dźwięk muzyki w tle ekranu głównego i zwraca dźwięk klikania
 def set_sounds(music_volume, click_volume):
     # Ekran główny muzyka
