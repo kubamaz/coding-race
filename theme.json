@@ -74,6 +74,17 @@
         }
     },
 
+    "#Information_won": {
+        "colours": {
+            "normal_text": "#FFFFFF"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "20"
+        }
+    },
+
     "horizontal_slider":
     {
         "colours":

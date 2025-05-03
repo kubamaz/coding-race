@@ -38,6 +38,7 @@ while True:
             click_sound.play()
 
             if event.ui_element == start_button:
+                #NAJPIERW PRZEJDE DO EKRANU, W KTORYM BEDE WYBIERAC DZIAL W DANTE, A DOPIERO POTEM GAEM
                 current_screen = GAME
                 set_screen(current_screen, start_button, settings_button, exit_button, volume_slider, back_button)
                 game_screen()

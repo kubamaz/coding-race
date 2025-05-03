@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b3f2c31-6eeb-4795-8c2c-315aa3c0df13" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/summary_screen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Answer_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Answer_screen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Question_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Question_screen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/theme.json" beforeDir="false" afterPath="$PROJECT_DIR$/theme.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
       <recent name="C:\Users\kbana\PycharmProjects\coding-race-main\assets\imgs" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Question_screen">
+  <component name="RunManager" selected="Python.summary_screen">
     <configuration name="Answer_screen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="coding-race-main" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -123,8 +124,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="summary_screen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="coding-race-main" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/summary_screen.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.summary_screen" />
         <item itemvalue="Python.Question_screen" />
         <item itemvalue="Python.Answer_screen" />
         <item itemvalue="Python.main" />
@@ -143,7 +167,7 @@
       <workItem from="1746029633671" duration="310000" />
       <workItem from="1746188577918" duration="3533000" />
       <workItem from="1746277093656" duration="10662000" />
-      <workItem from="1746299042318" duration="2089000" />
+      <workItem from="1746299042318" duration="3190000" />
     </task>
     <servers />
   </component>
@@ -175,6 +199,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/coding_race_main$main.coverage" NAME="main Coverage Results" MODIFIED="1746286474571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/coding_race_main$Answer_screen.coverage" NAME="Answer_screen Coverage Results" MODIFIED="1746303485682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/coding_race_main$Question_screen.coverage" NAME="Question_screen Coverage Results" MODIFIED="1746303597876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/coding_race_main$Question_screen.coverage" NAME="Question_screen Coverage Results" MODIFIED="1746304116509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/coding_race_main$summary_screen.coverage" NAME="summary_screen Coverage Results" MODIFIED="1746304691468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
