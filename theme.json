@@ -54,11 +54,25 @@
             "name": "Michroma",
             "regular_path": "assets/Fonts/Michroma-Regular.ttf",
             "size": "70"
+        },
+        "misc": {
+            "padding": "10,10",
+            "text_horiz_alignment": "center",
+            "text_vert_alignment": "center"
         }
 
     },
 
-
+    "#Information": {
+        "colours": {
+            "normal_text": "#D96024"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "40"
+        }
+    },
 
     "horizontal_slider":
     {

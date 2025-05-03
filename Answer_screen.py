@@ -15,104 +15,80 @@ pygame.display.set_caption("CODING RACE")
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
 
-question_title = pygame_gui.elements.UILabel(
-
-        relative_rect=pygame.Rect((0, -300), (700, 110)),
-        text='Pytanie ' + str(POINTS + 1),
-        manager=manager,
-        object_id='#Question_title',
-        anchors={'center': 'center'}
-    )
-
-
-
-
-
 clock = pygame.time.Clock()
-questions = import_questions("Questions")
 
 #WERSJA BEZ CZASU NA ODPOWIEDZ NA PYTANIE
-def question_screen():
-    # Losuje pytanie i wybieram prawidlowa odpowiedz
-    question = random.choice(questions)
-    while question in answered_questions:
-        question = random.choice(questions)
+def answer_screen(correct):
+    t = 3
+    if correct:
+        txt = "POPRAWNA"
+    else:
+        txt = "BŁĘDNA"
 
-    answered_questions.append(question)
-    answers = question[1]
-    correct_answer = answers[question[2]]
+    Title1 = pygame_gui.elements.UILabel(
 
-    # Ustawiam guziki i pytanie
-
-    question_text = pygame_gui.elements.UILabel(
-
-        relative_rect=pygame.Rect((0, -210), (700, 80)),
-        text=question[0],
+        relative_rect=pygame.Rect((0, -120), (800,100)),
+        text=txt,
         manager=manager,
-        object_id='#Question_text',
-        anchors={'center': 'center'}
+        object_id="#Question_title",
+        anchors={'center': 'center'},
     )
 
-    answer1 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 300), (500, 80)),
-        text="A. " + answers[0],
-        manager=manager
+    Title2 = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((5, -40), (800, 100)),
+        text="ODPOWIEDŹ!",
+        manager=manager,
+        object_id="#Question_title",
+        anchors={'center': 'center'},
     )
 
-    answer2 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 400), (500, 80)),
-        text="B. " + answers[1],
-        manager=manager
+
+    Information = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0, 40), (800, 150)),
+        manager=manager,
+        text="WZNOWIENIE WYSCIGU ZA",
+        anchors={'center': 'center'},
+        object_id="#Information"
     )
 
-    answer3 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 500), (500, 80)),
-        text="C. " + answers[2],
-        manager=manager
+    Information2 = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0, 100), (500, 150)),
+        manager=manager,
+        text=str(t) + "...",
+        anchors={'center': 'center'},
+        object_id="#Information"
     )
-    if len(answers) == 4:
-        answer4 = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 600), (500, 80)),
-            text="D. " + answers[3],
-            manager=manager
-        )
+
+    start_time = pygame.time.get_ticks()
 
     while True:
         time_delta = clock.tick(60) / 1000.0
         screen.blit(background_picture, (0, 0))
 
+        current_time = pygame.time.get_ticks()
+
+
+
+        if current_time - start_time >= 1000:
+            start_time = current_time
+            t -= 1
+            if t == -1:
+                break
+            else:
+                Information2.text = str(t) + "..."
+                Information2.rebuild()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                click_sound.play()
-                if event.ui_element == answer1:
-                    if answers[0] == correct_answer:
-                        print("Gratuluje!")
-                    else:
-                        print("Zle")
-                elif event.ui_element == answer2:
-                    if answers[1] == correct_answer:
-                        print("Gratuluje!")
-                    else:
-                        print("Zle")
-                elif event.ui_element == answer3:
-                    if answers[2] == correct_answer:
-                        print("Gratuluje!")
-                    else:
-                        print("Zle")
-                elif event.ui_element == answer4:
-                    if answers[3] == correct_answer:
-                        print("Gratuluje!")
-                    else:
-                        print("Zle")
-
-            manager.process_events(event)
 
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()
 
 
-question_screen()
+answer_screen(0)
