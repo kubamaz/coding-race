@@ -17,7 +17,6 @@ manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
 clock = pygame.time.Clock()
 
-#WERSJA BEZ CZASU NA ODPOWIEDZ NA PYTANIE
 def answer_screen(correct):
     t = 3
     if correct:
@@ -70,8 +69,6 @@ def answer_screen(correct):
 
         current_time = pygame.time.get_ticks()
 
-
-
         if current_time - start_time >= 1000:
             start_time = current_time
             t -= 1
@@ -90,5 +87,11 @@ def answer_screen(correct):
         manager.draw_ui(screen)
         pygame.display.flip()
 
+    Title1.hide()
+    Title2.hide()
+    Information.hide()
+    Information2.hide()
 
-answer_screen(0)
+
+
+

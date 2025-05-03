@@ -3,6 +3,7 @@ import pygame
 from home_screen import *
 import sys
 import random
+from Answer_screen import *
 
 #TODO : Shadows
 def import_questions(file_name):
@@ -101,8 +102,8 @@ def question_screen():
         answers_button.append(answer4)
 
     selected_answer = answer1.text[3:]
-
-    while True:
+    running = True
+    while running:
         time_delta = clock.tick(60) / 1000.0
         screen.blit(background_picture, (0, 0))
 
@@ -115,10 +116,11 @@ def question_screen():
 
                 if event.ui_element == OK_button:
                     if selected_answer == correct_answer:
-                        print("Gratulacje!")
+                        answer_screen(True)
                     else:
-                        print("Źle!")
-                    #przechodze do ekranu odpowiedzi poprawnej/niepoprawnej
+                        answer_screen(False)
+                    running = False
+
                 for button in answers_button:
                     if button.colours['normal_border'] != pygame.Color("#AE0909"):
                         button.colours['normal_border'] = pygame.Color("#AE0909")
