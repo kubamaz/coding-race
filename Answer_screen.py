@@ -1,22 +1,7 @@
-import pygame
-
 from home_screen import *
 import sys
-import random
 
 #TODO : Shadows
-def import_questions(file_name):
-    with open(file_name, 'r', encoding='utf-8') as f:
-        file_questions = f.read().strip().split('---')
-    questions = []
-    for part in file_questions:
-        line = part.strip().split('\n')
-        question = line[0]
-        answers = line[1:len(line) - 1]
-        ind_correct_answer = int(line[len(line) - 1]) - 1 #indeks poprawnej odpowiedzi
-        questions.append((question,answers,ind_correct_answer))
-    return questions
-
 
 pygame.init()
 pygame.mixer.init()
@@ -39,11 +24,6 @@ question_title = pygame_gui.elements.UILabel(
         anchors={'center': 'center'}
     )
 
-OK_button = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 + 300, 720), (200, 80)),
-        text="OK",
-        manager=manager
-    )
 
 
 
@@ -61,6 +41,7 @@ def question_screen():
     answered_questions.append(question)
     answers = question[1]
     correct_answer = answers[question[2]]
+
     # Ustawiam guziki i pytanie
 
     question_text = pygame_gui.elements.UILabel(
@@ -89,18 +70,12 @@ def question_screen():
         text="C. " + answers[2],
         manager=manager
     )
-
-    answers_button = [answer1, answer2, answer3]
-
     if len(answers) == 4:
         answer4 = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 600), (500, 80)),
             text="D. " + answers[3],
             manager=manager
         )
-        answers_button.append(answer4)
-
-    selected_answer = answer1.text[3:]
 
     while True:
         time_delta = clock.tick(60) / 1000.0
@@ -112,24 +87,27 @@ def question_screen():
                 sys.exit()
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
-
-                if event.ui_element == OK_button:
-                    if selected_answer == correct_answer:
-                        print("Gratulacje!")
+                if event.ui_element == answer1:
+                    if answers[0] == correct_answer:
+                        print("Gratuluje!")
                     else:
-                        print("Źle!")
-                    #przechodze do ekranu odpowiedzi poprawnej/niepoprawnej
-                for button in answers_button:
-                    if button.colours['normal_border'] != pygame.Color("#AE0909"):
-                        button.colours['normal_border'] = pygame.Color("#AE0909")
-                        button.colours['hovered_text'] = pygame.Color("#FFFFFF")
-                        button.rebuild()
+                        print("Zle")
+                elif event.ui_element == answer2:
+                    if answers[1] == correct_answer:
+                        print("Gratuluje!")
+                    else:
+                        print("Zle")
+                elif event.ui_element == answer3:
+                    if answers[2] == correct_answer:
+                        print("Gratuluje!")
+                    else:
+                        print("Zle")
+                elif event.ui_element == answer4:
+                    if answers[3] == correct_answer:
+                        print("Gratuluje!")
+                    else:
+                        print("Zle")
 
-                event.ui_element.colours['normal_border'] = pygame.Color("#FF4500")
-                event.ui_element.colours['hovered_text'] = pygame.Color("#F56914")
-                event.ui_element.rebuild()
-
-                selected_answer = event.ui_element.text[3:]
             manager.process_events(event)
 
         manager.update(time_delta)

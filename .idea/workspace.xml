@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b3f2c31-6eeb-4795-8c2c-315aa3c0df13" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Answer_screen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Question_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/Question_screen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_screen.py" beforeDir="false" afterPath="$PROJECT_DIR$/home_screen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/theme.json" beforeDir="false" afterPath="$PROJECT_DIR$/theme.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +120,7 @@
       <workItem from="1746028800669" duration="802000" />
       <workItem from="1746029633671" duration="310000" />
       <workItem from="1746188577918" duration="3533000" />
-      <workItem from="1746277093656" duration="4709000" />
+      <workItem from="1746277093656" duration="8615000" />
     </task>
     <servers />
   </component>
@@ -139,8 +138,19 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Question_screen.py</url>
+          <line>102</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/coding_race_main$main.coverage" NAME="main Coverage Results" MODIFIED="1746280396257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/coding_race_main$Question_screen.coverage" NAME="Question_screen Coverage Results" MODIFIED="1746285802480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/coding_race_main$main.coverage" NAME="main Coverage Results" MODIFIED="1746286474571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/coding_race_main$Question_screen.coverage" NAME="Question_screen Coverage Results" MODIFIED="1746294230575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
