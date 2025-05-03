@@ -2,6 +2,7 @@ from home_screen import *
 import sys
 import random
 
+#TODO : Shadows
 def import_questions(file_name):
     with open(file_name, 'r', encoding='utf-8') as f:
         file_questions = f.read().strip().split('---')
@@ -29,12 +30,14 @@ manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
 question_title = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -300), (500, 110)),
+        relative_rect=pygame.Rect((0, -300), (700, 110)),
         text='Pytanie ' + str(POINTS + 1),
         manager=manager,
         object_id='#Question_title',
         anchors={'center': 'center'}
     )
+
+
 
 
 
@@ -52,36 +55,37 @@ def question_screen():
     correct_answer = answers[question[2]]
 
     # Ustawiam guziki i pytanie
+
     question_text = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -220), (470, 80)),
+        relative_rect=pygame.Rect((0, -210), (700, 80)),
         text=question[0],
         manager=manager,
+        object_id='#Question_text',
         anchors={'center': 'center'}
     )
 
     answer1 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 190, 540), (380, 80)),
-        text=answers[0],
+        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 300), (500, 80)),
+        text="A. " + answers[0],
         manager=manager
     )
 
     answer2 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 190, 540), (380, 80)),
-        text=answers[2],
+        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 400), (500, 80)),
+        text="B. " + answers[1],
         manager=manager
     )
 
     answer3 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 190, 540), (380, 80)),
-        text=answers[3],
+        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 500), (500, 80)),
+        text="C. " + answers[2],
         manager=manager
     )
-
     if len(answers) == 4:
         answer4 = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 190, 540), (380, 80)),
-            text=answers[3],
+            relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 600), (500, 80)),
+            text="D. " + answers[3],
             manager=manager
         )
 

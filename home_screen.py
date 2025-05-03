@@ -3,7 +3,6 @@ import pygame_gui
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
-
 POINTS = 0
 answered_questions = []
 

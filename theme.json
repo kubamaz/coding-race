@@ -4,12 +4,12 @@
             "normal_bg": "rgba(0, 0, 0, 0)",
             "hovered_bg": "rgba(0, 0, 0, 0)",
             "selected_bg": "rgba(0, 0, 0, 0)",
-            "normal_border": "#AE0909",  
-            "hovered_border": "#F56914", 
+            "normal_border": "#AE0909",
+            "hovered_border": "#F56914",
             "selected_border": "#FF4500",
             "normal_text": "#FFFFFF",
             "hovered_text": "#F56914"
- 
+
         },
         "font": {
             "name": "Michroma",
@@ -21,8 +21,8 @@
             "shape": "rounded_rectangle",
             "shape_corner_radius": "15"
         }
-        
     },
+
     "label": {
         "colours": {
             "normal_text": "#AE0909"
@@ -32,8 +32,33 @@
             "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
             "size": "64"
         }
-        
+
     },
+    "#Question_text": {
+        "colours": {
+            "normal_text": "#D96024"
+        },
+        "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "40"
+        }
+
+    },
+
+    "#Question_title": {
+        "colours": {
+            "normal_text": "#D96024"
+        },
+        "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "70"
+        }
+
+    },
+
+
     "horizontal_slider":
     {
         "colours":
