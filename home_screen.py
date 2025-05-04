@@ -5,6 +5,11 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 POINTS = 0
 answered_questions = []
+# To bedziemy mogli umiescic pozniej w jakiejs bazie danych uzytkownika zeby odpowiednie dzialy byly zablokowane
+UNITS = ['1. Pliki', '2. Struktury', '3. Unie', '4. Dynamiczna alokacja pamięci I',
+         '5. Dynamiczna alokacja pamięci II', '6. Dynamiczna alokacja pamięci - teksty i napisy',
+         '7. Wskaźniki do funkcji', '8. Funkcje ze zmienną liczbą argumentów i argumenty funkcji main',
+         '9. Operacje bitowe oraz dyrektywy preprocesora', '10. Dynamiczne struktury danych']
 
 #Ustawia dźwięk muzyki w tle ekranu głównego i zwraca dźwięk klikania
 def set_sounds(music_volume, click_volume):

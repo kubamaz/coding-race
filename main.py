@@ -1,4 +1,5 @@
 from game import *
+from unit_screen import *
 
 MENU = 'menu'
 SETTINGS = 'settings'
@@ -42,6 +43,7 @@ while True:
                 #NAJPIERW PRZEJDE DO EKRANU, W KTORYM BEDE WYBIERAC DZIAL W DANTE, A DOPIERO POTEM GAEM
                 current_screen = GAME
                 set_screen(current_screen, start_button, settings_button, exit_button, volume_slider, back_button)
+                unit_screen()
                 game_screen()
             elif event.ui_element == exit_button:
                 pygame.quit()

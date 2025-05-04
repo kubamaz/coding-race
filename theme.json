@@ -9,7 +9,6 @@
             "selected_border": "#FF4500",
             "normal_text": "#FFFFFF",
             "hovered_text": "#F56914"
-
         },
         "font": {
             "name": "Michroma",
@@ -22,7 +21,6 @@
             "shape_corner_radius": "15"
         }
     },
-
     "label": {
         "colours": {
             "normal_text": "#AE0909"
@@ -32,8 +30,19 @@
             "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
             "size": "64"
         }
-
     },
+
+    "#Unit_selection": {
+        "colours": {
+            "normal_text": "#AE0909"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "80"
+        }
+    },
+
     "#Question_text": {
         "colours": {
             "normal_text": "#D96024"
@@ -43,9 +52,7 @@
             "regular_path": "assets/Fonts/Michroma-Regular.ttf",
             "size": "40"
         }
-
     },
-
     "#Question_title": {
         "colours": {
             "normal_text": "#D96024"
@@ -60,9 +67,7 @@
             "text_horiz_alignment": "center",
             "text_vert_alignment": "center"
         }
-
     },
-
     "#Information": {
         "colours": {
             "normal_text": "#D96024"
@@ -71,7 +76,6 @@
             "size": "40"
         }
     },
-
     "#Information_won": {
         "colours": {
             "normal_text": "#FFFFFF"
@@ -80,11 +84,8 @@
             "size": "20"
         }
     },
-
-    "horizontal_slider":
-    {
-        "colours":
-        {
+    "horizontal_slider": {
+        "colours": {
             "normal_bg": "#25292e",
             "hovered_bg": "#35393e",
             "disabled_bg": "#25292e",
@@ -92,8 +93,7 @@
             "active_bg": "#193784",
             "dark_bg": "#15191e,#202020,0"
         },
-        "misc":
-        {
+        "misc": {
             "border_width": "5",
             "shape": "rounded_rectangle",
             "shape_corner_radius": "15",
@@ -101,20 +101,80 @@
             "sliding_button_width": "30"
         }
     },
-    "horizontal_slider.button":
-    {
-        "misc":
-        {
-       "border_width": "5",
+    "horizontal_slider.button": {
+        "misc": {
+            "border_width": "5",
             "shape": "rounded_rectangle",
             "shape_corner_radius": "10"
         }
     },
-    "horizontal_slider.#sliding_button":
-    {
-        "colours":
-        {
-        "normal_bg": "#FF0000"
+    "horizontal_slider.#sliding_button": {
+        "colours": {
+            "normal_bg": "#FF0000"
         }
-    }
+    },
+
+    "drop_down_menu":
+     {
+         "misc":
+         {
+             "expand_direction": "down"
+         },
+
+         "colours":
+         {
+             "normal_bg": "#ADB5BD",
+             "hovered_bg": "#35393e"
+         },
+         "misc":
+         {
+             "border_width": "1",
+             "open_button_width": "10",
+             "shape": "rounded_rectangle",
+            "shape_corner_radius": "15"
+         }
+     },
+     "drop_down_menu.#selected_option":
+     {
+         "misc":
+         {
+             "border_width": "1",
+             "open_button_width": "10",
+             "shape": "rounded_rectangle",
+            "shape_corner_radius": "15"
+         },
+         "font":
+         {
+             "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "25"
+         },
+         "colours":
+         {
+             "normal_bg": "#ADB5BD",
+             "hovered_bg": "#35393e",
+             "normal_text": "#000000",
+            "hovered_text": "#AE0909"
+         }
+     },
+    "drop_down_menu.#drop_down_options_list.button":
+     {
+         "misc": {
+            "row_height": "60"
+        },
+         "font":
+         {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "15"
+         },
+         "colours":
+         {
+             "normal_bg": "#ADB5BD",
+             "hovered_bg": "#35393e",
+             "normal_text": "#000000",
+            "hovered_text": "#AE0909"
+         }
+     }
+
 }
