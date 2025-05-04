@@ -68,8 +68,6 @@
             "normal_text": "#D96024"
         },
         "font": {
-            "name": "NFS",
-            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
             "size": "40"
         }
     },
@@ -79,8 +77,6 @@
             "normal_text": "#FFFFFF"
         },
         "font": {
-            "name": "NFS",
-            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
             "size": "20"
         }
     },

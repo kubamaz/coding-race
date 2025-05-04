@@ -91,7 +91,3 @@ def answer_screen(correct):
     Title2.hide()
     Information.hide()
     Information2.hide()
-
-
-
-

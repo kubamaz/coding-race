@@ -24,6 +24,7 @@ game_title, start_button, settings_button, exit_button, volume_slider, back_butt
 
 clock = pygame.time.Clock()
 
+
 while True:
     time_delta = clock.tick(60) / 1000.0
 

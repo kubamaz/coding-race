@@ -48,10 +48,8 @@ def summary_screen(result):
     else:
         txt = "YOU LOSE"
 
-
     game_title.text = txt
     start_button.text = "Play Again"
-
 
     game_title.rebuild()
     start_button.rebuild()
@@ -94,3 +92,4 @@ def summary_screen(result):
         manager.draw_ui(screen)
         pygame.display.flip()
 
+summary_screen(True)
