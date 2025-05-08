@@ -46,7 +46,7 @@ OK_button = pygame_gui.elements.UIButton(
         manager=manager
     )
 
-
+OK_button.hide()
 
 
 clock = pygame.time.Clock()
@@ -64,10 +64,10 @@ def question_screen():
     correct_answer = answers[question[2]]
     # Ustawiam guziki i pytanie
 
-    question_text = pygame_gui.elements.UILabel(
+    question_text = pygame_gui.elements.UITextBox(
 
-        relative_rect=pygame.Rect((0, -210), (700, 80)),
-        text=question[0],
+        relative_rect=pygame.Rect((0, -210), (700, 300)),
+        html_text=question[0],
         manager=manager,
         object_id='#Question_text',
         anchors={'center': 'center'}
@@ -113,7 +113,7 @@ def question_screen():
                 sys.exit()
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
-
+                OK_button.show()
                 if event.ui_element == OK_button:
                     if selected_answer == correct_answer:
                         answer_screen(True)

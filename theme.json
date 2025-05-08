@@ -8,7 +8,9 @@
             "hovered_border": "#F56914",
             "selected_border": "#FF4500",
             "normal_text": "#FFFFFF",
-            "hovered_text": "#F56914"
+            "hovered_text": "#F56914",
+            "active_bg": "rgb(120,120,120)",
+            "active_border": "rgb(100,100,100)"
         },
         "font": {
             "name": "Michroma",
@@ -23,15 +25,34 @@
     },
     "label": {
         "colours": {
-            "normal_text": "#AE0909"
+            "normal_text": "#AE0909",
+            "text_shadow": "#000000"
         },
         "font": {
             "name": "NFS",
             "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
             "size": "64"
+        },
+        "misc": {
+            "text_shadow_size": "2"
         }
     },
-
+    "text_box": {
+        "colours": {
+            "normal_text": "#AE0909",
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "64"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0"
+        }
+    },
     "#Unit_selection": {
         "colours": {
             "normal_text": "#AE0909"
@@ -45,17 +66,22 @@
 
     "#Question_text": {
         "colours": {
-            "normal_text": "#D96024"
+            "normal_text": "#D96024",
+            "text_shadow": "#000000"
         },
         "font": {
             "name": "Michroma",
             "regular_path": "assets/Fonts/Michroma-Regular.ttf",
             "size": "40"
+        },
+        "misc": {
+            "text_shadow_size": "2"
         }
     },
     "#Question_title": {
         "colours": {
-            "normal_text": "#D96024"
+            "normal_text": "#D96024",
+            "text_shadow": "#000000"
         },
         "font": {
             "name": "Michroma",
@@ -63,6 +89,7 @@
             "size": "70"
         },
         "misc": {
+            "text_shadow_size": "2",
             "padding": "10,10",
             "text_horiz_alignment": "center",
             "text_vert_alignment": "center"
@@ -116,11 +143,6 @@
 
     "drop_down_menu":
      {
-         "misc":
-         {
-             "expand_direction": "down"
-         },
-
          "colours":
          {
              "normal_bg": "#ADB5BD",
@@ -128,6 +150,7 @@
          },
          "misc":
          {
+            "expand_direction": "down",
              "border_width": "1",
              "open_button_width": "10",
              "shape": "rounded_rectangle",
