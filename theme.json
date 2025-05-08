@@ -7,10 +7,12 @@
             "normal_border": "#AE0909",
             "hovered_border": "#F56914",
             "selected_border": "#FF4500",
-            "normal_text": "#FFFFFF",
+            "normal_text": "#D96024",
             "hovered_text": "#F56914",
             "active_bg": "rgb(120,120,120)",
-            "active_border": "rgb(100,100,100)"
+            "active_border": "rgb(100,100,100)",
+            "text_shadow": "#000000"
+
         },
         "font": {
             "name": "Michroma",
@@ -20,7 +22,8 @@
         "misc": {
             "border_width": "5",
             "shape": "rounded_rectangle",
-            "shape_corner_radius": "15"
+            "shape_corner_radius": "15",
+            "text_shadow_size": "1"
         }
     },
     "label": {
@@ -39,20 +42,22 @@
     },
     "text_box": {
         "colours": {
-            "normal_text": "#AE0909",
+            "normal_text": "#D96024",
             "dark_bg": "rgba(0, 0, 0, 0)",
             "normal_border": "rgba(0, 0, 0, 0)"
         },
         "font": {
-            "name": "NFS",
-            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
-            "size": "64"
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "40"
         },
         "misc": {
             "border_width": "0",
-            "shadow_width": "0"
+            "shadow_width": "0",
+            "text_horiz_alignment": "center"
         }
     },
+
     "#Unit_selection": {
         "colours": {
             "normal_text": "#AE0909"
@@ -78,6 +83,7 @@
             "text_shadow_size": "2"
         }
     },
+
     "#Question_title": {
         "colours": {
             "normal_text": "#D96024",

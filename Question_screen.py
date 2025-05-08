@@ -66,27 +66,26 @@ def question_screen():
 
     question_text = pygame_gui.elements.UITextBox(
 
-        relative_rect=pygame.Rect((0, -210), (700, 300)),
-        html_text=question[0],
+        relative_rect=pygame.Rect((0, -100), (SCREEN_WIDTH, 300)),
+        html_text="<shadow size=1 offset=1,1 color=#000000>"+question[0]+"</shadow>",
         manager=manager,
-        object_id='#Question_text',
         anchors={'center': 'center'}
     )
 
     answer1 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 300), (500, 80)),
+        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 350), (500, 80)),
         text="A. " + answers[0],
         manager=manager
     )
 
     answer2 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 400), (500, 80)),
+        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 450), (500, 80)),
         text="B. " + answers[1],
         manager=manager
     )
 
     answer3 = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 500), (500, 80)),
+        relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 550), (500, 80)),
         text="C. " + answers[2],
         manager=manager
     )
@@ -95,7 +94,7 @@ def question_screen():
 
     if len(answers) == 4:
         answer4 = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 600), (500, 80)),
+            relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 250, 650), (500, 80)),
             text="D. " + answers[3],
             manager=manager
         )
