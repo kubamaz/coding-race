@@ -157,9 +157,9 @@
          "misc":
          {
             "expand_direction": "down",
-             "border_width": "1",
-             "open_button_width": "10",
-             "shape": "rounded_rectangle",
+            "border_width": "1",
+            "open_button_width": "10",
+            "shape": "rounded_rectangle",
             "shape_corner_radius": "15"
          }
      },
@@ -167,14 +167,14 @@
      {
          "misc":
          {
-             "border_width": "1",
-             "open_button_width": "10",
-             "shape": "rounded_rectangle",
+            "border_width": "0",
+            "open_button_width": "10",
+            "shape": "rounded_rectangle",
             "shape_corner_radius": "15"
          },
          "font":
          {
-             "name": "NFS",
+            "name": "NFS",
             "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
             "size": "25"
          },
@@ -182,7 +182,7 @@
          {
              "normal_bg": "#ADB5BD",
              "hovered_bg": "#35393e",
-             "normal_text": "#000000",
+             "normal_text": "#AE0909",
             "hovered_text": "#AE0909"
          }
      },
@@ -199,9 +199,9 @@
          },
          "colours":
          {
-             "normal_bg": "#ADB5BD",
-             "hovered_bg": "#35393e",
-             "normal_text": "#000000",
+            "normal_bg": "#ADB5BD",
+            "hovered_bg": "#35393e",
+            "normal_text": "#ADB5BD",
             "hovered_text": "#AE0909"
          }
      }

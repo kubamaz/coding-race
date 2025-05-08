@@ -55,7 +55,6 @@ def unit_screen():
 
             # Obsługa wyboru opcji z listy
             if event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
-                click_sound.play()
                 selected_unit = event.text
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
