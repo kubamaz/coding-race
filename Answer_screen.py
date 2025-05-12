@@ -1,21 +1,7 @@
-from home_screen import *
-import sys
-
-#TODO : Shadows
-
-pygame.init()
-pygame.mixer.init()
+from common_fun import *
 
 
-click_sound = set_sounds(0.5, 0.6)
 background_picture = resize_img("assets/imgs/Question_background.png",SCREEN_HEIGHT, SCREEN_WIDTH)
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("CODING RACE")
-
-manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
-
-
-clock = pygame.time.Clock()
 
 def answer_screen(correct):
     t = 3
@@ -73,6 +59,11 @@ def answer_screen(correct):
             start_time = current_time
             t -= 1
             if t == -1:
+                Title1.hide()
+                Title2.hide()
+                Information.hide()
+                Information2.hide()
+                
                 break
             else:
                 Information2.text = str(t) + "..."

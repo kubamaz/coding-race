@@ -1,37 +1,45 @@
-from game import *
-from unit_screen import *
+from common_fun import *
+from game import game_screen
+from unit_screen import unit_screen
 
 MENU = 'menu'
 SETTINGS = 'settings'
 GAME = 'game'
+SUMMARY = 'summary'
 
-pygame.init()
-pygame.mixer.init()
+Information = pygame_gui.elements.UILabel(
 
-click_sound = set_sounds(0.5, 0.6)
+    relative_rect=pygame.Rect((0, -170), (800, 70)),
+    manager=manager,
+    text="Zdobywasz 1 punkt do wybranego dzialu Dante!",
+    anchors={'center': 'center'},
+    object_id="#Information_won"
+)
 
-# Ustawianie ekranu głównego
-screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pygame.display.set_caption("CODING RACE")
+Information2 = pygame_gui.elements.UILabel(
 
-#Ustawianie tla
-background_picture = resize_img("assets/imgs/Background_pic.png",SCREEN_HEIGHT, SCREEN_WIDTH)
+    relative_rect=pygame.Rect((0, -140), (800, 70)),
+    manager=manager,
+    text="Możesz zagrac teraz o punkt w innym dziale!",
+    anchors={'center': 'center'},
+    object_id="#Information_won"
+)
 
-#Ustawianie elementow na ekranie głównym
-manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
+
+
 game_title, start_button, settings_button, exit_button, volume_slider, back_button = (
     set_elements(manager, SCREEN_HEIGHT, SCREEN_WIDTH))
 
 
-clock = pygame.time.Clock()
-
+current_screen = MENU
+prev_screen = MENU
+set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title)
 
 while True:
     time_delta = clock.tick(60) / 1000.0
 
     screen.blit(background_picture, (0, 0))
-    current_screen = MENU
-
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -42,19 +50,38 @@ while True:
             if event.ui_element == start_button:
                 #NAJPIERW PRZEJDE DO EKRANU, W KTORYM BEDE WYBIERAC DZIAL W DANTE, A DOPIERO POTEM GAEM
                 current_screen = GAME
-                set_screen(current_screen, start_button, settings_button, exit_button, volume_slider, back_button)
+                set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title)
                 unit_screen()
                 game_screen()
+
+                #Po grze robie podsumowanie
+                current_screen = SUMMARY
+                prev_screen = SUMMARY
+                set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title)
+
+                if result:
+                    game_title.text = 'YOU WON!'
+                else:
+                    game_title.text = 'YOU LOST!'
+
+                start_button.text = 'Play again'
+
+                game_title.rebuild()
+                start_button.rebuild()
+
             elif event.ui_element == exit_button:
                 pygame.quit()
                 sys.exit()
             elif event.ui_element == settings_button:
                 current_screen = SETTINGS
-                set_screen(current_screen, start_button, settings_button, exit_button, volume_slider, back_button)
+                set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title)
             elif event.ui_element == back_button:
-                current_screen = MENU
-                set_screen(current_screen, start_button, settings_button, exit_button, volume_slider, back_button)
-
+                if prev_screen == MENU:
+                    current_screen = MENU
+                    set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title)
+                else:
+                    current_screen = SUMMARY
+                    set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title)
         elif event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == volume_slider:
             volume = event.value
             pygame.mixer.music.set_volume(volume)

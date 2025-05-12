@@ -1,15 +1,21 @@
 import pygame
 import pygame_gui
+import sys
+
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 POINTS = 0
 answered_questions = []
+
 # To bedziemy mogli umiescic pozniej w jakiejs bazie danych uzytkownika zeby odpowiednie dzialy byly zablokowane
 UNITS = ['1. Pliki', '2. Struktury', '3. Unie', '4. Dynamiczna alokacja pamięci I',
          '5. Dynamiczna alokacja pamięci II', '6. Dynamiczna alokacja pamięci - teksty i napisy',
          '7. Wskaźniki do funkcji', '8. Funkcje ze zmienną liczbą argumentów i argumenty funkcji main',
          '9. Operacje bitowe oraz dyrektywy preprocesora', '10. Dynamiczne struktury danych']
+
+
+result = 1 #To jest stala ktora okresla czy wygralismy czy przegralismy: 0 - przegrana, 1 - wygrana
 
 #Ustawia dźwięk muzyki w tle ekranu głównego i zwraca dźwięk klikania
 def set_sounds(music_volume, click_volume):
@@ -23,6 +29,8 @@ def set_sounds(music_volume, click_volume):
     click_sound.set_volume(click_volume)
 
     return click_sound
+
+
 
 def resize_img(img, height, width):
     pic = pygame.image.load(img)
@@ -70,22 +78,56 @@ def set_elements(manager, screen_height, screen_width):
     back_button.hide()
     return game_title, start_button, settings_button, exit_button, volume_slider, back_button
 
-def set_screen(current_screen, start_button, settings_button, exit_button, volume_slider, back_button):
+def set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title):
     if current_screen == 'menu':
+        Information.hide()
+        Information2.hide()
         start_button.show()
         settings_button.show()
         exit_button.show()
         volume_slider.hide()
         back_button.hide()
     elif current_screen == 'settings':
+        Information.hide()
+        Information2.hide()
         start_button.hide()
         settings_button.hide()
         exit_button.hide()
         volume_slider.show()
         back_button.show()
     elif current_screen == 'game':
+        Information.hide()
+        Information2.hide()
+        game_title.hide()
         start_button.hide()
         settings_button.hide()
         exit_button.hide()
         volume_slider.hide()
         back_button.hide()
+    elif current_screen == 'summary':
+        Information.show()
+        Information2.show()
+        game_title.show()
+        start_button.show()
+        settings_button.show()
+        exit_button.show()
+        volume_slider.hide()
+        back_button.hide()
+
+#Ustawienia dla wszystkich ekranow
+
+pygame.init()
+pygame.mixer.init()
+click_sound = set_sounds(0.5, 0.6) #Ustawiam click_sound do wszystkich ekranow
+
+# Ustawianie ekranu głównego
+screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+pygame.display.set_caption("CODING RACE")
+
+#Ustawianie tla
+background_picture = resize_img("assets/imgs/Background_pic.png",SCREEN_HEIGHT, SCREEN_WIDTH)
+
+#Ustawianie elementow na ekranie głównym
+manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
+
+clock = pygame.time.Clock()

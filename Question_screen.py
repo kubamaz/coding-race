@@ -1,11 +1,7 @@
-import pygame
-
-from home_screen import *
-import sys
+from common_fun import *
+from Answer_screen import answer_screen
 import random
-from Answer_screen import *
 
-#TODO : Shadows
 def import_questions(file_name):
     with open(file_name, 'r', encoding='utf-8') as f:
         file_questions = f.read().strip().split('---')
@@ -19,17 +15,7 @@ def import_questions(file_name):
     return questions
 
 
-pygame.init()
-pygame.mixer.init()
-
-
-click_sound = set_sounds(0.5, 0.6)
 background_picture = resize_img("assets/imgs/Question_background.png",SCREEN_HEIGHT, SCREEN_WIDTH)
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("CODING RACE")
-
-manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
-
 
 question_title = pygame_gui.elements.UILabel(
 
@@ -114,11 +100,21 @@ def question_screen():
                 click_sound.play()
                 OK_button.show()
                 if event.ui_element == OK_button:
+                    question_text.hide()
+                    question_title.hide()
+                    OK_button.hide()
+                    answer1.hide()
+                    answer2.hide()
+                    answer3.hide()
+                    if len(answers) == 4:
+                        answer4.hide()
                     if selected_answer == correct_answer:
                         answer_screen(True)
                     else:
                         answer_screen(False)
                     running = False
+
+                    
 
                 for button in answers_button:
                     if button.colours['normal_border'] != pygame.Color("#AE0909"):

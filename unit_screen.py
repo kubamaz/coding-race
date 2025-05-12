@@ -1,17 +1,4 @@
-import sys
-
-from home_screen import *
-
-pygame.init()
-
-# Ustawienia ekranu
-click_sound = set_sounds(0.5, 0.6)
-background_picture = resize_img("assets/imgs/Background_pic.png",SCREEN_HEIGHT, SCREEN_WIDTH)
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("CODING RACE")
-
-manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
-
+from common_fun import *
 
 
 game_title = pygame_gui.elements.UILabel(
@@ -19,9 +6,10 @@ game_title = pygame_gui.elements.UILabel(
         relative_rect=pygame.Rect((0, -220), (600, 90)),
         text='CHOOSE UNIT',
         manager=manager,
-        object_id='#Unit_selection',
+        object_id='#game_title',
         anchors={'center': 'center'}
-    )
+)
+
 
 dropdown = pygame_gui.elements.UIDropDownMenu(
     options_list=UNITS,
@@ -36,11 +24,15 @@ OK_button = pygame_gui.elements.UIButton(
         manager=manager
     )
 
-
-clock = pygame.time.Clock()
+game_title.hide()
+dropdown.hide()
+OK_button.hide()
 
 
 def unit_screen():
+    game_title.show()
+    dropdown.show()
+    OK_button.show()
     running = True
     selected_unit = UNITS[0]
     while running:
@@ -60,6 +52,9 @@ def unit_screen():
                 click_sound.play()
                 if event.ui_element == OK_button:
                     running = False
+                    game_title.hide()
+                    dropdown.hide()
+                    OK_button.hide()
             manager.process_events(event)
 
 
