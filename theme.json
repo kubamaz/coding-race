@@ -23,7 +23,7 @@
             "border_width": "5",
             "shape": "rounded_rectangle",
             "shape_corner_radius": "15",
-            "text_shadow_size": "1"
+            "text_shadow_size": "2"
         }
     },
     "label": {
@@ -38,6 +38,20 @@
         },
         "misc": {
             "text_shadow_size": "2"
+        }
+    },
+       "#game_title": {
+        "colours": {
+            "normal_text": "#AE0909",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "80"
+        },
+        "misc": {
+            "text_shadow_size": "4"
         }
     },
     "text_box": {

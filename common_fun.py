@@ -40,7 +40,7 @@ def set_elements(manager, screen_height, screen_width):
 
     game_title = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -220), (470, 80)),
+        relative_rect=pygame.Rect((0, -240), (600, 90)),
         text='Coding Race',
         manager=manager,
         object_id='#game_title',
