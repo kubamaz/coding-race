@@ -18,7 +18,6 @@ def import_questions(file_name):
 background_picture = resize_img("assets/imgs/Question_background.png",SCREEN_HEIGHT, SCREEN_WIDTH)
 
 question_title = pygame_gui.elements.UILabel(
-
         relative_rect=pygame.Rect((0, -300), (700, 110)),
         text='Pytanie ' + str(POINTS + 1),
         manager=manager,
@@ -26,13 +25,13 @@ question_title = pygame_gui.elements.UILabel(
         anchors={'center': 'center'}
     )
 
-OK_button = pygame_gui.elements.UIButton(
+ok_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((SCREEN_WIDTH // 2 + 300, 720), (200, 80)),
         text="OK",
         manager=manager
     )
 
-OK_button.hide()
+ok_button.hide()
 
 
 clock = pygame.time.Clock()
@@ -52,7 +51,7 @@ def question_screen():
 
     question_text = pygame_gui.elements.UITextBox(
 
-        relative_rect=pygame.Rect((0, -100), (SCREEN_WIDTH, 300)),
+        relative_rect=pygame.Rect((0, -80), (SCREEN_WIDTH - 200, 300)),
         html_text="<shadow size=1 offset=1,1 color=#000000>"+question[0]+"</shadow>",
         manager=manager,
         anchors={'center': 'center'}
@@ -98,11 +97,11 @@ def question_screen():
                 sys.exit()
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
-                OK_button.show()
-                if event.ui_element == OK_button:
+                ok_button.show()
+                if event.ui_element == ok_button:
                     question_text.hide()
                     question_title.hide()
-                    OK_button.hide()
+                    ok_button.hide()
                     answer1.hide()
                     answer2.hide()
                     answer3.hide()

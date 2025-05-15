@@ -123,7 +123,7 @@
             "size": "70"
         },
         "misc": {
-            "text_shadow_size": "2",
+            "text_shadow_size": "4",
             "padding": "10,10",
             "text_horiz_alignment": "center",
             "text_vert_alignment": "center"
