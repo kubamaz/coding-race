@@ -15,7 +15,7 @@ UNITS = ['1. Pliki', '2. Struktury', '3. Unie', '4. Dynamiczna alokacja pamięci
          '9. Operacje bitowe oraz dyrektywy preprocesora', '10. Dynamiczne struktury danych']
 
 
-result = 1 #To jest stala ktora okresla czy wygralismy czy przegralismy: 0 - przegrana, 1 - wygrana
+RESULT = 1 #To jest stala ktora okresla czy wygralismy czy przegralismy: 0 - przegrana, 1 - wygrana
 
 #Ustawia dźwięk muzyki w tle ekranu głównego i zwraca dźwięk klikania
 def set_sounds(music_volume, click_volume):
@@ -87,10 +87,10 @@ def set_elements(manager, screen_height, screen_width):
     music_volume.hide()
     return game_title, start_button, settings_button, exit_button, volume_slider, back_button, music_volume
 
-def set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume):
+def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume):
     if current_screen == 'menu':
-        Information.hide()
-        Information2.hide()
+        information.hide()
+        information2.hide()
         start_button.show()
         settings_button.show()
         exit_button.show()
@@ -98,8 +98,8 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         back_button.hide()
         music_volume.hide()
     elif current_screen == 'settings':
-        Information.hide()
-        Information2.hide()
+        information.hide()
+        information2.hide()
         start_button.hide()
         settings_button.hide()
         exit_button.hide()
@@ -107,8 +107,8 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         back_button.show()
         music_volume.show()
     elif current_screen == 'game':
-        Information.hide()
-        Information2.hide()
+        information.hide()
+        information2.hide()
         game_title.hide()
         start_button.hide()
         settings_button.hide()
@@ -117,8 +117,8 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         back_button.hide()
         music_volume.hide()
     elif current_screen == 'summary':
-        Information.show()
-        Information2.show()
+        information.show()
+        information2.show()
         game_title.show()
         start_button.show()
         settings_button.show()

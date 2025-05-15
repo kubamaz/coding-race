@@ -7,7 +7,7 @@ SETTINGS = 'settings'
 GAME = 'game'
 SUMMARY = 'summary'
 
-Information = pygame_gui.elements.UILabel(
+information = pygame_gui.elements.UILabel(
 
     relative_rect=pygame.Rect((0, -170), (800, 70)),
     manager=manager,
@@ -16,7 +16,7 @@ Information = pygame_gui.elements.UILabel(
     object_id="#Information_won"
 )
 
-Information2 = pygame_gui.elements.UILabel(
+information2 = pygame_gui.elements.UILabel(
 
     relative_rect=pygame.Rect((0, -140), (800, 70)),
     manager=manager,
@@ -32,7 +32,7 @@ game_title, start_button, settings_button, exit_button, volume_slider, back_butt
 
 current_screen = MENU
 prev_screen = MENU
-set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
+set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
 
 while True:
     time_delta = clock.tick(60) / 1000.0
@@ -49,17 +49,17 @@ while True:
             if event.ui_element == start_button:
                 #NAJPIERW PRZEJDE DO EKRANU, W KTORYM BEDE WYBIERAC DZIAL W DANTE, A DOPIERO POTEM GAEM
                 current_screen = GAME
-                set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
+                set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
                 unit_screen()
                 game_screen()
 
                 #Po grze robie podsumowanie
                 current_screen = SUMMARY
                 prev_screen = SUMMARY
-                set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
+                set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
 
 
-                if result:
+                if RESULT:
                     game_title.text = 'YOU WON!'
                 else:
                     game_title.text = 'YOU LOST!'
@@ -74,19 +74,19 @@ while True:
                 sys.exit()
             elif event.ui_element == settings_button:
                 current_screen = SETTINGS
-                set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
+                set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
                 game_title.text = 'Settings'
                 game_title.rebuild()
             elif event.ui_element == back_button:
                 if prev_screen == MENU:
                     current_screen = MENU
-                    set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
+                    set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
                     game_title.text = 'Coding Race'
                     game_title.rebuild()
                 else:
                     current_screen = SUMMARY
-                    set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
-                    if result:
+                    set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume)
+                    if RESULT:
                         game_title.text = 'YOU WON!'
                     else:
                         game_title.text = 'YOU LOST!'
