@@ -6,46 +6,30 @@ background_picture = resize_img("assets/imgs/Question_background.png",SCREEN_HEI
 def answer_screen(correct):
     t = 3
     if correct:
-        txt = "POPRAWNA"
+        txt = "POPRAWNA\nODPOWIEDZ!"
     else:
-        txt = "BŁĘDNA"
+        txt = "BŁĘDNA\nODPOWIEDZ!"
 
-    Title1 = pygame_gui.elements.UILabel(
+    summary_text = pygame_gui.elements.UITextBox(
 
-        relative_rect=pygame.Rect((0, -120), (800,100)),
-        text=txt,
+        relative_rect=pygame.Rect((0, -10), (800,400)),
+        html_text="<shadow size=3 offset=1,1 color=#000000>"+txt+"</shadow>",
         manager=manager,
-        object_id="#Question_title",
-        anchors={'center': 'center'},
-    )
-
-    Title2 = pygame_gui.elements.UILabel(
-
-        relative_rect=pygame.Rect((5, -40), (800, 100)),
-        text="ODPOWIEDŹ!",
-        manager=manager,
-        object_id="#Question_title",
-        anchors={'center': 'center'},
+        object_id="#summary_answer_text",
+        anchors={'center': 'center'}
     )
 
 
-    Information = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, 40), (800, 150)),
+    information = pygame_gui.elements.UITextBox(
+
+        relative_rect=pygame.Rect((0, 80), (800, 150)),
+        html_text="<shadow size=2 offset=1,1 color=#000000>"+"WZNOWIENIE WYSCIGU ZA\n"+str(t)+"..."+"</shadow>",
         manager=manager,
-        text="WZNOWIENIE WYSCIGU ZA",
         anchors={'center': 'center'},
         object_id="#Information"
     )
 
-    Information2 = pygame_gui.elements.UILabel(
-
-        relative_rect=pygame.Rect((0, 100), (500, 150)),
-        manager=manager,
-        text=str(t) + "...",
-        anchors={'center': 'center'},
-        object_id="#Information"
-    )
 
     start_time = pygame.time.get_ticks()
 
@@ -59,15 +43,13 @@ def answer_screen(correct):
             start_time = current_time
             t -= 1
             if t == -1:
-                Title1.hide()
-                Title2.hide()
-                Information.hide()
-                Information2.hide()
+                summary_text.hide()
+                information.hide()
                 
                 break
             else:
-                Information2.text = str(t) + "..."
-                Information2.rebuild()
+                information.html_text = "<shadow size=2 offset=1,1 color=#000000>"+"WZNOWIENIE WYSCIGU ZA\n"+str(t)+"..."+"</shadow>"
+                information.rebuild()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -78,7 +60,5 @@ def answer_screen(correct):
         manager.draw_ui(screen)
         pygame.display.flip()
 
-    Title1.hide()
-    Title2.hide()
-    Information.hide()
-    Information2.hide()
+    summary_text.hide()
+    information.hide()

@@ -129,12 +129,38 @@
             "text_vert_alignment": "center"
         }
     },
-    "#Information": {
+    "#summary_answer_text": {
         "colours": {
-            "normal_text": "#D96024"
+            "normal_text": "#AE0909",
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
         },
         "font": {
-            "size": "40"
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "65"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "text_horiz_alignment": "center"
+        }
+    },
+    "#Information": {
+        "colours": {
+            "normal_text": "#D96024",
+            "dark_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "rgba(0, 0, 0, 0)"
+        },
+        "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "23"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "text_horiz_alignment": "center"
         }
     },
     "#Information_won": {
