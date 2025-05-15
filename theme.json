@@ -40,7 +40,7 @@
             "text_shadow_size": "2"
         }
     },
-       "#game_title": {
+    "#game_title": {
         "colours": {
             "normal_text": "#AE0909",
             "text_shadow": "#000000"
@@ -52,6 +52,20 @@
         },
         "misc": {
             "text_shadow_size": "4"
+        }
+    },
+    "#music_volume": {
+        "colours": {
+            "normal_text": "#D96024",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "30"
+        },
+        "misc": {
+            "text_shadow_size": "3"
         }
     },
     "text_box": {

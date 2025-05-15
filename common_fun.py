@@ -74,11 +74,20 @@ def set_elements(manager, screen_height, screen_width):
         text='Back',
         manager=manager
     )
+    music_volume = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0, -100), (500, 50)),
+        text='Music Volume',
+        manager=manager,
+        object_id='#music_volume',
+        anchors={'center': 'center'}
+    )
     volume_slider.hide()
     back_button.hide()
-    return game_title, start_button, settings_button, exit_button, volume_slider, back_button
+    music_volume.hide()
+    return game_title, start_button, settings_button, exit_button, volume_slider, back_button, music_volume
 
-def set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title):
+def set_screen(current_screen, Information, Information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume):
     if current_screen == 'menu':
         Information.hide()
         Information2.hide()
@@ -87,6 +96,7 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         exit_button.show()
         volume_slider.hide()
         back_button.hide()
+        music_volume.hide()
     elif current_screen == 'settings':
         Information.hide()
         Information2.hide()
@@ -95,6 +105,7 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         exit_button.hide()
         volume_slider.show()
         back_button.show()
+        music_volume.show()
     elif current_screen == 'game':
         Information.hide()
         Information2.hide()
@@ -104,6 +115,7 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         exit_button.hide()
         volume_slider.hide()
         back_button.hide()
+        music_volume.hide()
     elif current_screen == 'summary':
         Information.show()
         Information2.show()
@@ -113,6 +125,7 @@ def set_screen(current_screen, Information, Information2, start_button, settings
         exit_button.show()
         volume_slider.hide()
         back_button.hide()
+        music_volume.hide()
 
 #Ustawienia dla wszystkich ekranow
 
