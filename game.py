@@ -1,4 +1,5 @@
 from common_fun import *
+from ScorePanel import *
 
 
 def prepare_screen(my_screen):
@@ -31,6 +32,10 @@ checkpoint1_init_pos = (180, 230)
 checkpoint2_init_pos = (910, 500)
 checkpoint3_init_pos = (300, 665)
 
+# panel
+right_panel = ScorePanel(SCREEN_WIDTH, SCREEN_HEIGHT, screen)
+right_panel.add_components()
+
 
 exit_button = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 190, 540), (380, 80)),
@@ -60,6 +65,9 @@ def game_screen():
                     running = False
 
             manager.process_events(event)
+
+        # prawy panel
+        right_panel.blit_panel()
 
         manager.update(time_delta)
         manager.draw_ui(screen)
