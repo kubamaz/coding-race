@@ -12,6 +12,50 @@ def prepare_screen(my_screen):
     my_screen.blit(checkpoint2_picture, checkpoint2_init_pos)
     my_screen.blit(checkpoint3_picture, checkpoint3_init_pos)
 
+# TODO : uporzadkowanie kodu funkcji handle_collisions()
+def handle_collisions():
+    # tor
+    if player1.collision_with_mask(track_border_mask, track_border_init_pos[0], track_border_init_pos[1]):
+        player1.bounce_car()
+
+    # checkpoint 1
+    if player1.collision_with_mask(checkpoint1_mask, checkpoint1_init_pos[0], checkpoint1_init_pos[1]):
+        if player1.answers % 3 == 0:
+            player1.answers += 1
+            player1.is_answering = True
+            # question screen
+            player1.max_velocity += 1
+            right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
+            player1.is_answering = False
+
+    # checkpoint 2
+    if player1.collision_with_mask(checkpoint3_mask, checkpoint3_init_pos[0], checkpoint3_init_pos[1]):
+        if player1.answers % 3 == 1:
+            player1.answers += 1
+            player1.is_answering = True
+            # question screen
+            player1.max_velocity += 1
+            right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
+            player1.is_answering = False
+
+    # checkpoint 3
+    if player1.collision_with_mask(checkpoint2_mask, checkpoint2_init_pos[0], checkpoint2_init_pos[1]):
+        if player1.answers % 3 == 2:
+            player1.answers += 1
+            player1.is_answering = True
+            # question screen
+            player1.max_velocity += 1
+            right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
+            player1.is_answering = False
+
+    # finish line
+    if player1.collision_with_mask(finish_mask, finish_init_pos[0], finish_init_pos[1]):
+        if player1.answers in (0, 3, 6) and player1.current_loop * 3 == player1.answers:
+            player1.current_loop += 1
+            right_panel.set_gamer1_loops(str(player1.current_loop) + "/" + str(player1.all_loops))
+
+        if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
+            player1.finished = True
 
 # images
 background_picture = resize_img("assets/imgs/Background.png", SCREEN_HEIGHT, SCREEN_WIDTH)
@@ -23,6 +67,13 @@ checkpoint2_picture = resize_img("assets/imgs/checkpoints.png", 70, 120)
 checkpoint3_picture = resize_img("assets/imgs/checkpoints.png", 70, 120)
 checkpoint3_picture = pygame.transform.flip(checkpoint3_picture, flip_x=False, flip_y=True)
 checkpoint3_picture = pygame.transform.rotate(checkpoint3_picture, 45)
+
+# masks
+finish_mask = create_mask(finish_picture)
+track_border_mask = create_mask(track_border_picture)
+checkpoint1_mask = create_mask(checkpoint1_picture)
+checkpoint2_mask = create_mask(checkpoint2_picture)
+checkpoint3_mask = create_mask(checkpoint3_picture)
 
 # init positions
 background_init_pos = (0, 0)
@@ -76,6 +127,9 @@ def game_screen():
 
         # player 2
         player2.blit_car()
+
+        # kolizje
+        handle_collisions()
 
         # prawy panel
         right_panel.blit_panel()

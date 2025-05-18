@@ -113,3 +113,14 @@ class Player:
 
         self.blit_car()
 
+    # collisions
+    def collision_with_mask(self, mask, mask_x, mask_y):
+        rotated_image = pygame.transform.rotate(self.car_when_driving, self.angle)
+        car_mask = pygame.mask.from_surface(rotated_image)
+        offset = (int(self.topleft_x_pos - mask_x), int(self.topleft_y_pos - mask_y))
+        return mask.overlap(car_mask, offset) is not None
+
+    def get_car_rect(self):
+        return self.car_when_driving.get_rect(topleft=(self.topleft_x_pos, self.topleft_y_pos))
+
+
