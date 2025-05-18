@@ -132,3 +132,58 @@ class ScorePanel:
 
         for index in range(0, len(self.labels)):
             self.screen.blit(self.text_surfs[index], self.text_rects[index])
+
+    # setters
+    def set_text(self, string, vectors_index, sum_of_offsets_index, gamer_off):
+        self.labels[vectors_index] = string
+        self.text_surfs[vectors_index] = self.font_nums.render(self.labels[vectors_index], True, 'BLACK')
+        self.text_rects[vectors_index] = self.text_surfs[vectors_index].get_rect(
+            midtop=(self.SCREEN_WIDTH - self.CENTER_VALUE, gamer_off + self.sum_of_offsets(sum_of_offsets_index)))
+
+    def set_gamer1_correct_answers(self, string):
+        vectors_index = 2
+        sum_of_offsets_index = 3
+        gamer_off = 0
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer2_correct_answers(self, string):
+        vectors_index = 11
+        sum_of_offsets_index = 3
+        gamer_off = self.gamer_offset
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer1_loops(self, string):
+        vectors_index = 2 + 2
+        sum_of_offsets_index = 5
+        gamer_off = 0
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer2_loops(self, string):
+        vectors_index = 11 + 2
+        sum_of_offsets_index = 5
+        gamer_off = self.gamer_offset
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer1_velocity(self, string):
+        vectors_index = 2 + 4
+        sum_of_offsets_index = 7
+        gamer_off = 0
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer2_velocity(self, string):
+        vectors_index = 11 + 4
+        sum_of_offsets_index = 7
+        gamer_off = self.gamer_offset
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer1_boost(self, string):
+        vectors_index = 2 + 6
+        sum_of_offsets_index = 9
+        gamer_off = 0
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    def set_gamer2_boost(self, string):
+        vectors_index = 11 + 6
+        sum_of_offsets_index = 9
+        gamer_off = self.gamer_offset
+        self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
