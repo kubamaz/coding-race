@@ -123,4 +123,8 @@ class Player:
     def get_car_rect(self):
         return self.car_when_driving.get_rect(topleft=(self.topleft_x_pos, self.topleft_y_pos))
 
+    # to score panel
+    def get_real_velocity_str(self):
+        real_velocity = self.velocity * self.velocity_factor
+        return str(abs(real_velocity))
 

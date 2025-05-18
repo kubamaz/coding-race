@@ -132,6 +132,7 @@ def game_screen():
         handle_collisions()
 
         # prawy panel
+        right_panel.set_gamer1_velocity(player1.get_real_velocity_str() + "km/h")
         right_panel.blit_panel()
 
         manager.update(time_delta)
