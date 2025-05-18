@@ -136,14 +136,14 @@ def game_screen():
 
             manager.process_events(event)
 
-            # player 2
+        # player 2
 
-            # TODO : AKTUALIZACJA POZYCJI
-            # update_player2_position(...)
-            player2.blit_car()
+        # TODO : AKTUALIZACJA POZYCJI
+        # update_player2_position(...)
+        player2.blit_car()
 
-            # TODO : AKTUALIZACJA INFORMACJI NA PANELU WYNIKOW
-            # right_panel.update_info_player2(...)
+        # TODO : AKTUALIZACJA INFORMACJI NA PANELU WYNIKOW
+        # right_panel.update_info_player2(...)
 
         # kolizje
         handle_collisions()
