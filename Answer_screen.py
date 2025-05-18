@@ -10,18 +10,26 @@ def answer_screen(correct):
     elif correct == 0:
         txt = "BŁĘDNA\nODPOWIEDZ!"
     else:
-        txt = "CZAS\nMINAL!"
+        txt = "CZAS MINAL!"
 
-    summary_text = pygame_gui.elements.UITextBox(
+    if correct !=2 :
+        summary_text = pygame_gui.elements.UITextBox(
 
-        relative_rect=pygame.Rect((0, -10), (800,400)),
-        html_text="<shadow size=3 offset=1,1 color=#000000>"+txt+"</shadow>",
-        manager=manager,
-        object_id="#summary_answer_text",
-        anchors={'center': 'center'}
-    )
+            relative_rect=pygame.Rect((0, -10), (800,400)),
+            html_text="<shadow size=3 offset=1,1 color=#000000>"+txt+"</shadow>",
+            manager=manager,
+            object_id="#summary_answer_text",
+            anchors={'center': 'center'}
+        )
+    else:
+        summary_text = pygame_gui.elements.UITextBox(
 
-
+            relative_rect=pygame.Rect((0, 50), (800,400)),
+            html_text="<shadow size=3 offset=1,1 color=#000000>"+txt+"</shadow>",
+            manager=manager,
+            object_id="#summary_answer_text",
+            anchors={'center': 'center'}
+        )
 
     information = pygame_gui.elements.UITextBox(
 

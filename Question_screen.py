@@ -47,7 +47,7 @@ def question_screen():
     start_time = pygame.time.get_ticks()
     time_information = pygame_gui.elements.UILabel(
         relative_rect=pygame.Rect((0, -370), (700, 110)),
-        text='Czas: ' + str(time) + ' sekund',
+        text='Czas : ' + str(time) + ' sekund',
         manager=manager,
         object_id='#time',
         anchors={'center': 'center'}
@@ -99,7 +99,7 @@ def question_screen():
         )
         answers_button.append(answer4)
 
-    selected_answer = answer1.text[3:]
+    selected_answer = 'Brak'
     running = True
     while running:
         #ODLICZAM CZAS
@@ -118,10 +118,15 @@ def question_screen():
             answer3.hide()
             if len(answers) == 4:
                 answer4.hide()
-            answer_screen(2)
+            if selected_answer == correct_answer:
+                answer_screen(1)
+            elif selected_answer == 'Brak':
+                answer_screen(2)
+            else:
+                answer_screen(0)
             break
         else:
-            time_information.text = 'Czas: ' + str(time) + ' sekund'
+            time_information.text = 'Czas  : ' + str(time) + ' sekund'
             time_information.rebuild()
         
         time_delta = clock.tick(60) / 1000.0
