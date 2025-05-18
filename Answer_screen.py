@@ -5,10 +5,12 @@ background_picture = resize_img("assets/imgs/Question_background.png",SCREEN_HEI
 
 def answer_screen(correct):
     t = 3
-    if correct:
+    if correct == 1:
         txt = "POPRAWNA\nODPOWIEDZ!"
-    else:
+    elif correct == 0:
         txt = "BŁĘDNA\nODPOWIEDZ!"
+    else:
+        txt = "CZAS\nMINAL!"
 
     summary_text = pygame_gui.elements.UITextBox(
 

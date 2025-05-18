@@ -116,14 +116,13 @@ def question_screen():
             answer1.hide()
             answer2.hide()
             answer3.hide()
-            answer_screen(False)
+            if len(answers) == 4:
+                answer4.hide()
+            answer_screen(2)
             break
         else:
             time_information.text = 'Czas: ' + str(time) + ' sekund'
             time_information.rebuild()
-            
-
-
         
         time_delta = clock.tick(60) / 1000.0
         screen.blit(background_picture, (0, 0))
@@ -146,9 +145,9 @@ def question_screen():
                     if len(answers) == 4:
                         answer4.hide()
                     if selected_answer == correct_answer:
-                        answer_screen(True)
+                        answer_screen(1)
                     else:
-                        answer_screen(False)
+                        answer_screen(0)
                     running = False
 
                     
