@@ -1,5 +1,5 @@
 from ScorePanel import *
-
+from math import radians, sin, cos
 
 class Player:
     def __init__(self, my_screen, car_when_driving, start_topleft_x, start_topleft_y):
@@ -37,10 +37,79 @@ class Player:
         self.topleft_x_pos = start_topleft_x
         self.topleft_y_pos = start_topleft_y
 
+        # others
+        self.epsilon = 0.25
+
     # blit
     def blit_car(self):
         rotated_image = pygame.transform.rotate(self.car_when_driving, self.angle)
         if self.is_answering:
             rotated_image.set_alpha(128)
         self.screen.blit(rotated_image, (self.topleft_x_pos, self.topleft_y_pos))
+
+    # moving logic
+    def move_forward(self):
+        if self.velocity >= 0:
+            self.velocity = min(self.velocity + self.acceleration, self.max_velocity)
+            self.move_car()
+        else:
+            self.reduce_speed()
+
+    def move_backward(self):
+        if self.velocity <= 0:
+            self.velocity = max(self.velocity - self.acceleration, -self.max_velocity)
+            self.move_car()
+        else:
+            self.reduce_speed()
+
+    def rotate_car(self, to_left=False, to_right=False):
+        if to_left:
+            self.angle += self.rotation
+        if to_right:
+            self.angle -= self.rotation
+
+    def reduce_speed(self):
+        if self.velocity >= 0:
+            self.velocity = self.velocity - self.acceleration / 4
+            if self.velocity < 0:
+                self.velocity = 0
+        else:
+            self.velocity = self.velocity + self.acceleration / 4
+            if self.velocity > 0:
+                self.velocity = 0
+
+        if abs(self.velocity) <= self.epsilon:
+            self.velocity = 0
+        self.move_car()
+
+    def bounce_car(self):
+        self.velocity = -self.velocity
+        self.move_car()
+
+    def move_car(self):
+        rads = radians(self.angle)
+        self.topleft_y_pos -= self.velocity * cos(rads)
+        self.topleft_x_pos -= self.velocity * sin(rads)
+
+    # handle events
+    def handle_pressed_keys(self):
+        if not self.finished:
+            position_change = False
+            keys = pygame.key.get_pressed()
+
+            if keys[pygame.K_w]:
+                position_change = True
+                self.move_forward()
+            if keys[pygame.K_s]:
+                position_change = True
+                self.move_backward()
+            if keys[pygame.K_a]:
+                self.rotate_car(to_left=True)
+            if keys[pygame.K_d]:
+                self.rotate_car(to_right=True)
+
+            if not position_change:
+                self.reduce_speed()
+
+        self.blit_car()
 

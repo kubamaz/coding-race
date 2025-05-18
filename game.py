@@ -59,6 +59,9 @@ def game_screen():
 
         prepare_screen(screen)
 
+        # player 1
+        player1.handle_pressed_keys()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -71,8 +74,7 @@ def game_screen():
 
             manager.process_events(event)
 
-        # players
-        player1.blit_car()
+        # player 2
         player2.blit_car()
 
         # prawy panel
