@@ -64,30 +64,48 @@ def set_elements(manager, screen_height, screen_width):
     )
 
     volume_slider = pygame_gui.elements.UIHorizontalSlider(
-        relative_rect=pygame.Rect((490, 350), (300, 50)),
+        relative_rect=pygame.Rect((490, 430), (300, 50)),
         start_value=0.5,
         value_range=(0.0, 1.0),
         manager=manager
     )
+
+    sound_slider = pygame_gui.elements.UIHorizontalSlider(
+        relative_rect=pygame.Rect((490, 300), (300, 50)),
+        start_value=0.5,
+        value_range=(0.0, 1.0),
+        manager=manager
+    )
+
     back_button = pygame_gui.elements.UIButton(
-        relative_rect=pygame.Rect((screen_width // 2 - 190, 450), (380, 80)),
+        relative_rect=pygame.Rect((screen_width // 2 - 190, 500), (380, 80)),
         text='Back',
         manager=manager
     )
     music_volume = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -100), (500, 50)),
+        relative_rect=pygame.Rect((0, -20), (500, 50)),
         text='Music Volume',
         manager=manager,
         object_id='#music_volume',
         anchors={'center': 'center'}
     )
+    sound_volume = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0, -150), (500, 50)),
+        text='Sound Effects',
+        manager=manager,
+        object_id='#music_volume',
+        anchors={'center': 'center'}
+    )
+    sound_volume.hide()
+    sound_slider.hide()
     volume_slider.hide()
     back_button.hide()
     music_volume.hide()
-    return game_title, start_button, settings_button, exit_button, volume_slider, back_button, music_volume
+    return game_title, start_button, settings_button, exit_button, volume_slider, back_button, music_volume, sound_volume, sound_slider
 
-def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume):
+def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume):
     if current_screen == 'menu':
         information.hide()
         information2.hide()
@@ -97,6 +115,8 @@ def set_screen(current_screen, information, information2, start_button, settings
         volume_slider.hide()
         back_button.hide()
         music_volume.hide()
+        sound_volume.hide()
+        sound_slider.hide()
     elif current_screen == 'settings':
         information.hide()
         information2.hide()
@@ -106,6 +126,8 @@ def set_screen(current_screen, information, information2, start_button, settings
         volume_slider.show()
         back_button.show()
         music_volume.show()
+        sound_volume.show()
+        sound_slider.show()
     elif current_screen == 'game':
         information.hide()
         information2.hide()
@@ -116,6 +138,8 @@ def set_screen(current_screen, information, information2, start_button, settings
         volume_slider.hide()
         back_button.hide()
         music_volume.hide()
+        sound_volume.hide()
+        sound_slider.hide()
     elif current_screen == 'summary':
         information.show()
         information2.show()
@@ -126,6 +150,8 @@ def set_screen(current_screen, information, information2, start_button, settings
         volume_slider.hide()
         back_button.hide()
         music_volume.hide()
+        sound_volume.hide()
+        sound_slider.hide()
 
 #Ustawienia dla wszystkich ekranow
 
