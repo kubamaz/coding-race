@@ -17,7 +17,7 @@
         "font": {
             "name": "Michroma",
             "regular_path": "assets/Fonts/Michroma-Regular.ttf",
-            "size": "32"
+            "size": "30"
         },
         "misc": {
             "border_width": "5",

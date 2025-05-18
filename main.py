@@ -18,7 +18,7 @@ information = pygame_gui.elements.UILabel(
 
 information2 = pygame_gui.elements.UILabel(
 
-    relative_rect=pygame.Rect((0, -140), (800, 70)),
+    relative_rect=pygame.Rect((0, -140), (800, 80)),
     manager=manager,
     text="Możesz zagrac teraz o punkt w innym dziale!",
     anchors={'center': 'center'},
@@ -60,9 +60,9 @@ while True:
 
 
                 if RESULT:
-                    game_title.text = 'YOU WON!'
+                    game_title.text = 'YOU WON !'
                 else:
-                    game_title.text = 'YOU LOST!'
+                    game_title.text = 'YOU LOST !'
 
                 start_button.text = 'Play again'
 
@@ -87,9 +87,9 @@ while True:
                     current_screen = SUMMARY
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
                     if RESULT:
-                        game_title.text = 'YOU WON!'
+                        game_title.text = 'YOU WON !'
                     else:
-                        game_title.text = 'YOU LOST!'
+                        game_title.text = 'YOU LOST !'
                     game_title.rebuild()
         elif event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == volume_slider:
             volume = event.value
