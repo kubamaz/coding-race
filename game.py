@@ -1,5 +1,6 @@
 from common_fun import *
 from ScorePanel import *
+from Player import *
 
 
 def prepare_screen(my_screen):
@@ -45,6 +46,10 @@ exit_button = pygame_gui.elements.UIButton(
 
 exit_button.hide()
 
+# players
+player1 = Player(screen, "assets/imgs/red-car.png", 625, 35)
+player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75)
+
 
 def game_screen():
     # exit_button.show()
@@ -65,6 +70,10 @@ def game_screen():
                     running = False
 
             manager.process_events(event)
+
+        # players
+        player1.blit_car()
+        player2.blit_car()
 
         # prawy panel
         right_panel.blit_panel()
