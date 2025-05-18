@@ -131,7 +131,7 @@
     },
     "#summary_answer_text": {
         "colours": {
-            "normal_text": "#AE0909",
+            "normal_text": "#D96024",
             "dark_bg": "rgba(0, 0, 0, 0)",
             "normal_border": "rgba(0, 0, 0, 0)"
         },
