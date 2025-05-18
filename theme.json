@@ -40,6 +40,20 @@
             "text_shadow_size": "2"
         }
     },
+    "#time": {
+        "colours": {
+            "normal_text": "#AE0909",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "30"
+        },
+        "misc": {
+            "text_shadow_size": "2"
+        }
+    },
     "#game_title": {
         "colours": {
             "normal_text": "#AE0909",

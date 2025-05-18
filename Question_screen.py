@@ -2,6 +2,7 @@ from common_fun import *
 from Answer_screen import answer_screen
 import random
 
+#MAX DLUGOSC PYTANIA WYNOSI 69 znakow
 def import_questions(file_name):
     with open(file_name, 'r', encoding='utf-8') as f:
         file_questions = f.read().strip().split('---')
@@ -31,6 +32,9 @@ ok_button = pygame_gui.elements.UIButton(
         manager=manager
     )
 
+
+
+
 ok_button.hide()
 
 
@@ -39,6 +43,16 @@ questions = import_questions("Questions")
 
 #WERSJA BEZ CZASU NA ODPOWIEDZ NA PYTANIE
 def question_screen():
+    time = 15 #CZAS TO 15 SEKUND
+    start_time = pygame.time.get_ticks()
+    time_information = pygame_gui.elements.UILabel(
+        relative_rect=pygame.Rect((0, -370), (700, 110)),
+        text='Czas: ' + str(time) + ' sekund',
+        manager=manager,
+        object_id='#time',
+        anchors={'center': 'center'}
+    )
+    
     # Losuje pytanie i wybieram prawidlowa odpowiedz
     question = random.choice(questions)
     while question in answered_questions:
@@ -88,6 +102,29 @@ def question_screen():
     selected_answer = answer1.text[3:]
     running = True
     while running:
+        #ODLICZAM CZAS
+        current_time = pygame.time.get_ticks()
+
+        if current_time - start_time >= 1000:
+            start_time = current_time
+            time -= 1
+        if time == -1:
+            time_information.hide()
+            question_text.hide()
+            question_title.hide()
+            ok_button.hide()
+            answer1.hide()
+            answer2.hide()
+            answer3.hide()
+            answer_screen(False)
+            break
+        else:
+            time_information.text = 'Czas: ' + str(time) + ' sekund'
+            time_information.rebuild()
+            
+
+
+        
         time_delta = clock.tick(60) / 1000.0
         screen.blit(background_picture, (0, 0))
 
@@ -99,6 +136,7 @@ def question_screen():
                 click_sound.play()
                 ok_button.show()
                 if event.ui_element == ok_button:
+                    time_information.hide()
                     question_text.hide()
                     question_title.hide()
                     ok_button.hide()
