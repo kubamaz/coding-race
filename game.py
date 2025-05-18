@@ -57,6 +57,15 @@ def handle_collisions():
         if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
             player1.finished = True
 
+def update_player2_features(finished, is_answering, velocity, max_velocity, angle, topleft_x_pos, topleft_y_pos):
+    player2.finished = finished
+    player2.is_answering = is_answering
+    player2.velocity = velocity
+    player2.max_velocity = max_velocity
+    player2.angle = angle
+    player2.topleft_x_pos = topleft_x_pos
+    player2.topleft_y_pos = topleft_y_pos
+
 # images
 background_picture = resize_img("assets/imgs/Background.png", SCREEN_HEIGHT, SCREEN_WIDTH)
 track_picture = resize_img("assets/imgs/track.png", SCREEN_HEIGHT, SCREEN_WIDTH)
@@ -100,6 +109,8 @@ exit_button.hide()
 # players
 player1 = Player(screen, "assets/imgs/red-car.png", 625, 35)
 player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75)
+# TODO : uzależnienie pozycji start_topleft_y od kolejności połączenia z serwerem -
+#  - jeden z graczy na poczatku musi byc wyżej, a drugi niżej
 
 
 def game_screen():
@@ -125,8 +136,14 @@ def game_screen():
 
             manager.process_events(event)
 
-        # player 2
-        player2.blit_car()
+            # player 2
+
+            # TODO : AKTUALIZACJA POZYCJI
+            # update_player2_position(...)
+            player2.blit_car()
+
+            # TODO : AKTUALIZACJA INFORMACJI NA PANELU WYNIKOW
+            # right_panel.update_info_player2(...)
 
         # kolizje
         handle_collisions()
