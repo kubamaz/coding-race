@@ -187,3 +187,15 @@ class ScorePanel:
         sum_of_offsets_index = 9
         gamer_off = self.gamer_offset
         self.set_text(string, vectors_index, sum_of_offsets_index, gamer_off)
+
+    # update
+    def update_info_player2(self, correct_answers, answers, curr_loop, all_loops, velocity, boosts):
+        self.set_gamer2_correct_answers(str(correct_answers) + "/" + str(answers))
+        self.set_gamer2_loops(str(curr_loop) + "/" + str(all_loops))
+        self.set_gamer2_velocity(str(velocity) + "km/h")
+        if boosts == 0:
+            self.set_gamer2_boost("Niedostępny")
+        elif boosts == 1:
+            self.set_gamer2_boost("Dostępny (1)")
+        else:
+            self.set_gamer2_boost("Dostępne (" + str(boosts) + ")")
