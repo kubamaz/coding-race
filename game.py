@@ -1,7 +1,6 @@
-from common_fun import *
-from ScorePanel import *
 from Player import *
 from Question_screen import *
+import common_fun
 
 
 def prepare_screen(my_screen):
@@ -13,70 +12,43 @@ def prepare_screen(my_screen):
     my_screen.blit(checkpoint2_picture, checkpoint2_init_pos)
     my_screen.blit(checkpoint3_picture, checkpoint3_init_pos)
 
-# TODO : uporzadkowanie kodu funkcji handle_collisions()
-def handle_collisions():
-    # tor
+
+def handle_correct_answer():
+    player1.max_velocity += 1
+    player1.correct_answers += 1
+    player1.correct_answers_in_a_row += 1
+    if player1.correct_answers_in_a_row == 3:
+        player1.boosts += 1
+        player1.correct_answers_in_a_row = 0
+        update_player1_boosts()
+
+
+def handle_incorrect_answer():
+    player1.correct_answers_in_a_row = 0
+
+
+def handle_checkpoints_collisions():
+    for checkpoint_id in range(1, len(checkpoint_masks) + 1):
+        if player1.collision_with_mask(checkpoint_masks[checkpoint_id - 1], checkpoint_init_poses[checkpoint_id - 1][0],
+                                       checkpoint_init_poses[checkpoint_id - 1][1]):
+            if player1.answers % 3 == int(checkpoint_id - 1):
+                player1.answers += 1
+                player1.is_answering = True
+                # question screen
+                if True:
+                    handle_correct_answer()
+                else:
+                    handle_incorrect_answer()
+                right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
+                player1.is_answering = False
+
+
+def handle_track_border_collisions():
     if player1.collision_with_mask(track_border_mask, track_border_init_pos[0], track_border_init_pos[1]):
         player1.bounce_car()
 
-    # checkpoint 1
-    if player1.collision_with_mask(checkpoint1_mask, checkpoint1_init_pos[0], checkpoint1_init_pos[1]):
-        if player1.answers % 3 == 0:
-            player1.answers += 1
-            player1.is_answering = True
-            # question screen
-            if True:
-                player1.max_velocity += 1
-                player1.correct_answers += 1
-                player1.correct_answers_in_a_row += 1
-                if player1.correct_answers_in_a_row == 3:
-                    player1.boosts += 1
-                    player1.correct_answers_in_a_row = 0
-                    update_player1_boosts()
-            else:
-                player1.correct_answers_in_a_row = 0
-            right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
-            player1.is_answering = False
 
-    # checkpoint 2
-    if player1.collision_with_mask(checkpoint3_mask, checkpoint3_init_pos[0], checkpoint3_init_pos[1]):
-        if player1.answers % 3 == 1:
-            player1.answers += 1
-            player1.is_answering = True
-            # question screen
-            if True:
-                player1.max_velocity += 1
-                player1.correct_answers += 1
-                player1.correct_answers_in_a_row += 1
-                if player1.correct_answers_in_a_row == 3:
-                    player1.boosts += 1
-                    player1.correct_answers_in_a_row = 0
-                    update_player1_boosts()
-            else:
-                player1.correct_answers_in_a_row = 0
-            right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
-            player1.is_answering = False
-
-    # checkpoint 3
-    if player1.collision_with_mask(checkpoint2_mask, checkpoint2_init_pos[0], checkpoint2_init_pos[1]):
-        if player1.answers % 3 == 2:
-            player1.answers += 1
-            player1.is_answering = True
-            # question screen
-            if True:
-                player1.max_velocity += 1
-                player1.correct_answers += 1
-                player1.correct_answers_in_a_row += 1
-                if player1.correct_answers_in_a_row == 3:
-                    player1.boosts += 1
-                    player1.correct_answers_in_a_row = 0
-                    update_player1_boosts()
-            else:
-                player1.correct_answers_in_a_row = 0
-            right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
-            player1.is_answering = False
-
-    # finish line
+def handle_finish_line_collisions():
     if player1.collision_with_mask(finish_mask, finish_init_pos[0], finish_init_pos[1]):
         if player1.answers in (0, 3, 6) and player1.current_loop * 3 == player1.answers:
             player1.current_loop += 1
@@ -85,13 +57,27 @@ def handle_collisions():
         if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
             player1.finished = True
 
-def update_player1_boosts(): # TODO : duplikacja kodu
+
+def handle_collisions():
+    # tor
+    handle_track_border_collisions()
+
+    # checkpointy
+    handle_checkpoints_collisions()
+
+    # finish line
+    handle_finish_line_collisions()
+
+
+def update_player1_boosts():
     if player1.boosts == 0:
         right_panel.set_gamer1_boost("Niedostępny")
     elif player1.boosts == 1:
         right_panel.set_gamer1_boost("Dostępny (1)")
     else:
         right_panel.set_gamer1_boost("Dostępne (" + str(player1.boosts) + ")")
+
+
 def update_player2_features(finished, is_answering, velocity, max_velocity, angle, topleft_x_pos, topleft_y_pos):
     player2.finished = finished
     player2.is_answering = is_answering
@@ -100,6 +86,7 @@ def update_player2_features(finished, is_answering, velocity, max_velocity, angl
     player2.angle = angle
     player2.topleft_x_pos = topleft_x_pos
     player2.topleft_y_pos = topleft_y_pos
+
 
 # images
 background_picture = resize_img("assets/imgs/Background.png", SCREEN_HEIGHT, SCREEN_WIDTH)
@@ -119,6 +106,8 @@ checkpoint1_mask = create_mask(checkpoint1_picture)
 checkpoint2_mask = create_mask(checkpoint2_picture)
 checkpoint3_mask = create_mask(checkpoint3_picture)
 
+checkpoint_masks = (checkpoint1_mask, checkpoint3_mask, checkpoint2_mask)
+
 # init positions
 background_init_pos = (0, 0)
 track_init_pos = (0, 0)
@@ -127,6 +116,8 @@ track_border_init_pos = (0, 0)
 checkpoint1_init_pos = (180, 230)
 checkpoint2_init_pos = (910, 500)
 checkpoint3_init_pos = (300, 665)
+
+checkpoint_init_poses = (checkpoint1_init_pos, checkpoint3_init_pos, checkpoint2_init_pos)
 
 # panel
 right_panel = ScorePanel(SCREEN_WIDTH, SCREEN_HEIGHT, screen)
@@ -190,10 +181,10 @@ def game_screen():
 
         # czy koniec gry
         if player1.finished:
-            RESULT = 1
+            common_fun.RESULT = 1
             break
         elif player2.finished:
-            RESULT = 0
+            common_fun.RESULT = 0
             break
 
         manager.update(time_delta)

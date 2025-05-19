@@ -3,7 +3,8 @@ from math import radians, sin, cos
 
 
 class Player:
-    def __init__(self, my_screen, car_when_driving, start_topleft_x, start_topleft_y, track_border_mask, track_border_init_pos):
+    def __init__(self, my_screen, car_when_driving, start_topleft_x, start_topleft_y, track_border_mask,
+                 track_border_init_pos):
         # screen init
         self.screen = my_screen
 
@@ -82,7 +83,8 @@ class Player:
         if to_right:
             self.angle -= self.rotation
 
-        if self.collision_with_mask(self.track_border_mask, self.track_border_init_pos[0], self.track_border_init_pos[1]):
+        if self.collision_with_mask(self.track_border_mask,
+                                    self.track_border_init_pos[0], self.track_border_init_pos[1]):
             self.angle = prev_angle
 
     def reduce_speed(self):
@@ -161,4 +163,3 @@ class Player:
             current_time = pygame.time.get_ticks()
             if current_time - self.boost_start_time >= self.boost_duration:
                 self.is_boosting = False
-
