@@ -1,6 +1,7 @@
 from ScorePanel import *
 from math import radians, sin, cos
 
+
 class Player:
     def __init__(self, my_screen, car_when_driving, start_topleft_x, start_topleft_y):
         # screen init
@@ -21,6 +22,11 @@ class Player:
 
         # boosts information
         self.boosts = 0
+        self.boost_max_velocity = 15
+
+        self.is_boosting = False
+        self.boost_start_time = 0
+        self.boost_duration = 1000
 
         # car features
         self.velocity = 0
@@ -43,6 +49,7 @@ class Player:
 
     # blit
     def blit_car(self):
+        self.update_boost()
         rotated_image = pygame.transform.rotate(self.car_when_driving, self.angle)
         if self.is_answering:
             rotated_image.set_alpha(128)
@@ -51,7 +58,8 @@ class Player:
     # moving logic
     def move_forward(self):
         if self.velocity >= 0:
-            self.velocity = min(self.velocity + self.acceleration, self.max_velocity)
+            max_speed = self.boost_max_velocity if self.is_boosting else self.max_velocity
+            self.velocity = min(self.velocity + self.acceleration, max_speed)
             self.move_car()
         else:
             self.reduce_speed()
@@ -108,6 +116,11 @@ class Player:
                 self.rotate_car(to_left=True)
             if keys[pygame.K_d]:
                 self.rotate_car(to_right=True)
+            if keys[pygame.K_SPACE]:
+                position_change = True
+                self.use_boost()
+            if keys[pygame.K_SPACE]:
+                self.use_boost()
 
             if not position_change:
                 self.reduce_speed()
@@ -128,4 +141,16 @@ class Player:
     def get_real_velocity_str(self):
         real_velocity = self.velocity * self.velocity_factor
         return str(abs(real_velocity))
+
+    def use_boost(self):
+        if self.boosts > 0 and not self.is_boosting:
+            self.is_boosting = True
+            self.boost_start_time = pygame.time.get_ticks()
+            self.boosts -= 1
+
+    def update_boost(self):
+        if self.is_boosting:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.boost_start_time >= self.boost_duration:
+                self.is_boosting = False
 

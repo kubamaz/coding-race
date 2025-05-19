@@ -25,7 +25,7 @@ def handle_collisions():
             player1.answers += 1
             player1.is_answering = True
             # question screen
-            if question_screen():
+            if True:
                 player1.max_velocity += 1
                 player1.correct_answers += 1
                 player1.correct_answers_in_a_row += 1
@@ -44,7 +44,7 @@ def handle_collisions():
             player1.answers += 1
             player1.is_answering = True
             # question screen
-            if question_screen():
+            if True:
                 player1.max_velocity += 1
                 player1.correct_answers += 1
                 player1.correct_answers_in_a_row += 1
@@ -63,7 +63,7 @@ def handle_collisions():
             player1.answers += 1
             player1.is_answering = True
             # question screen
-            if question_screen():
+            if True:
                 player1.max_velocity += 1
                 player1.correct_answers += 1
                 player1.correct_answers_in_a_row += 1
@@ -158,6 +158,7 @@ def game_screen():
 
         # player 1
         player1.handle_pressed_keys()
+        update_player1_boosts()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
