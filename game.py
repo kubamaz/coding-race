@@ -28,6 +28,13 @@ def handle_collisions():
             if question_screen():
                 player1.max_velocity += 1
                 player1.correct_answers += 1
+                player1.correct_answers_in_a_row += 1
+                if player1.correct_answers_in_a_row == 3:
+                    player1.boosts += 1
+                    player1.correct_answers_in_a_row = 0
+                    update_player1_boosts()
+            else:
+                player1.correct_answers_in_a_row = 0
             right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
             player1.is_answering = False
 
@@ -40,6 +47,13 @@ def handle_collisions():
             if question_screen():
                 player1.max_velocity += 1
                 player1.correct_answers += 1
+                player1.correct_answers_in_a_row += 1
+                if player1.correct_answers_in_a_row == 3:
+                    player1.boosts += 1
+                    player1.correct_answers_in_a_row = 0
+                    update_player1_boosts()
+            else:
+                player1.correct_answers_in_a_row = 0
             right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
             player1.is_answering = False
 
@@ -52,6 +66,13 @@ def handle_collisions():
             if question_screen():
                 player1.max_velocity += 1
                 player1.correct_answers += 1
+                player1.correct_answers_in_a_row += 1
+                if player1.correct_answers_in_a_row == 3:
+                    player1.boosts += 1
+                    player1.correct_answers_in_a_row = 0
+                    update_player1_boosts()
+            else:
+                player1.correct_answers_in_a_row = 0
             right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
             player1.is_answering = False
 
@@ -64,6 +85,13 @@ def handle_collisions():
         if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
             player1.finished = True
 
+def update_player1_boosts(): # TODO : duplikacja kodu
+    if player1.boosts == 0:
+        right_panel.set_gamer1_boost("Niedostępny")
+    elif player1.boosts == 1:
+        right_panel.set_gamer1_boost("Dostępny (1)")
+    else:
+        right_panel.set_gamer1_boost("Dostępne (" + str(player1.boosts) + ")")
 def update_player2_features(finished, is_answering, velocity, max_velocity, angle, topleft_x_pos, topleft_y_pos):
     player2.finished = finished
     player2.is_answering = is_answering
@@ -158,6 +186,14 @@ def game_screen():
         # prawy panel
         right_panel.set_gamer1_velocity(player1.get_real_velocity_str() + "km/h")
         right_panel.blit_panel()
+
+        # czy koniec gry
+        if player1.finished:
+            RESULT = 1
+            break
+        elif player2.finished:
+            RESULT = 0
+            break
 
         manager.update(time_delta)
         manager.draw_ui(screen)

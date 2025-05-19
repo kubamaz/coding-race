@@ -17,6 +17,7 @@ class Player:
         # answers information
         self.answers = 0
         self.correct_answers = 0
+        self.correct_answers_in_a_row = 0
 
         # boosts information
         self.boosts = 0
