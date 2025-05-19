@@ -34,7 +34,7 @@ ok_button = pygame_gui.elements.UIButton(
 
 
 
-
+question_title.hide()
 ok_button.hide()
 
 
@@ -43,6 +43,7 @@ questions = import_questions("Questions")
 
 #WERSJA BEZ CZASU NA ODPOWIEDZ NA PYTANIE
 def question_screen():
+    if_correct = False
     time = 15 #CZAS TO 15 SEKUND
     start_time = pygame.time.get_ticks()
     time_information = pygame_gui.elements.UILabel(
@@ -150,6 +151,7 @@ def question_screen():
                     if len(answers) == 4:
                         answer4.hide()
                     if selected_answer == correct_answer:
+                        if_correct = True
                         answer_screen(1)
                     else:
                         answer_screen(0)
@@ -173,6 +175,7 @@ def question_screen():
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()
+    return if_correct
 
 
-question_screen()
+# question_screen()

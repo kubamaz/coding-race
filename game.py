@@ -1,6 +1,7 @@
 from common_fun import *
 from ScorePanel import *
 from Player import *
+from Question_screen import *
 
 
 def prepare_screen(my_screen):
@@ -24,7 +25,9 @@ def handle_collisions():
             player1.answers += 1
             player1.is_answering = True
             # question screen
-            player1.max_velocity += 1
+            if question_screen():
+                player1.max_velocity += 1
+                player1.correct_answers += 1
             right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
             player1.is_answering = False
 
@@ -34,7 +37,9 @@ def handle_collisions():
             player1.answers += 1
             player1.is_answering = True
             # question screen
-            player1.max_velocity += 1
+            if question_screen():
+                player1.max_velocity += 1
+                player1.correct_answers += 1
             right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
             player1.is_answering = False
 
@@ -44,7 +49,9 @@ def handle_collisions():
             player1.answers += 1
             player1.is_answering = True
             # question screen
-            player1.max_velocity += 1
+            if question_screen():
+                player1.max_velocity += 1
+                player1.correct_answers += 1
             right_panel.set_gamer1_correct_answers(str(player1.correct_answers) + "/" + str(player1.answers))
             player1.is_answering = False
 
