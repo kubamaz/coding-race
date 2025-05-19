@@ -3,9 +3,13 @@ from math import radians, sin, cos
 
 
 class Player:
-    def __init__(self, my_screen, car_when_driving, start_topleft_x, start_topleft_y):
+    def __init__(self, my_screen, car_when_driving, start_topleft_x, start_topleft_y, track_border_mask, track_border_init_pos):
         # screen init
         self.screen = my_screen
+
+        # track border mask
+        self.track_border_mask = track_border_mask
+        self.track_border_init_pos = track_border_init_pos
 
         # booleans
         self.finished = False
@@ -72,10 +76,14 @@ class Player:
             self.reduce_speed()
 
     def rotate_car(self, to_left=False, to_right=False):
+        prev_angle = self.angle
         if to_left:
             self.angle += self.rotation
         if to_right:
             self.angle -= self.rotation
+
+        if self.collision_with_mask(self.track_border_mask, self.track_border_init_pos[0], self.track_border_init_pos[1]):
+            self.angle = prev_angle
 
     def reduce_speed(self):
         if self.velocity >= 0:

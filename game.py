@@ -142,8 +142,8 @@ exit_button = pygame_gui.elements.UIButton(
 exit_button.hide()
 
 # players
-player1 = Player(screen, "assets/imgs/red-car.png", 625, 35)
-player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75)
+player1 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
+player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
 # TODO : uzależnienie pozycji start_topleft_y od kolejności połączenia z serwerem -
 #  - jeden z graczy na poczatku musi byc wyżej, a drugi niżej
 
