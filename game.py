@@ -35,7 +35,7 @@ def handle_checkpoints_collisions():
                 player1.answers += 1
                 player1.is_answering = True
                 # question screen
-                if True:
+                if question_screen():
                     handle_correct_answer()
                 else:
                     handle_incorrect_answer()

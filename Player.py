@@ -131,8 +131,6 @@ class Player:
             if keys[pygame.K_SPACE]:
                 position_change = True
                 self.use_boost()
-            if keys[pygame.K_SPACE]:
-                self.use_boost()
 
             if not position_change:
                 self.reduce_speed()
