@@ -1,3 +1,5 @@
+import pygame
+
 from ScorePanel import *
 from math import radians, sin, cos
 
@@ -116,15 +118,15 @@ class Player:
             position_change = False
             keys = pygame.key.get_pressed()
 
-            if keys[pygame.K_w]:
+            if keys[pygame.K_w] or keys[pygame.K_UP]:
                 position_change = True
                 self.move_forward()
-            if keys[pygame.K_s]:
+            if keys[pygame.K_s] or keys[pygame.K_DOWN]:
                 position_change = True
                 self.move_backward()
-            if keys[pygame.K_a]:
+            if keys[pygame.K_a] or keys[pygame.K_LEFT]:
                 self.rotate_car(to_left=True)
-            if keys[pygame.K_d]:
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
                 self.rotate_car(to_right=True)
             if keys[pygame.K_SPACE]:
                 position_change = True
