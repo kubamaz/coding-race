@@ -1,3 +1,4 @@
+import common_fun
 from common_fun import *
 from Answer_screen import answer_screen
 import random
@@ -20,7 +21,7 @@ background_picture = resize_img("assets/imgs/Question_background.png",SCREEN_HEI
 
 question_title = pygame_gui.elements.UILabel(
         relative_rect=pygame.Rect((0, -300), (700, 110)),
-        text='Pytanie ' + str(POINTS + 1),
+        text='Pytanie ' + str(common_fun.POINTS + 1),
         manager=manager,
         object_id='#Question_title',
         anchors={'center': 'center'}
@@ -43,6 +44,8 @@ questions = import_questions("Questions")
 
 #WERSJA BEZ CZASU NA ODPOWIEDZ NA PYTANIE
 def question_screen():
+    question_title.set_text('Pytanie ' + str(len(common_fun.answered_questions) + 1))
+    question_title.show()
     if_correct = False
     time = 15 #CZAS TO 15 SEKUND
     start_time = pygame.time.get_ticks()
