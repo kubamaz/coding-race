@@ -51,6 +51,11 @@ class Player:
         self.topleft_x_pos = start_topleft_x
         self.topleft_y_pos = start_topleft_y
 
+        # car start position
+        self.start_topleft_x = start_topleft_x
+        self.start_topleft_y = start_topleft_y
+
+
         # others
         self.epsilon = 0.25
 
@@ -163,3 +168,40 @@ class Player:
             current_time = pygame.time.get_ticks()
             if current_time - self.boost_start_time >= self.boost_duration:
                 self.is_boosting = False
+
+    def reset_everything(self):
+        # booleans
+        self.finished = False
+        self.is_answering = False
+
+        # loops information
+        self.current_loop = 0
+        self.all_loops = 3
+
+        # answers information
+        self.answers = 0
+        self.correct_answers = 0
+        self.correct_answers_in_a_row = 0
+
+        # boosts information
+        self.boosts = 0
+        self.boost_max_velocity = 15
+
+        self.is_boosting = False
+        self.boost_start_time = 0
+        self.boost_duration = 1000
+
+        # car features
+        self.velocity = 0
+        self.velocity_factor = 10
+        self.max_velocity = 4
+        self.angle = 90
+        self.acceleration = 5
+        self.rotation = 6
+
+
+        # car position
+        self.topleft_x_pos = self.start_topleft_x
+        self.topleft_y_pos = self.start_topleft_y
+
+

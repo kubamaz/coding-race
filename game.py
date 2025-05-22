@@ -2,7 +2,6 @@ from Player import *
 from Question_screen import *
 import common_fun
 
-
 def prepare_screen(my_screen):
     my_screen.blit(background_picture, background_init_pos)
     my_screen.blit(track_picture, track_init_pos)
@@ -140,6 +139,10 @@ player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mas
 
 
 def game_screen():
+    player1.reset_everything()
+    player2.reset_everything()
+    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
+    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
     # exit_button.show()
     running = True
     while running:
@@ -155,11 +158,12 @@ def game_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                click_sound.play()
-                if event.ui_element == exit_button:
-                    # exit_button.hide()
-                    running = False
+            # elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+            #     click_sound.play()
+            #     if event.ui_element == exit_button:
+            #         exit_button.hide()
+            #         common_fun.RESULT = 1
+            #         running = False
 
             manager.process_events(event)
 
@@ -192,4 +196,4 @@ def game_screen():
         pygame.display.flip()
 
 
-game_screen()
+# game_screen()

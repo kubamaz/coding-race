@@ -199,3 +199,15 @@ class ScorePanel:
             self.set_gamer2_boost("Dostępny (1)")
         else:
             self.set_gamer2_boost("Dostępne (" + str(boosts) + ")")
+
+    def update_info_player1(self, correct_answers, answers, curr_loop, all_loops, velocity, boosts):
+        self.set_gamer1_correct_answers(str(correct_answers) + "/" + str(answers))
+        self.set_gamer1_loops(str(curr_loop) + "/" + str(all_loops))
+        self.set_gamer1_velocity(str(velocity) + "km/h")
+        if boosts == 0:
+            self.set_gamer1_boost("Niedostępny")
+        elif boosts == 1:
+            self.set_gamer1_boost("Dostępny (1)")
+        else:
+            self.set_gamer1_boost("Dostępne (" + str(boosts) + ")")
+
