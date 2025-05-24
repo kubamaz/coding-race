@@ -46,6 +46,7 @@ class Player:
         # car image
         scale_car = 0.6
         self.car_when_driving = resize_img(car_when_driving, 76 * scale_car, 38 * scale_car)
+        self.rotated_image = self.car_when_driving
 
         # car position
         self.topleft_x_pos = start_topleft_x
@@ -61,6 +62,7 @@ class Player:
 
     # blit
     def blit_car(self):
+        self.rotated_image = pygame.transform.rotate(self.car_when_driving, self.angle)
         self.update_boost()
         rotated_image = pygame.transform.rotate(self.car_when_driving, self.angle)
         if self.is_answering:
@@ -204,4 +206,13 @@ class Player:
         self.topleft_x_pos = self.start_topleft_x
         self.topleft_y_pos = self.start_topleft_y
 
+    def collision_with_player(self, other_player):
+        self_mask = pygame.mask.from_surface(self.rotated_image)
+        other_mask = pygame.mask.from_surface(other_player.rotated_image)
+
+        offset_x = other_player.topleft_x_pos - self.topleft_x_pos
+        offset_y = other_player.topleft_y_pos - self.topleft_y_pos
+
+        overlap = self_mask.overlap(other_mask, (offset_x, offset_y))
+        return overlap is not None
 

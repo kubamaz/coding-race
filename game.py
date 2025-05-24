@@ -56,6 +56,12 @@ def handle_finish_line_collisions():
         if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
             player1.finished = True
 
+def handle_players_collision():
+    if player1.collision_with_player(player2):
+        player1.bounce_car()
+        player2.bounce_car()
+
+
 
 def handle_collisions():
     # tor
@@ -66,6 +72,9 @@ def handle_collisions():
 
     # finish line
     handle_finish_line_collisions()
+
+    # kolizja z drugim autem
+    handle_players_collision()
 
 
 def update_player1_boosts():
