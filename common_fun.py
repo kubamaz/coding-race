@@ -153,6 +153,10 @@ def set_screen(current_screen, information, information2, start_button, settings
         sound_volume.hide()
         sound_slider.hide()
 
+# Tworzenie maski
+def create_mask(surf):
+    return pygame.mask.from_surface(surf)
+
 #Ustawienia dla wszystkich ekranow
 
 pygame.init()
