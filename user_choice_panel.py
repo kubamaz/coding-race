@@ -11,10 +11,10 @@ window_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ekran startowy')
 
 
-background_color = (255,153,68)
+background_color = (255, 217, 179)
 
 
-manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
+manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
 input_width = 300
 input_height = 40
@@ -26,12 +26,14 @@ button_y = 400
 
 login_input = pygame_gui.elements.UITextEntryLine(
     relative_rect=pygame.Rect((input_x, login_y), (input_width, input_height)),
-    manager=manager
+    manager=manager,
+    object_id="#login_input"
 )
 
 password_input = pygame_gui.elements.UITextEntryLine(
     relative_rect=pygame.Rect((input_x, password_y), (input_width, input_height)),
-    manager=manager
+    manager=manager,
+    object_id="#password_input"
 )
 
 password_input.set_text_hidden(True) 
@@ -39,24 +41,28 @@ password_input.set_text_hidden(True)
 login_label = pygame_gui.elements.UILabel(
     relative_rect=pygame.Rect((input_x - 100, login_y), (100, input_height)),
     text='Login:',
-    manager=manager
+    manager=manager,
+    object_id="#login_label"
 )
 
 password_label = pygame_gui.elements.UILabel(
     relative_rect=pygame.Rect((input_x - 100, password_y), (100, input_height)),
     text='Hasło:',
-    manager=manager
+    manager=manager,
+    object_id="#password_label"
 )
 
 login_button = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((input_x, button_y), (input_width, 40)),
     text='Zaloguj',
-    manager=manager
+    manager=manager,
+    object_id='#login_button'
 )
 error_label = pygame_gui.elements.UILabel(
     relative_rect=pygame.Rect((input_x, button_y + 60), (input_width, 40)),
     text='',
     manager=manager,
+    object_id="#error_label"
 )
 clock = pygame.time.Clock()
 is_running = True
@@ -93,6 +99,23 @@ while is_running:
                             error_label.set_text('❌ Nieprawidłowy login lub hasło.')
                     except FileNotFoundError:
                         error_label.set_text('❌ Brak pliku users.json.')
+
+        # if event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.KEYDOWN:
+        #         if event.key == pygame.K_TAB:
+        #             if login_input.is_focused():
+        #                 login_input.unfocus()
+        #                 password_input.focus()
+        #             elif password_input.is_focused():
+        #                 password_input.unfocus()
+        #                 login_input.focus()
+        #             else:
+        #                 login_input.focus()
+        #     if event.key == pygame.K_RETURN:
+        #         login_button.select()
+        #         login_button.unselect()
+        #         login_button.click()
+
 
         manager.process_events(event)
 
