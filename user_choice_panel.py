@@ -3,13 +3,56 @@ import pygame_gui
 import subprocess
 import sys
 import json
+import math
 pygame.init()
+
+
+
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 window_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ekran startowy')
 
+def create_circular_masked_surface(surface, feather_radius):
+    width, height = surface.get_size()
+    center_x = width // 2
+    center_y = height // 2
+    max_radius = min(center_x, center_y)
+
+    masked_surface = pygame.Surface((width, height), pygame.SRCALPHA)
+
+    for y in range(height):
+        for x in range(width):
+            dx = x - center_x
+            dy = y - center_y
+            dist = math.sqrt(dx*dx + dy*dy)
+
+            if dist < (max_radius - feather_radius):
+                alpha = 255
+            elif dist < max_radius:
+                fade = (max_radius - dist) / feather_radius
+                alpha = int(255 * (fade ** 2))  # możesz testować też fade**3
+            else:
+                alpha = 0
+
+            r, g, b, a = surface.get_at((x, y))
+            masked_surface.set_at((x, y), (r, g, b, min(alpha, a)))
+
+    return masked_surface
+# original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha() 
+
+# # Skala (np. 0.3 to 30% oryginalnego rozmiaru) — TUTAJ REGULUJESZ WIELKOŚĆ
+# scale_factor = 0.3
+# logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
+
+# # Skalowanie z wygładzeniem
+# logo = pygame.transform.smoothscale(original_logo, logo_size)
+original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha()
+scale_factor = 0.3
+logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
+scaled_logo = pygame.transform.smoothscale(original_logo, logo_size)
+logo = create_circular_masked_surface(scaled_logo, feather_radius=10)
 
 background_color = (255, 217, 179)
 
@@ -123,7 +166,12 @@ while is_running:
 
     window_surface.fill(background_color)
     manager.draw_ui(window_surface)
+        # Oblicz pozycję do wyśrodkowania logo
+    logo_x = (SCREEN_WIDTH - logo.get_width()) // 2
+    logo_y = login_y - logo.get_height() - 40  # odstęp nad loginem
 
+    # Rysuj logo
+    window_surface.blit(logo, (logo_x, logo_y))
     pygame.display.update()
 
 pygame.quit()
