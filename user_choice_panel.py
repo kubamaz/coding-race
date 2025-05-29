@@ -14,23 +14,49 @@ background_color = (255,153,68)
 
 
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
-button_width = 200
-button_height = 50
-button_x = (SCREEN_WIDTH - button_width) // 2
 
-admin_y = 200
-student_y = 300
-# Przycisk "Admin"
-admin_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((button_x, admin_y), (button_width, button_height)),
-    text='Admin',
+# button_width = 200
+# button_height = 50
+# button_x = (SCREEN_WIDTH - button_width) // 2
+
+# admin_y = 200
+# student_y = 300
+# # Przycisk "Admin"
+# admin_button = pygame_gui.elements.UIButton(
+#     relative_rect=pygame.Rect((button_x, admin_y), (button_width, button_height)),
+#     text='Admin',
+#     manager=manager
+# )
+
+# # Przycisk "Student"
+# student_button = pygame_gui.elements.UIButton(
+#     relative_rect=pygame.Rect((button_x, student_y), (button_width, button_height)),
+#     text='Student',
+#     manager=manager
+# )
+
+input_width = 300
+input_height = 40
+input_x = (SCREEN_WIDTH - input_width) // 2
+
+login_y = 250
+password_y = 320
+
+login_input = pygame_gui.elements.UITextEntryLine(
+    relative_rect=pygame.Rect((input_x, login_y), (input_width, input_height)),
     manager=manager
 )
 
-# Przycisk "Student"
-student_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((button_x, student_y), (button_width, button_height)),
-    text='Student',
+password_input = pygame_gui.elements.UITextEntryLine(
+    relative_rect=pygame.Rect((input_x, password_y), (input_width, input_height)),
+    manager=manager
+)
+
+password_input.set_text_hidden(True) 
+
+password_label = pygame_gui.elements.UILabel(
+    relative_rect=pygame.Rect((input_x - 100, password_y), (100, input_height)),
+    text='Hasło:',
     manager=manager
 )
 
@@ -44,16 +70,16 @@ while is_running:
         if event.type == pygame.QUIT:
             is_running = False
 
-        if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == admin_button:
+        # if event.type == pygame.USEREVENT:
+        #     if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+        #         if event.ui_element == admin_button:
                     
-                    print("Przejście do panelu administratora")
-                if event.ui_element == student_button:
-                    is_running = False
-                    pygame.quit()
-                    subprocess.run([sys.executable, 'main.py'])
-                    print("Przejście do panelu studenta")
+        #             print("Przejście do panelu administratora")
+        #         if event.ui_element == student_button:
+        #             is_running = False
+        #             pygame.quit()
+        #             subprocess.run([sys.executable, 'main.py'])
+        #             print("Przejście do panelu studenta")
 
         manager.process_events(event)
 
