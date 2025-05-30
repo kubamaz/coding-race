@@ -1,8 +1,12 @@
 import socket
 
-
 HOST = '0.0.0.0'
 PORT = 12345
+
+def handle_client(connection):
+    print(f"[+] Nowy gracz: {connection.getpeername()}")
+    #TODO connection handle, queue system etc 
+
 
 def start_server():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
