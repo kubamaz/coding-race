@@ -1,5 +1,5 @@
 import socket
-
+import threading
 HOST = '0.0.0.0'
 PORT = 12345
 
@@ -19,6 +19,8 @@ def start_server():
     while True:
         try: 
             connection, _ = server.accept()
+            client_thread = threading.Thread(target=handle_client, args=(connection,), daemon=True)
+            client_thread.start()
         except socket.timeout:
             pass
         except Exception as e:
