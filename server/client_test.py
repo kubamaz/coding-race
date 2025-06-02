@@ -1,5 +1,7 @@
 import socket
 import time
+import json
+import threading
 SERVER_IP = '127.0.0.1'
 PORT = 12345
 
@@ -12,13 +14,30 @@ try:
 except Exception as e:
     print(f"Error connecting to server: {e}")
 
+
+def recive_data():
+    global isConnected
+    while isConnected:
+        try:
+            data = client.recv(1024)
+            if data:
+                msg = json.loads(data)
+                print(f"Otrzymano dane: {msg}")
+        except Exception as e:
+            print(f"Błąd odbierania danych: {e}")
+            isConnected = False
+            break
+
+if isConnected:
+    recv_thread = threading.Thread(target=recive_data, daemon=True)
+    recv_thread.start()
+
 while isConnected:
     try:
         client.sendall(b"TEST")
     except Exception as e:
-        print(f"Error sending data: {e}")
+        print(f"Nie udało się wysłać danych: {e}")
         isConnected = False
         break
-    print("Połączono.")
     time.sleep(1)
     pass

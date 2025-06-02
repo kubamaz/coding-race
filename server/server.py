@@ -1,15 +1,27 @@
 import socket
 import threading
+import json
 HOST = '0.0.0.0'
 PORT = 12345
 
 Running = True
 player_list = []
+queue = []
 
 def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
     player_list.append(connection)
-
+    try:
+        connection.sendall(json.dumps({
+            "type": "queue",
+            "message": "Czekasz na przeciwnika..."
+        }).encode())
+        queue.append(connection)
+    except Exception as e:
+        print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
+        connection.close()
+        player_list.remove(connection)
+        return
     #TODO connection handle, queue system etc 
 
 def server_console():
