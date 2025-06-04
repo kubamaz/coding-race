@@ -22,23 +22,19 @@ def recive_data():
             data = client.recv(1024)
             if data:
                 msg = json.loads(data)
-                if msg.get("type") != "ping":
-                    print(f"Otrzymano dane: {msg}")
+                if msg.get("type") == "ping":
+                    pass
+                elif msg.get("type") == "server_shutdown":
+                    print(f"Otrzymano komunikat o zamknięciu serwera: {msg.get('message')}")
+                    isConnected = False
+                    break
+                else:
+                    print(f"Otrzymano wiadomość: {msg}")
         except Exception as e:
             print(f"Błąd odbierania danych: {e}")
             isConnected = False
             break
 
 if isConnected:
-    recv_thread = threading.Thread(target=recive_data, daemon=True)
+    recv_thread = threading.Thread(target=recive_data)
     recv_thread.start()
-
-while isConnected:
-    try:
-        client.sendall(b"TEST")
-    except Exception as e:
-        print(f"Nie udało się wysłać danych: {e}")
-        isConnected = False
-        break
-    time.sleep(1)
-    pass

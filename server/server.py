@@ -8,9 +8,12 @@ PORT = 12345
 Running = True
 player_list = []
 queue = []
+
 def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
+
     player_list.append(connection)
+
     try:
         connection.sendall(json.dumps({
             "type": "queue",
@@ -22,6 +25,7 @@ def handle_client(connection):
         connection.close()
         player_list.remove(connection)
         return
+    
     while Running:
         time.sleep(5)
         try:
@@ -37,12 +41,10 @@ def handle_client(connection):
                 queue.remove(connection)
             return
    
-    #TODO connection handle, queue system etc 
 
 def queue_system():
      while Running:
         time.sleep(5)
-        print(len(queue), "graczy w kolejce")
         if (len(queue) >= 2):
             player1 = queue.pop(0)
             player2 = queue.pop(0)
@@ -71,6 +73,10 @@ def server_console():
         if cmd == "exit":
             Running = False
             for player in player_list:
+                player.sendall(json.dumps({
+                    "type": "server_shutdown",
+                    "message": "Serwer jest zamykany, do zobaczenia!"
+                }).encode())
                 player.close()
                 player_list.remove(player)
             print("[SERVER] Zamykanie serwera...")
