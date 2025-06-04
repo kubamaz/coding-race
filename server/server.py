@@ -1,13 +1,13 @@
 import socket
 import threading
 import json
+import time
 HOST = '0.0.0.0'
 PORT = 12345
 
 Running = True
 player_list = []
 queue = []
-
 def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
     player_list.append(connection)
@@ -22,9 +22,28 @@ def handle_client(connection):
         connection.close()
         player_list.remove(connection)
         return
-
     while Running:
-        if (len(queue) > 2):
+        time.sleep(5)
+        try:
+            connection.sendall(json.dumps({
+                    "type": "ping",
+                    "message": "pong!"
+                }).encode())
+        except Exception as e:
+            print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
+            connection.close()
+            player_list.remove(connection)
+            if connection in queue:
+                queue.remove(connection)
+            return
+   
+    #TODO connection handle, queue system etc 
+
+def queue_system():
+     while Running:
+        time.sleep(5)
+        print(len(queue), "graczy w kolejce")
+        if (len(queue) >= 2):
             player1 = queue.pop(0)
             player2 = queue.pop(0)
             try:
@@ -44,7 +63,6 @@ def handle_client(connection):
                     player_list.remove(player1)
                 if player2 in player_list:
                     player_list.remove(player2)
-    #TODO connection handle, queue system etc 
 
 def server_console():
     global Running
@@ -78,6 +96,9 @@ def start_server():
 
     console_thread = threading.Thread(target=server_console, daemon=True)
     console_thread.start()
+
+    queue_system_thread = threading.Thread(target=queue_system, daemon=True)
+    queue_system_thread.start()
     while Running:
         try: 
             connection, _ = server.accept()

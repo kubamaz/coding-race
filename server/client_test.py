@@ -22,7 +22,8 @@ def recive_data():
             data = client.recv(1024)
             if data:
                 msg = json.loads(data)
-                print(f"Otrzymano dane: {msg}")
+                if msg.get("type") != "ping":
+                    print(f"Otrzymano dane: {msg}")
         except Exception as e:
             print(f"Błąd odbierania danych: {e}")
             isConnected = False
