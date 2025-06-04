@@ -22,6 +22,28 @@ def handle_client(connection):
         connection.close()
         player_list.remove(connection)
         return
+
+    while Running:
+        if (len(queue) > 2):
+            player1 = queue.pop(0)
+            player2 = queue.pop(0)
+            try:
+                player1.sendall(json.dumps({
+                    "type": "match",
+                    "message": "Znalazłeś przeciwnika!"
+                }).encode())
+                player2.sendall(json.dumps({
+                    "type": "match",
+                    "message": "Znalazłeś przeciwnika!"
+                }).encode())
+            except Exception as e:
+                print(f"Błąd wysyłania danych do graczy: {e}")
+                player1.close()
+                player2.close()
+                if player1 in player_list:
+                    player_list.remove(player1)
+                if player2 in player_list:
+                    player_list.remove(player2)
     #TODO connection handle, queue system etc 
 
 def server_console():
