@@ -90,6 +90,10 @@ def server_console():
             print(" - exit: Zamyka serwer")
             print(" - players: Wyświetla listę graczy")
             print(" - help: Wyświetla tę pomoc")
+        elif cmd == "queue":
+            print("[SERVER] Gracze w kolejce:")
+            for player in queue:
+                print(f" - {player.getpeername()}")
 
 def start_server():
     global Running
