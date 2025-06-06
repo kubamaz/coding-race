@@ -251,4 +251,3 @@ def game_screen():
         pygame.display.flip()
 
 
-game_screen()
