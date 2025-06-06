@@ -2,6 +2,7 @@ from Player import *
 from Question_screen import *
 import common_fun
 
+
 def prepare_screen(my_screen):
     my_screen.blit(background_picture, background_init_pos)
     my_screen.blit(track_picture, track_init_pos)
@@ -56,12 +57,12 @@ def handle_finish_line_collisions():
         if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
             player1.finished = True
 
+
 def handle_players_collision():
     if player1.is_answering is False and player2.is_answering is False:
         if player1.collision_with_player(player2):
             player1.bounce_car()
             player2.bounce_car()
-
 
 
 def handle_collisions():
