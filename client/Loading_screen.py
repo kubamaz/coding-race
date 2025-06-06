@@ -17,7 +17,7 @@ yellow_car = Car(resize_img("assets/imgs/yellow-car-side.png", CAR_HEIGHT, CAR_W
 green_car = Car(resize_img("assets/imgs/green-car-side.png", CAR_HEIGHT, CAR_WIDTH), BEGIN_X, BEGIN_Y)
 blue_car = Car(resize_img("assets/imgs/blue-car-side.png", CAR_HEIGHT, CAR_WIDTH), BEGIN_X, BEGIN_Y)
 
-
+cars = [red_car, yellow_car, green_car, blue_car]
 
 
 loading = True
@@ -28,11 +28,9 @@ while loading:
             loading = False
 
 
-    # Rysuj samochód
     screen.blit(red_car.img, (red_car.x, red_car.y))
-    red_car.x += 2  # Samochód jedzie w prawo
+    red_car.x += 2  
 
-    # Przerwij "ładowanie" po pewnym czasie
     if red_car.x > SCREEN_WIDTH:
         loading = False
 
