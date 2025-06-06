@@ -2,6 +2,7 @@ from Player import *
 from Question_screen import *
 import common_fun
 
+
 def prepare_screen(my_screen):
     my_screen.blit(background_picture, background_init_pos)
     my_screen.blit(track_picture, track_init_pos)
@@ -56,12 +57,12 @@ def handle_finish_line_collisions():
         if player1.answers == 9 and player1.current_loop * 3 == player1.answers:
             player1.finished = True
 
+
 def handle_players_collision():
-    if player1.is_answering == False and player2.is_answering == False:
+    if player1.is_answering is False and player2.is_answering is False:
         if player1.collision_with_player(player2):
             player1.bounce_car()
             player2.bounce_car()
-
 
 
 def handle_collisions():
@@ -151,9 +152,10 @@ player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mas
 def game_screen():
     player1.reset_everything()
     player2.reset_everything()
-    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
-    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
-    # exit_button.show()
+    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop,
+                                    player2.all_loops, player2.velocity, player2.boosts)
+    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop,
+                                    player2.all_loops, player2.velocity, player2.boosts)
     running = True
     while running:
         time_delta = clock.tick(60) / 1000.0
@@ -168,13 +170,6 @@ def game_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            # elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-            #     click_sound.play()
-            #     if event.ui_element == exit_button:
-            #         exit_button.hide()
-            #         common_fun.RESULT = 1
-            #         running = False
-
             manager.process_events(event)
 
         # player 2
@@ -204,6 +199,3 @@ def game_screen():
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()
-
-
-# game_screen()
