@@ -8,6 +8,7 @@ CAR_HEIGHT = 100
 NUMBER_OF_CARS = 8
 
 
+#TWORZE GUI 
 waiting_information = pygame_gui.elements.UILabel(
 
         relative_rect=pygame.Rect((0,-200), (1500, 400)),
@@ -30,6 +31,10 @@ back_button = pygame_gui.elements.UIButton(
     manager=manager
 )
 
+waiting_information.hide()
+please_wait.hide()
+back_button.hide()
+
 #Obsluga samochodzikow
 class Car:
      def __init__(self, img, x, y):
@@ -48,23 +53,28 @@ def cars_conf():
     return cars
 
 
-waiting_information.hide()
-please_wait.hide()
-back_button.hide()
+
+
 def loading_screen():
     logowanie_uzytkownika = 5 #SYMULACJA ZE PO 5 SEKUNDACH UZYTKOWNIK SIE ZALOGUJE - USUNAC TO POZNIEJ!!!!!!!!
-    loading = True
-    start_time = pygame.time.get_ticks()
-    waiting_information.show()
-    please_wait.show()
-    back_button.show()
+
+    #Liczba kropek ktore maja sie wyswietlic przy napisie prosze czekac..
     number_of_dots = 1
 
+    #Tworze samochodziki
     cars = cars_conf()
     car_number1 = 0
     car_number2 = -1
     car_number3 = -1
     car_number4 = -1
+
+    #Wyswietlam GUI
+    waiting_information.show()
+    please_wait.show()
+    back_button.show()
+
+    loading = True
+    start_time = pygame.time.get_ticks()
 
     while loading:
         current_time = pygame.time.get_ticks()
@@ -83,9 +93,7 @@ def loading_screen():
                     unit_screen()
             manager.process_events(event)
 
-
-
-
+        #Tutaj jest cala obsluga przejezdzajacych na gorze samochodzikow
         screen.blit(cars[car_number1].img, (cars[car_number1].x, cars[car_number1].y))
         cars[car_number1].x += 2  
         if car_number2 >= 0 : 
@@ -120,8 +128,12 @@ def loading_screen():
         if car_number4!= -1 and cars[car_number4].x > SCREEN_WIDTH:
             cars[car_number4].x = BEGIN_X
 
+
+        #Jesli minela sekunda to wchodze do ifa
         if current_time - start_time >= 1000:
             start_time = current_time
+
+            #Dodaje kropki do napisu prosze czekac..
             please_wait.text = 'PROSZE CZEKAC' + number_of_dots*'.'
             number_of_dots += 1
             if number_of_dots == 4:
