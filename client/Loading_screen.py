@@ -1,4 +1,5 @@
 from common_fun import *
+from unit_screen import unit_screen
 
 BEGIN_X = -50
 BEGIN_Y = 20
@@ -6,6 +7,31 @@ CAR_WIDTH = 150
 CAR_HEIGHT = 100
 NUMBER_OF_CARS = 8
 
+
+number_of_dots = 1
+waiting_information = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0,-200), (1500, 400)),
+        text='POSZUKIWANIE UCZESTNIKA',
+        manager=manager,
+        object_id="#game_title",
+        anchors={'center': 'center'}
+)
+please_wait = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0,-100), (1500, 400)),
+        text='PROSZE CZEKAC',
+        manager=manager,
+        anchors={'center': 'center'}
+)
+
+back_button = pygame_gui.elements.UIButton(
+    relative_rect=pygame.Rect((SCREEN_WIDTH // 2 - 200, SCREEN_HEIGHT // 2 + 20), (380, 80)),
+    text='Back',
+    manager=manager
+)
+
+#Obsluga samochodzikow
 class Car:
      def __init__(self, img, x, y):
         self.img = img
@@ -27,11 +53,27 @@ car_number4 = -1
 
 loading = True
 
+start_time = pygame.time.get_ticks()
+waiting_information.show()
+please_wait.show()
+back_button.show()
 while loading:
+    current_time = pygame.time.get_ticks()
+    time_delta = clock.tick(60) / 1000.0
     screen.blit(background_picture, (0, 0))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             loading = False
+        elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+            click_sound.play()
+            if event.ui_element == back_button:
+                waiting_information.hide()
+                please_wait.hide()
+                back_button.hide()
+                unit_screen()
+        manager.process_events(event)
+
 
 
     screen.blit(cars[car_number1].img, (cars[car_number1].x, cars[car_number1].y))
@@ -68,5 +110,16 @@ while loading:
     if car_number4!= -1 and cars[car_number4].x > SCREEN_WIDTH:
         cars[car_number4].x = BEGIN_X
 
+    if current_time - start_time >= 1000:
+        start_time = current_time
+        please_wait.text = 'PROSZE CZEKAC' + number_of_dots*'.'
+        number_of_dots += 1
+        if number_of_dots == 4:
+            number_of_dots = 0
+        please_wait.rebuild()
+
+
+
+    manager.update(time_delta)
+    manager.draw_ui(screen)
     pygame.display.update()
-    clock.tick(60)
