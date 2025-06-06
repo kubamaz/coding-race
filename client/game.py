@@ -57,7 +57,7 @@ def handle_finish_line_collisions():
             player1.finished = True
 
 def handle_players_collision():
-    if player1.is_answering == False and player2.is_answering == False:
+    if player1.is_answering is False and player2.is_answering is False:
         if player1.collision_with_player(player2):
             player1.bounce_car()
             player2.bounce_car()
