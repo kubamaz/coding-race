@@ -272,6 +272,14 @@
             "normal_text": "#ADB5BD",
             "hovered_text": "#AE0909"
          }
-     }
+     },
+
+    "elements": {
+        "#overlay": {
+            "background_color": "rgba(0, 0, 0, 150)",  // półprzezroczysta czerń
+            "border_width": 0,
+            "padding": 0
+        }
+    }
 
 }
