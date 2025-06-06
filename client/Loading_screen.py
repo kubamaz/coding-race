@@ -1,9 +1,10 @@
 from common_fun import *
 
-BEGIN_X = 0
+BEGIN_X = -30
 BEGIN_Y = 100
 CAR_WIDTH = 150
 CAR_HEIGHT = 100
+NUMBER_OF_CARS = 4
 
 class Car:
      def __init__(self, img, x, y):
@@ -19,8 +20,9 @@ blue_car = Car(resize_img("assets/imgs/blue-car-side.png", CAR_HEIGHT, CAR_WIDTH
 
 cars = [red_car, yellow_car, green_car, blue_car]
 
-
+car_number = 0
 loading = True
+
 while loading:
     screen.blit(background_picture, (0, 0))
     for event in pygame.event.get():
@@ -28,11 +30,14 @@ while loading:
             loading = False
 
 
-    screen.blit(red_car.img, (red_car.x, red_car.y))
-    red_car.x += 2  
+    screen.blit(cars[car_number].img, (cars[car_number].x, cars[car_number].y))
+    cars[car_number].x += 2  
 
-    if red_car.x > SCREEN_WIDTH:
-        loading = False
+    if cars[car_number].x > SCREEN_WIDTH:
+        cars[car_number].x = 0
+        car_number+=1
+        if car_number == NUMBER_OF_CARS:
+            car_number = 0
 
     pygame.display.update()
     clock.tick(60)
