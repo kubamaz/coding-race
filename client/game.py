@@ -156,7 +156,6 @@ def game_screen():
                                     player2.all_loops, player2.velocity, player2.boosts)
     right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop,
                                     player2.all_loops, player2.velocity, player2.boosts)
-    # exit_button.show()
     running = True
     while running:
         time_delta = clock.tick(60) / 1000.0
@@ -171,13 +170,6 @@ def game_screen():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            # elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-            #     click_sound.play()
-            #     if event.ui_element == exit_button:
-            #         exit_button.hide()
-            #         common_fun.RESULT = 1
-            #         running = False
-
             manager.process_events(event)
 
         # player 2
@@ -207,6 +199,3 @@ def game_screen():
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()
-
-
-# game_screen()
