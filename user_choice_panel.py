@@ -142,22 +142,25 @@ while is_running:
                             error_label.set_text('❌ Nieprawidłowy login lub hasło.')
                     except FileNotFoundError:
                         error_label.set_text('❌ Brak pliku users.json.')
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_TAB:
+                if login_input.is_focused:
+                    login_input.unfocus()
+                    password_input.focus()
+                elif password_input.is_focused:
+                    password_input.unfocus()
+                    login_input.focus()
+                else:
+                    login_input.focus()
 
-        # if event.type == pygame.KEYDOWN:
-        #     if event.key == pygame.KEYDOWN:
-        #         if event.key == pygame.K_TAB:
-        #             if login_input.is_focused():
-        #                 login_input.unfocus()
-        #                 password_input.focus()
-        #             elif password_input.is_focused():
-        #                 password_input.unfocus()
-        #                 login_input.focus()
-        #             else:
-        #                 login_input.focus()
-        #     if event.key == pygame.K_RETURN:
-        #         login_button.select()
-        #         login_button.unselect()
-        #         login_button.click()
+            elif event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+                # Udaj kliknięcie przycisku "Zaloguj"
+                fake_event = pygame.event.Event(pygame.USEREVENT, {
+                    'user_type': pygame_gui.UI_BUTTON_PRESSED,
+                    'ui_element': login_button
+                })
+                pygame.event.post(fake_event)
 
 
         manager.process_events(event)
