@@ -151,8 +151,10 @@ player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mas
 def game_screen():
     player1.reset_everything()
     player2.reset_everything()
-    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
-    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
+    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop,
+                                    player2.all_loops, player2.velocity, player2.boosts)
+    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop,
+                                    player2.all_loops, player2.velocity, player2.boosts)
     # exit_button.show()
     running = True
     while running:
