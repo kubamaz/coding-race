@@ -51,8 +51,8 @@ car_number2 = -1
 car_number3 = -1
 car_number4 = -1
 
+logowanie_uzytkownika = 5 #SYMULACJA ZE PO 5 SEKUNDACH UZYTKOWNIK SIE ZALOGUJE - USUNAC TO POZNIEJ!!!!!!!!
 loading = True
-
 start_time = pygame.time.get_ticks()
 waiting_information.show()
 please_wait.show()
@@ -73,6 +73,7 @@ while loading:
                 back_button.hide()
                 unit_screen()
         manager.process_events(event)
+
 
 
 
@@ -118,6 +119,13 @@ while loading:
             number_of_dots = 0
         please_wait.rebuild()
 
+        #CO SEKUNDE BEDE TEZ SPRAWDZAC CZY JAKIS UZYTKOWNIK SIE NIE ZALOGOWAL - TERAZ PRZYJMUJE ZE PO 5 SEKUNDACH SIE ZALOGUJE
+        logowanie_uzytkownika -= 1
+        if logowanie_uzytkownika == 0:
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            loading = False
 
 
     manager.update(time_delta)
