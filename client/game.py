@@ -153,10 +153,10 @@ player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mas
 
 counter = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -240), (650, 95)),
-        text = '.',
+        relative_rect=pygame.Rect((-20, -50), (500, 500)),
+        text = '3',
         manager=manager,
-        object_id='#game_title',
+        object_id='#counting',
         anchors={'center': 'center'}
 )
 counter.hide()
