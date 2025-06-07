@@ -42,3 +42,10 @@ które mogą wpłynąć na prędkość pojazdu.
 
    ```bash
    python main.py
+   
+---
+
+## 🕹️ Sterowanie samochodem:
+
+- ⬆️⬇️⬅️➡️ lub WSAD - kierunek jazdy
+- spacja - uruchomienie boosta
