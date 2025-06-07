@@ -85,15 +85,18 @@ def server_console():
             print("[SERVER] Lista graczy:")
             for player in player_list:
                 print(f" - {player.getpeername()}")
-        elif cmd == "help":
-            print("[SERVER] Dostępne komendy:")
-            print(" - exit: Zamyka serwer")
-            print(" - players: Wyświetla listę graczy")
-            print(" - help: Wyświetla tę pomoc")
         elif cmd == "queue":
             print("[SERVER] Gracze w kolejce:")
             for player in queue:
                 print(f" - {player.getpeername()}")
+        elif cmd == "help":
+            print("[SERVER] Dostępne komendy:")
+            print(" - exit: Zamyka serwer")
+            print(" - players: Wyświetla listę graczy")
+            print(" - queue: Wyświetla graczy w kolejce")
+            print(" - help: Wyświetla tę pomoc")
+        else:
+            print("[SERVER] Nieznana komenda. Użyj 'help' aby zobaczyć dostępne komendy.")
 
 def start_server():
     global Running
