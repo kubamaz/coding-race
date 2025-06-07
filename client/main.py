@@ -1,6 +1,7 @@
 from common_fun import *
 from game import game_screen
 from unit_screen import unit_screen
+from Loading_screen import loading_screen
 
 MENU = 'menu'
 SETTINGS = 'settings'
@@ -51,6 +52,7 @@ while True:
                 current_screen = GAME
                 set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
                 unit_screen()
+                loading_screen()
                 game_screen()
 
                 #Po grze robie podsumowanie
