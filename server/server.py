@@ -41,6 +41,37 @@ def handle_client(connection):
                 queue.remove(connection)
             return
    
+def handle_game(player1 , player2):
+    print("test")
+    players = [player1, player2]
+    while True:
+        for player in players:
+            try:
+                data = player.recv(1024).decode()
+                if not data:
+                    print(f"[!] Gracz {player.getpeername()} rozłączył się.")
+                    player.close()
+                    players.remove(player)
+                    
+                    return
+                else:
+                   msg = json.loads(data)
+                   oponent = player2 if player == player1 else player1
+                   oponent.sendall(json.dumps(msg).encode())
+            except Exception as e:
+                print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
+                player.close()
+                players.remove(player)
+                oponent = player2 if player == player1 else player1
+                oponent.sendall(json.dumps({
+                    "type": "opponent_disconnected",
+                    "message": "Twój przeciwnik rozłączył się."
+                }).encode())
+
+                if len(players) < 2:
+                    print("[!] Gra została przerwana z powodu rozłączenia gracza.")
+                    return
+                
 
 def queue_system():
      while Running:
@@ -57,6 +88,11 @@ def queue_system():
                     "type": "match",
                     "message": "Znalazłeś przeciwnika!"
                 }).encode())
+
+                print(f"[+] Rozpoczynam grę między {player1.getpeername()} a {player2.getpeername()}")
+                game_thread = threading.Thread(target=handle_game, args=(player1, player2), daemon=True)
+                game_thread.start()
+                
             except Exception as e:
                 print(f"Błąd wysyłania danych do graczy: {e}")
                 player1.close()
