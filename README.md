@@ -16,3 +16,9 @@ które mogą wpłynąć na prędkość pojazdu.
 - ⏱️ Licznik okrążeń
 
 ---
+
+### Wymagania
+
+- Python 3.12 lub nowszy
+- Pygame
+- pygame_gui
