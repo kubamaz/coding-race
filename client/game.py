@@ -149,18 +149,62 @@ player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mas
 #  - jeden z graczy na poczatku musi byc wyżej, a drugi niżej
 
 
+
+# Rysowanie w pętli gry, PRZED pygame.display.update()
+
+counter = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((-20, -50), (500, 500)),
+        text = '3',
+        manager=manager,
+        object_id='#counting',
+        anchors={'center': 'center'}
+)
+counter.hide()
+
 def game_screen():
+    start_time = pygame.time.get_ticks()
+    time_counter = 3
+
     player1.reset_everything()
     player2.reset_everything()
-    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop,
-                                    player2.all_loops, player2.velocity, player2.boosts)
-    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop,
-                                    player2.all_loops, player2.velocity, player2.boosts)
+    right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
+    right_panel.update_info_player1(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
+
+    overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+    overlay.fill((0, 0, 0, 150))  # RGBA: czarny z przezroczystością
+    counter.text = str(time_counter)
+    # exit_button.show()
     running = True
+    counter.show()
     while running:
         time_delta = clock.tick(60) / 1000.0
+        current_time = pygame.time.get_ticks()
 
+        #USTAWIAM PRZEZROCZYSTE TLO DLA PIERWSZYCH 3 SEKUND
+        if time_counter > 0:
+            if current_time - start_time >= 1000:
+                start_time = current_time
+                time_counter -= 1
+                counter.text = str(time_counter)
+                counter.rebuild()
+                if time_counter == 0:
+                    counter.hide()
+
+            # Rysuj grę normalnie
+            prepare_screen(screen)
+            # Przezroczysta nakładka na ekran
+            screen.blit(overlay, (0, 0))
+
+            manager.update(time_delta)
+            manager.draw_ui(screen)
+            pygame.display.flip()
+            continue 
+
+        counter.hide()
         prepare_screen(screen)
+        
+
 
         # player 1
         player1.handle_pressed_keys()
@@ -199,3 +243,5 @@ def game_screen():
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()
+
+

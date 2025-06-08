@@ -68,6 +68,20 @@
             "text_shadow_size": "4"
         }
     },
+    "#counting": {
+        "colours": {
+            "normal_text": "#AE0909",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "NFS",
+            "regular_path": "assets/Fonts/NFS_by_JLTV.ttf",
+            "size": "400"
+        },
+        "misc": {
+            "text_shadow_size": "4"
+        }
+    },
     "#music_volume": {
         "colours": {
             "normal_text": "#D96024",
