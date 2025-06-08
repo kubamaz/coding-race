@@ -25,21 +25,6 @@ def handle_client(connection):
         connection.close()
         player_list.remove(connection)
         return
-    
-    while Running:
-        time.sleep(5)
-        try:
-            connection.sendall(json.dumps({
-                    "type": "ping",
-                    "message": "pong!"
-                }).encode())
-        except Exception as e:
-            print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
-            connection.close()
-            player_list.remove(connection)
-            if connection in queue:
-                queue.remove(connection)
-            return
    
 def handle_game(player1 , player2):
     print("test")
@@ -61,6 +46,8 @@ def handle_game(player1 , player2):
             except Exception as e:
                 print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
                 player.close()
+                if player in player_list:
+                    player_list.remove(player)
                 players.remove(player)
                 oponent = player2 if player == player1 else player1
                 oponent.sendall(json.dumps({
