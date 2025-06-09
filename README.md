@@ -31,7 +31,7 @@ które mogą wpłynąć na prędkość pojazdu.
 
    ```bash
    git clone https://github.com/kubamaz/coding-race.git
-   cd coding-racing
+   cd coding-race
 
 2. Zainstaluj wymagane biblioteki:
 
@@ -41,6 +41,7 @@ które mogą wpłynąć na prędkość pojazdu.
 3. Uruchom grę:
 
    ```bash
+   cd client
    python main.py
    
 ---
