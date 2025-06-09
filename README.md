@@ -27,11 +27,11 @@ które mogą wpłynąć na prędkość pojazdu.
 
 ### Instalacja i uruchomienie
 
-1. Po uruchomieniu PyCharmq sklonuj repozytorium:
+1. Po uruchomieniu PyCharma sklonuj repozytorium:
 
    ```bash
    git clone https://github.com/kubamaz/coding-race.git
-   cd code-racing
+   cd coding-racing
 
 2. Zainstaluj wymagane biblioteki:
 
