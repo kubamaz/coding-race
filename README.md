@@ -31,7 +31,7 @@ które mogą wpłynąć na prędkość pojazdu.
 
    ```bash
    git clone https://github.com/kubamaz/coding-race.git
-   cd code-racing
+   cd coding-racing
 
 2. Zainstaluj wymagane biblioteki:
 
