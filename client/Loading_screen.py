@@ -56,7 +56,7 @@ def cars_conf():
 
 
 def loading_screen():
-    logowanie_uzytkownika = 5 #SYMULACJA ZE PO 5 SEKUNDACH UZYTKOWNIK SIE ZALOGUJE - USUNAC TO POZNIEJ!!!!!!!!
+    logowanie_uzytkownika = 10 #SYMULACJA ZE PO 5 SEKUNDACH UZYTKOWNIK SIE ZALOGUJE - USUNAC TO POZNIEJ!!!!!!!!
 
     #Liczba kropek ktore maja sie wyswietlic przy napisie prosze czekac..
     number_of_dots = 1
@@ -84,6 +84,8 @@ def loading_screen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 loading = False
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
                 if event.ui_element == back_button:
