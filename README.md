@@ -30,7 +30,7 @@ które mogą wpłynąć na prędkość pojazdu.
 1. Po uruchomieniu PyCharmq sklonuj repozytorium:
 
    ```bash
-   git clone https://github.com/twoj-login/code-racing.git
+   git clone https://github.com/kubamaz/coding-race.git
    cd code-racing
 
 2. Zainstaluj wymagane biblioteki:
