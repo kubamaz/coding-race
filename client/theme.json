@@ -286,6 +286,100 @@
             "normal_text": "#ADB5BD",
             "hovered_text": "#AE0909"
          }
-     }
-
+     },
+    "#login_button": {
+        "colours": {
+            "normal_bg": "#ffc180",
+            "hovered_bg": "#ffb566",
+            "normal_text": "#000000",
+            "hovered_text": "#000222",
+            "normal_border": "#ffb566",
+            "hovered_border": "#ffa94d",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "default",
+            "size": 18
+        },
+        "misc": {
+            "border_width": "0,1",
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": 8,
+            "padding": [10, 10],
+            "text_shadow_size": "0"
+        }
+    },
+    "#login_input": {
+        "font": {
+            "size": 14
+            },
+        "colours": {
+            "normal_text": "#000000",
+            "dark_bg": "#FFFFFF",
+            "normal_border": "#A0A0A0",
+            "text_cursor": "#000000"
+        },
+        "misc": {
+            "border_width": 1,
+            "padding": [4, 2],
+            "shadow_width": 0,
+            "caret_width": 2,
+            "tool_tip_delay": 20
+        }
+    },
+    "#login_label": {
+        "font": {
+            "size": 14
+        },
+        "colours": {
+            "normal_text": "#000000",
+            "text_shadow": "#000000"
+        },
+        "misc": {
+            "text_shadow_size": "0",
+            "padding": "5"
+        }
+    },
+    "#password_label": {
+        "font": {
+            "name": "default",
+            "size": "5"
+        },
+        "colours": {
+            "normal_text": "#000000",
+            "text_shadow": "#000000"
+        },
+        "misc": {
+            "text_shadow_size": "0",
+            "padding": "5"
+        }
+    },
+    "#password_input": {
+        "font": {
+        "size": 20
+        },
+        "colours": {
+        "normal_text": "#000000",
+        "dark_bg": "#FFFFFF",
+        "normal_border": "#A0A0A0",
+        "text_cursor": "#000000"
+        },
+        "misc": {
+        "border_width": 1,
+        "padding": [4, 2],
+        "shadow_width": 0
+        }
+    },
+    "#error_label": {
+    "font": {
+      "name": "default",
+      "size": "18"
+    },
+    "colours": {
+      "normal_text": "#FF0000"
+    },
+    "misc": {
+        "text_shadow_size": "0"
+    }
+  }
 }
