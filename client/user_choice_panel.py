@@ -139,9 +139,9 @@ while is_running:
                                 #do uzupełnienia po zrobieniu panelu administratora
                                 print("zalogowano jako administrator")
                         else:
-                            error_label.set_text('❌ Nieprawidłowy login lub hasło.')
+                            error_label.set_text('Nieprawidłowy login lub hasło.')
                     except FileNotFoundError:
-                        error_label.set_text('❌ Brak pliku users.json.')
+                        error_label.set_text('Brak pliku users.json.')
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_TAB:
