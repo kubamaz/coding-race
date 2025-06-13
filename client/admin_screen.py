@@ -60,6 +60,13 @@ class AdminPanel:
 
     def show_users_panel(self):
         print("Przełączono do panelu użytkowników")
+    def show_questions_panel(self):
+        print("Przełączono do panelu pytań")
+        self.main_panel.hide()
+
+    def show_users_panel(self):
+        print("Przełączono do panelu użytkowników")
+        self.main_panel.hide()
 
 
 def back_to_main_menu():
