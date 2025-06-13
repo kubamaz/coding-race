@@ -11,13 +11,11 @@ def main():
     clock = pygame.time.Clock()
     manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    # Panel główny
     main_panel = pygame_gui.elements.UIPanel(
         relative_rect=pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
         manager=manager
     )
 
-    # Przycisk: Zarządzanie pytaniami
     btn_questions = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(50, 50, 200, 50),
         text="Zarządzaj pytaniami",
@@ -25,7 +23,6 @@ def main():
         container=main_panel
     )
 
-    # Przycisk: Zarządzanie użytkownikami
     btn_users = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(50, 120, 200, 50),
         text="Zarządzaj użytkownikami",
@@ -39,6 +36,12 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
+            if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == btn_questions:
+                    print("Kliknięto: Zarządzaj pytaniami")
+                elif event.ui_element == btn_users:
+                    print("Kliknięto: Zarządzaj użytkownikami")
 
             manager.process_events(event)
 
