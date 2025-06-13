@@ -32,7 +32,7 @@ def create_circular_masked_surface(surface, feather_radius):
                 alpha = 255
             elif dist < max_radius:
                 fade = (max_radius - dist) / feather_radius
-                alpha = int(255 * (fade ** 2))  # możesz testować też fade**3
+                alpha = int(255 * (fade ** 2)) 
             else:
                 alpha = 0
 
@@ -40,14 +40,7 @@ def create_circular_masked_surface(surface, feather_radius):
             masked_surface.set_at((x, y), (r, g, b, min(alpha, a)))
 
     return masked_surface
-# original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha() 
 
-# # Skala (np. 0.3 to 30% oryginalnego rozmiaru) — TUTAJ REGULUJESZ WIELKOŚĆ
-# scale_factor = 0.3
-# logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
-
-# # Skalowanie z wygładzeniem
-# logo = pygame.transform.smoothscale(original_logo, logo_size)
 original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha()
 scale_factor = 0.3
 logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
