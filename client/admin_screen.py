@@ -11,7 +11,57 @@ pygame.display.set_caption("Panel administratora")
 clock = pygame.time.Clock()
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+class QuestionPanel:
+    def __init__(self, manager, back_callback):
+        self.panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
+            manager=manager
+        )
 
+        self.btn_back = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(50, 500, 100, 40),
+            text="Powrót",
+            manager=manager,
+            container=self.panel
+        )
+
+        self.back_callback = back_callback
+
+    def handle_events(self, event):
+        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element == self.btn_back:
+                self.panel.hide()
+                self.back_callback()
+
+    def show(self):
+        self.panel.show()
+
+class UserPanel:
+    def __init__(self, manager, back_callback):
+        self.panel = pygame_gui.elements.UIPanel(
+            relative_rect=pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
+            manager=manager
+        )
+
+        self.btn_back = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(50, 500, 100, 40),
+            text="Powrót",
+            manager=manager,
+            container=self.panel
+        )
+
+        self.back_callback = back_callback
+
+    def handle_events(self, event):
+        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element == self.btn_back:
+                self.panel.hide()
+                self.back_callback()
+
+    def show(self):
+        self.panel.show()
+        
+               
 class AdminPanel:
     def __init__(self, screen, manager, back_callback):
         self.screen = screen
