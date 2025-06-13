@@ -30,6 +30,16 @@ def main():
         container=main_panel
     )
 
+    btn_back = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect(50, 500, 100, 40),
+        text="Powrót",
+        manager=manager,
+        container=main_panel
+    )
+
+    def back_to_main_menu():
+        print("Powrót do menu głównego")
+        
     running = True
     while running:
         time_delta = clock.tick(60) / 1000.0
@@ -42,6 +52,8 @@ def main():
                     print("Kliknięto: Zarządzaj pytaniami")
                 elif event.ui_element == btn_users:
                     print("Kliknięto: Zarządzaj użytkownikami")
+                elif event.ui_element == btn_back:
+                    back_to_main_menu()
 
             manager.process_events(event)
 
