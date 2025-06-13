@@ -55,6 +55,11 @@ class AdminPanel:
             elif event.ui_element == self.btn_back:
                 print("Kliknięto: Powrót")
                 self.back_callback()
+    def show_questions_panel(self):
+        print("Przełączono do panelu pytań")
+
+    def show_users_panel(self):
+        print("Przełączono do panelu użytkowników")
 
 
 def back_to_main_menu():
