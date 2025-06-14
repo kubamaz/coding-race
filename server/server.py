@@ -8,6 +8,8 @@ PORT = 12345
 Running = True
 player_list = []
 queue = []
+def addr_to_str(addr):
+    return f"{addr[0]}:{addr[1]}"
 
 def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
@@ -15,32 +17,69 @@ def handle_client(connection):
     player_list.append(connection)
 
     try:
-        connection.sendall(json.dumps({
+        connection.sendall((json.dumps({
             "type": "queue",
-            "message": "Czekasz na przeciwnika..."
-        }).encode())
+            "message": "Czekasz na przeciwnika...",
+            "player_id": connection.getpeername()
+        }) + '\n').encode())
         queue.append(connection)
     except Exception as e:
         print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
         connection.close()
         player_list.remove(connection)
         return
-    
-    while Running:
-        time.sleep(5)
-        try:
-            connection.sendall(json.dumps({
-                    "type": "ping",
-                    "message": "pong!"
-                }).encode())
-        except Exception as e:
-            print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
-            connection.close()
-            player_list.remove(connection)
-            if connection in queue:
-                queue.remove(connection)
-            return
    
+def handle_game(player1 , player2):
+    players = [player1, player2]
+    game_active = True
+    while game_active:
+        for player in players:
+            try:
+                data = player.recv(1024).decode()
+                if not data:
+                    print(f"[!] Gracz {player.getpeername()} rozłączył się.")
+                    player.close()
+                    players.remove(player)
+                    return
+                else:
+                    while '\n' in data:
+                        dane, data = data.split('\n', 1)
+                        dane = dane.strip()
+
+                        msg = json.loads(dane)
+                        if msg.get("type") == "winner":
+                            print(f"Otrzymano komunikat o zwycięstwie: {msg.get('message')}")
+                            game_active = False
+                            oponent = player2 if player == player1 else player1
+                            oponent.sendall((json.dumps({
+                                "type": "looser",
+                                "message": "Twój przeciwnik wygrał!",
+                            })+ '\n').encode())
+                            if player in player_list:
+                                player_list.remove(player)
+                            if oponent in player_list:
+                                player_list.remove(oponent)
+
+
+                        oponent = player2 if player == player1 else player1
+                        oponent.sendall((json.dumps(msg)+ '\n').encode())
+            except Exception as e:
+                print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
+                player.close()
+                if player in player_list:
+                    player_list.remove(player)
+                players.remove(player)
+                oponent = player2 if player == player1 else player1
+                oponent.sendall((json.dumps({
+                    "type": "opponent_disconnected",
+                    "message": "Twój przeciwnik rozłączył się."
+                }) + '\n').encode())
+                if oponent in player_list:
+                    player_list.remove(oponent)
+                if len(players) < 2:
+                    print("[!] Gra została przerwana z powodu rozłączenia gracza.")
+                    return
+                
 
 def queue_system():
      while Running:
@@ -49,14 +88,19 @@ def queue_system():
             player1 = queue.pop(0)
             player2 = queue.pop(0)
             try:
-                player1.sendall(json.dumps({
+                player1.sendall((json.dumps({
                     "type": "match",
                     "message": "Znalazłeś przeciwnika!"
-                }).encode())
-                player2.sendall(json.dumps({
+                }) + '\n').encode())
+                player2.sendall((json.dumps({
                     "type": "match",
                     "message": "Znalazłeś przeciwnika!"
-                }).encode())
+                }) + '\n').encode())
+
+                print(f"[+] Rozpoczynam grę między {player1.getpeername()} a {player2.getpeername()}")
+                game_thread = threading.Thread(target=handle_game, args=(player1, player2), daemon=True)
+                game_thread.start()
+                
             except Exception as e:
                 print(f"Błąd wysyłania danych do graczy: {e}")
                 player1.close()
@@ -73,10 +117,10 @@ def server_console():
         if cmd == "exit":
             Running = False
             for player in player_list:
-                player.sendall(json.dumps({
+                player.sendall((json.dumps({
                     "type": "server_shutdown",
                     "message": "Serwer jest zamykany, do zobaczenia!"
-                }).encode())
+                }) + '\n').encode())
                 player.close()
                 player_list.remove(player)
             print("[SERVER] Zamykanie serwera...")
@@ -85,15 +129,18 @@ def server_console():
             print("[SERVER] Lista graczy:")
             for player in player_list:
                 print(f" - {player.getpeername()}")
-        elif cmd == "help":
-            print("[SERVER] Dostępne komendy:")
-            print(" - exit: Zamyka serwer")
-            print(" - players: Wyświetla listę graczy")
-            print(" - help: Wyświetla tę pomoc")
         elif cmd == "queue":
             print("[SERVER] Gracze w kolejce:")
             for player in queue:
                 print(f" - {player.getpeername()}")
+        elif cmd == "help":
+            print("[SERVER] Dostępne komendy:")
+            print(" - exit: Zamyka serwer")
+            print(" - players: Wyświetla listę graczy")
+            print(" - queue: Wyświetla graczy w kolejce")
+            print(" - help: Wyświetla tę pomoc")
+        else:
+            print("[SERVER] Nieznana komenda. Użyj 'help' aby zobaczyć dostępne komendy.")
 
 def start_server():
     global Running
