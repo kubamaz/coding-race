@@ -5,7 +5,7 @@ import threading
 SERVER_IP = '127.0.0.1'
 PORT = 12345
 
-PlayerID = 1  # Example player ID, can be set dynamically
+PlayerID = 1
 
 isConnected = False
 isPlaying = False
@@ -51,9 +51,7 @@ def recive_data():
                 dane = dane.strip()
                 if dane:
                     msg = json.loads(dane)
-                    if msg.get("type") == "ping":
-                        pass
-                    elif msg.get("type") == "server_shutdown":
+                    if msg.get("type") == "server_shutdown":
                         print(f"Otrzymano komunikat o zamknięciu serwera: {msg.get('message')}")
                         isConnected = False
                         break
@@ -80,7 +78,7 @@ def recive_data():
                         isConnected = False
                         client.close()
                     else:
-                        print(f"Otrzymano wiadomość: {msg}")
+                        print(f"Otrzymano nieznany komunikat: {msg}")
         except Exception as e:
             print(f"Błąd odbierania danych: {e}")
             isConnected = False
