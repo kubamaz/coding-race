@@ -27,7 +27,6 @@ def handle_client(connection):
         return
    
 def handle_game(player1 , player2):
-    print("test")
     players = [player1, player2]
     while True:
         for player in players:
@@ -40,9 +39,9 @@ def handle_game(player1 , player2):
                     
                     return
                 else:
-                   msg = json.loads(data)
-                   oponent = player2 if player == player1 else player1
-                   oponent.sendall(json.dumps(msg).encode())
+                    msg = json.loads(data)
+                    oponent = player2 if player == player1 else player1
+                    oponent.sendall(json.dumps(msg).encode())
             except Exception as e:
                 print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
                 player.close()
