@@ -40,7 +40,6 @@ def handle_game(player1 , player2):
                     print(f"[!] Gracz {player.getpeername()} rozłączył się.")
                     player.close()
                     players.remove(player)
-                    
                     return
                 else:
                     while '\n' in data:
@@ -75,7 +74,8 @@ def handle_game(player1 , player2):
                     "type": "opponent_disconnected",
                     "message": "Twój przeciwnik rozłączył się."
                 }) + '\n').encode())
-
+                if oponent in player_list:
+                    player_list.remove(oponent)
                 if len(players) < 2:
                     print("[!] Gra została przerwana z powodu rozłączenia gracza.")
                     return
