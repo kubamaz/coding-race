@@ -8,6 +8,8 @@ PORT = 12345
 Running = True
 player_list = []
 queue = []
+def addr_to_str(addr):
+    return f"{addr[0]}:{addr[1]}"
 
 def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
@@ -15,10 +17,11 @@ def handle_client(connection):
     player_list.append(connection)
 
     try:
-        connection.sendall(json.dumps({
+        connection.sendall((json.dumps({
             "type": "queue",
-            "message": "Czekasz na przeciwnika..."
-        }).encode())
+            "message": "Czekasz na przeciwnika...",
+            "player_id": connection.getpeername()
+        }) + '\n').encode())
         queue.append(connection)
     except Exception as e:
         print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
@@ -28,7 +31,8 @@ def handle_client(connection):
    
 def handle_game(player1 , player2):
     players = [player1, player2]
-    while True:
+    game_active = True
+    while game_active:
         for player in players:
             try:
                 data = player.recv(1024).decode()
@@ -39,9 +43,27 @@ def handle_game(player1 , player2):
                     
                     return
                 else:
-                    msg = json.loads(data)
-                    oponent = player2 if player == player1 else player1
-                    oponent.sendall(json.dumps(msg).encode())
+                    while '\n' in data:
+                        dane, data = data.split('\n', 1)
+                        dane = dane.strip()
+
+                        msg = json.loads(dane)
+                        if msg.get("type") == "winner":
+                            print(f"Otrzymano komunikat o zwycięstwie: {msg.get('message')}")
+                            game_active = False
+                            oponent = player2 if player == player1 else player1
+                            oponent.sendall((json.dumps({
+                                "type": "looser",
+                                "message": "Twój przeciwnik wygrał!",
+                            })+ '\n').encode())
+                            if player in player_list:
+                                player_list.remove(player)
+                            if oponent in player_list:
+                                player_list.remove(oponent)
+
+
+                        oponent = player2 if player == player1 else player1
+                        oponent.sendall((json.dumps(msg)+ '\n').encode())
             except Exception as e:
                 print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
                 player.close()
@@ -49,10 +71,10 @@ def handle_game(player1 , player2):
                     player_list.remove(player)
                 players.remove(player)
                 oponent = player2 if player == player1 else player1
-                oponent.sendall(json.dumps({
+                oponent.sendall((json.dumps({
                     "type": "opponent_disconnected",
                     "message": "Twój przeciwnik rozłączył się."
-                }).encode())
+                }) + '\n').encode())
 
                 if len(players) < 2:
                     print("[!] Gra została przerwana z powodu rozłączenia gracza.")
@@ -66,14 +88,14 @@ def queue_system():
             player1 = queue.pop(0)
             player2 = queue.pop(0)
             try:
-                player1.sendall(json.dumps({
+                player1.sendall((json.dumps({
                     "type": "match",
                     "message": "Znalazłeś przeciwnika!"
-                }).encode())
-                player2.sendall(json.dumps({
+                }) + '\n').encode())
+                player2.sendall((json.dumps({
                     "type": "match",
                     "message": "Znalazłeś przeciwnika!"
-                }).encode())
+                }) + '\n').encode())
 
                 print(f"[+] Rozpoczynam grę między {player1.getpeername()} a {player2.getpeername()}")
                 game_thread = threading.Thread(target=handle_game, args=(player1, player2), daemon=True)
@@ -95,10 +117,10 @@ def server_console():
         if cmd == "exit":
             Running = False
             for player in player_list:
-                player.sendall(json.dumps({
+                player.sendall((json.dumps({
                     "type": "server_shutdown",
                     "message": "Serwer jest zamykany, do zobaczenia!"
-                }).encode())
+                }) + '\n').encode())
                 player.close()
                 player_list.remove(player)
             print("[SERVER] Zamykanie serwera...")
