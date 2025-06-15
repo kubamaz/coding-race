@@ -188,6 +188,22 @@ def game_screen():
     # exit_button.show()
     running = True
     counter.show()
+
+    networking.send_data(
+            {
+                    "type": "update_position",
+                    "x": player1.topleft_x_pos,
+                    "y": player1.topleft_y_pos,
+                    "angle": player1.angle,
+                    "speed": player1.get_real_velocity_str(),
+                    "boost": player1.boosts,
+                    "lap": player1.current_loop,
+                    "correct_answer": player1.correct_answers,
+                    "questions": player1.answers,
+                    "is_answering": player1.is_answering,
+                    "player_id": networking.addr_to_str(networking.player_id),
+                })
+
     while running:
         time_delta = clock.tick(60) / 1000.0
         current_time = pygame.time.get_ticks()
@@ -246,8 +262,6 @@ def game_screen():
             )
         player2.blit_car()
 
-        # TODO : AKTUALIZACJA INFORMACJI NA PANELU WYNIKOW
-        # right_panel.update_info_player2(...)
 
         # kolizje
         handle_collisions()
@@ -263,21 +277,29 @@ def game_screen():
         elif player2.finished:
             common_fun.RESULT = 0
             break
-        networking.send_data(
-        {
-                "type": "update_position",
-                "x": player1.topleft_x_pos,
-                "y": player1.topleft_y_pos,
-                "angle": player1.angle,
-                "speed": player1.get_real_velocity_str(),
-                "boost": player1.boosts,
-                "lap": player1.current_loop,
-                "correct_answer": player1.correct_answers,
-                "questions": player1.answers,
-                "is_answering": player1.is_answering,
-                "player_id": networking.addr_to_str(networking.player_id),
-            })
         
+        if player1.angle != player1.last_angle or player1.last_topleft_x_pos != player1.topleft_x_pos or player1.last_topleft_y_pos != player1.topleft_y_pos:
+            player1.last_topleft_x_pos = player1.topleft_x_pos
+            player1.last_topleft_y_pos = player1.topleft_y_pos
+            player1.last_angle = player1.angle
+
+            print("zmieniam pozycje gracza")
+
+            networking.send_data(
+            {
+                    "type": "update_position",
+                    "x": player1.topleft_x_pos,
+                    "y": player1.topleft_y_pos,
+                    "angle": player1.angle,
+                    "speed": player1.get_real_velocity_str(),
+                    "boost": player1.boosts,
+                    "lap": player1.current_loop,
+                    "correct_answer": player1.correct_answers,
+                    "questions": player1.answers,
+                    "is_answering": player1.is_answering,
+                    "player_id": networking.addr_to_str(networking.player_id),
+                })
+            
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()

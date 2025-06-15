@@ -56,6 +56,9 @@ class Player:
         self.start_topleft_x = start_topleft_x
         self.start_topleft_y = start_topleft_y
 
+        self.last_topleft_x_pos = 0
+        self.last_topleft_y_pos = 0
+        self.last_angle = 0
 
         # others
         self.epsilon = 0.25
@@ -208,6 +211,10 @@ class Player:
         # car position
         self.topleft_x_pos = self.start_topleft_x
         self.topleft_y_pos = self.start_topleft_y
+
+        self.last_topleft_x_pos = 0
+        self.last_topleft_y_pos = 0
+        self.last_angle = 0
 
     def collision_with_player(self, other_player):
         self_mask = pygame.mask.from_surface(self.rotated_image)

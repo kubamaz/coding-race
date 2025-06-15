@@ -53,7 +53,7 @@ def handle_game(player1 , player2):
     while game_active:
         for player in players:
             try:
-                data = player.recv(1024).decode()
+                data = player.recv(2048).decode()
                 if not data:
                     print(f"[!] Gracz {player.getpeername()} rozłączył się.")
                     player.close()
@@ -63,9 +63,8 @@ def handle_game(player1 , player2):
                     while '\n' in data:
                         dane, data = data.split('\n', 1)
                         dane = dane.strip()
-
                         msg = json.loads(dane)
-                        print(f"[+] Otrzymano wiadomość od gracza {player.getpeername()}: {msg}")
+
                         if msg.get("type") == "winner":
                             print(f"Otrzymano komunikat o zwycięstwie: {msg.get('message')}")
                             game_active = False
@@ -110,7 +109,7 @@ def queue_system():
                 player1.sendall((json.dumps({
                     "type": "match",
                     "message": "Znalazłeś przeciwnika!",
-                    "player_id": player2.getpeername(),
+                    "player_id": player1.getpeername(),
                     "car": 1,
                 }) + '\n').encode())
                 player2.sendall((json.dumps({
