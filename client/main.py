@@ -71,8 +71,7 @@ while True:
                     prev_screen = SUMMARY
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
 
-
-                    if RESULT:
+                    if networking.winner:
                         game_title.text = 'YOU WON !'
                     else:
                         game_title.text = 'YOU LOST !'
@@ -99,7 +98,7 @@ while True:
                 else:
                     current_screen = SUMMARY
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
-                    if RESULT:
+                    if networking.winner:
                         game_title.text = 'YOU WON !'
                     else:
                         game_title.text = 'YOU LOST !'

@@ -150,7 +150,8 @@ def loading_screen():
             if number_of_dots == 4:
                 number_of_dots = 0
             please_wait.rebuild()
-        if networking.server_shutdown:
+
+        if networking.server_shutdown: #TODO: obsługa zamknięcia serwera zrobione na szybko ale zle dziala wiec osoba od GUI niech się tym zajmie
             waiting_information.hide()
             please_wait.hide()
             back_button.hide()
@@ -164,14 +165,13 @@ def loading_screen():
                 back_button.show()
 
         if networking.found_match:
-            print("Match found")
             waiting_information.hide()
             please_wait.hide()
             back_button.hide()
             loading = False    
 
 
-        if networking.couldnt_connect:
+        if networking.couldnt_connect: #TODO: obsługa braku połączenia z serwerem zrobione na szybko ale zle dziala wiec osoba od GUI niech się tym zajmie
             waiting_information.hide()
             please_wait.hide()
             back_button.hide()

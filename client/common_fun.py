@@ -15,7 +15,6 @@ UNITS = ['1. Pliki', '2. Struktury', '3. Unie', '4. Dynamiczna alokacja pamięci
          '9. Operacje bitowe oraz dyrektywy preprocesora', '10. Dynamiczne struktury danych']
 
 
-RESULT = 1 #To jest stala ktora okresla czy wygralismy czy przegralismy: 0 - przegrana, 1 - wygrana
 
 #Ustawia dźwięk muzyki w tle ekranu głównego i zwraca dźwięk klikania
 def set_sounds(music_volume, click_volume):

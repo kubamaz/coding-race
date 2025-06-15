@@ -41,13 +41,13 @@ def handle_client(connection):
                 elif msg.get("type") == "match":
                     return
         except Exception as e:
-            print(f"Błąd odbierania danych od gracza {connection.getpeername()}: {e}")
+            print(f"Błąd odbierania danych od gracza {connection.getpeername()}")
             connection.close()
             player_list.remove(connection)
             return
 
 def handle_player(player, opponent):
-    while Running:
+    while Running or player in player_list:
         try:
             data = player.recv(2048).decode()
             if not data:
@@ -69,25 +69,26 @@ def handle_player(player, opponent):
                 msg = json.loads(dane)
 
                 if msg.get("type") == "winner":
-                    print(f"Otrzymano komunikat o zwycięstwie: {msg.get('message')}")
                     # Powiadom przeciwnika, że przegrał
                     opponent.sendall((json.dumps({
                         "type": "looser",
                         "message": "Twój przeciwnik wygrał!",
                     }) + '\n').encode())
                     # Zamknij oba połączenia
-                    player.close()
-                    opponent.close()
                     if player in player_list:
                         player_list.remove(player)
                     if opponent in player_list:
                         player_list.remove(opponent)
+                    
+                    time.sleep(1)  # Daj czas na wysłanie wiadomości do graczy
+                    player.close()
+                    opponent.close()
                     return
 
                 opponent.sendall((json.dumps(msg) + '\n').encode())
 
         except Exception as e:
-            print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
+            print(f"Błąd odbierania danych od gracza {player.getpeername()}")
             player.close()
             try:
                 if player in player_list:
@@ -140,7 +141,7 @@ def queue_system():
                 game_thread.start()
                 
             except Exception as e:
-                print(f"Błąd wysyłania danych do graczy: {e}")
+                print(f"Błąd wysyłania danych do graczy:")
                 player1.close()
                 player2.close()
                 if player1 in player_list:

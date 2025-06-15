@@ -34,6 +34,20 @@ def handle_checkpoints_collisions():
             if player1.answers % 3 == int(checkpoint_id - 1):
                 player1.answers += 1
                 player1.is_answering = True
+                networking.send_data(
+                {
+                        "type": "update_position",
+                        "x": player1.topleft_x_pos,
+                        "y": player1.topleft_y_pos,
+                        "angle": player1.angle,
+                        "speed": 0,
+                        "boost": player1.boosts,
+                        "lap": player1.current_loop,
+                        "correct_answer": player1.correct_answers,
+                        "questions": player1.answers,
+                        "is_answering": player1.is_answering,
+                        "player_id": networking.addr_to_str(networking.player_id),
+                    })
                 # question screen
                 if question_screen():
                     handle_correct_answer()
@@ -170,11 +184,9 @@ def game_screen():
     start_time = pygame.time.get_ticks()
     time_counter = 3
     if networking.car == 1:
-        print("Player 1 selected red car")
         player1 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
         player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
     else:
-        print("Player 2 selected red car")
         player2 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
         player1 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
     player1.reset_everything()
@@ -269,21 +281,32 @@ def game_screen():
         # prawy panel
         right_panel.set_gamer1_velocity(player1.get_real_velocity_str() + "km/h")
         right_panel.blit_panel()
+        if networking.server_shutdown:
+            #TODO: wyświetlenie komunikatu o zamknięciu serwera
+            break
+        if networking.opponent_disconnected:
+            networking.winner = 1
+            #TODO: wyświetlenie komunikatu o rozłączeniu się przeciwnika
+            break
 
-        # czy koniec gry
+        if networking.winner == 0:
+            break
+
         if player1.finished:
-            common_fun.RESULT = 1
+            networking.winner = 1
+            networking.send_data(
+            {
+                    "type": "winner"
+                })
+            
             break
-        elif player2.finished:
-            common_fun.RESULT = 0
-            break
+       
         
         if player1.angle != player1.last_angle or player1.last_topleft_x_pos != player1.topleft_x_pos or player1.last_topleft_y_pos != player1.topleft_y_pos:
             player1.last_topleft_x_pos = player1.topleft_x_pos
             player1.last_topleft_y_pos = player1.topleft_y_pos
             player1.last_angle = player1.angle
 
-            print("zmieniam pozycje gracza")
 
             networking.send_data(
             {

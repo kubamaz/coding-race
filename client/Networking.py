@@ -111,6 +111,7 @@ class Networking:
         self.server_shutdown = False
         self.recv_thread = None
         self.current_oponent_data = None
+        self.winner = None
     
     def addr_to_str(self, addr):
         return f"{addr[0]}:{addr[1]}" if isinstance(addr, tuple) else str(addr)
@@ -198,16 +199,10 @@ class Networking:
             self.is_playing = False
             self.is_connected = False
 
-        elif msg_type == "winner":
-            self.is_playing = False
-            self.is_connected = False
-            self.client.close()
-
         elif msg_type == "looser":
+            self.winner = 0
             self.is_playing = False
             self.is_connected = False
-            self.client.close()
-        
     
     def start_receiving(self):
         if self.is_connected:
