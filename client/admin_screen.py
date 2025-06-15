@@ -609,7 +609,7 @@ def main():
         fog_surface.set_alpha(120)
         fog_surface.fill((200, 200, 200))
         screen.blit(fog_surface, (0, 0))
-        if admin_panel.current_section != "questions":
+        if admin_panel.current_section is None:
             
         # Logo z cieniem
             shadow_offset = 30
