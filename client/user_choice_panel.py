@@ -4,6 +4,7 @@ import subprocess
 import sys
 import json
 import math
+from admin_screen import AdminPanel
 pygame.init()
 
 
@@ -14,6 +15,54 @@ SCREEN_HEIGHT = 832
 window_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ekran startowy')
 
+
+def run_admin_panel():
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Panel administratora")
+    manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    background_image = pygame.image.load("assets/imgs/background.png").convert()
+    background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    logo_image = pygame.image.load("assets/imgs/logo.png").convert_alpha()
+    logo_image = pygame.transform.scale(logo_image, (350, 350))
+
+    def back_to_login():
+        pygame.quit()
+        sys.exit()
+
+    admin_panel = AdminPanel(screen, manager, back_to_login)
+
+    clock = pygame.time.Clock()
+    running = True
+    while running:
+        time_delta = clock.tick(60) / 1000.0
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            admin_panel.handle_events(event)
+            manager.process_events(event)
+
+        screen.blit(background_image, (0, 0))
+
+        fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        fog_surface.set_alpha(120)
+        fog_surface.fill((200, 200, 200))
+        screen.blit(fog_surface, (0, 0))
+
+        if admin_panel.current_section is None:
+            shadow_offset = 30
+            shadow = pygame.Surface((350, 350), pygame.SRCALPHA)
+            shadow.fill((0, 0, 0, 100))
+            logo_x = SCREEN_WIDTH - 590
+            logo_y = 120
+            screen.blit(shadow, (logo_x + shadow_offset, logo_y + shadow_offset))
+            screen.blit(logo_image, (logo_x, logo_y))
+
+        manager.update(time_delta)
+        manager.draw_ui(screen)
+        pygame.display.flip()
+
+    pygame.quit()
 def create_circular_masked_surface(surface, feather_radius):
     width, height = surface.get_size()
     center_x = width // 2
@@ -102,7 +151,7 @@ error_label = pygame_gui.elements.UILabel(
 )
 clock = pygame.time.Clock()
 is_running = True
-
+next_action = None
 while is_running:
     time_delta = clock.tick(60) / 1000.0 
 
@@ -126,11 +175,11 @@ while is_running:
                                 break
                         if found_user:
                             if found_user['role'] == 'student':
-                                pygame.quit()
-                                subprocess.run([sys.executable, 'main.py'])
+                                next_action = "student"
+                                is_running = False
                             elif found_user['role'] == 'admin':
-                                #do uzupełnienia po zrobieniu panelu administratora
-                                print("zalogowano jako administrator")
+                                is_running = False
+                                run_admin_panel()
                         else:
                             error_label.set_text('Nieprawidłowy login lub hasło.')
                     except FileNotFoundError:
@@ -171,3 +220,8 @@ while is_running:
     pygame.display.update()
 
 pygame.quit()
+if next_action == "student":
+    print("Uruchamiam main.py jako student...")
+    subprocess.run([sys.executable, 'main.py'])
+elif next_action == "admin":
+    run_admin_panel()

@@ -1,3 +1,5 @@
+---
+
 Tutaj jest pytanie1 aaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaa
 Odp1 niepoprawna
 Odp2 niepoprawna
@@ -5,6 +7,7 @@ Odp3 poprawna
 Odp4 niepoprawna
 3
 ---
+
 Tutaj jest pytanie2aaa aaaaaaaaa aaaaaaaaaaaa aaaaaaaaa aaaaaaaaaa
 Odp1 poprawna
 Odp2 niepoprawna
@@ -12,66 +15,77 @@ Odp3 niepoprawna
 Odp4 niepoprawna
 1
 ---
+
 Tutaj jest pytanie3
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie4
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie5
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie6
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie7
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie8
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie9
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie10
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie11
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 Tutaj jest pytanie12
 Odp1 poprawna
 Odp2 npop
 Odp3 npop
 1
 ---
+
 asdad
 Odp1 asdasd asdas
 Odp2 asdadsasdad s
@@ -79,9 +93,24 @@ Odp3 asdasddsad
 Odp4 asdasdasd
 1
 ---
+
 nowe pytanie test
 Odp1 zła
 Odp2 zła
 Odp3 dobra
 3
 ---
+
+testtest
+Odp1 zle
+Odp2 zle
+Odp3 dobrze
+3
+---
+
+nowe
+Odp1 asd
+Odp2 asd
+Odp3 as
+Odp4 asfa
+4

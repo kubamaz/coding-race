@@ -34,7 +34,7 @@ class AdminPanel:
 
         self.btn_back = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(250, 400, 150, 65),
-            text="Powrót",
+            text="Zamknij",
             manager=manager,
         )
 
@@ -540,11 +540,12 @@ class AdminPanel:
         try:
             with open("Questions", "w", encoding="utf-8") as file:
                 for question in self.questions:
+                    file.write("---\n" + "\n")
                     file.write(question["text"] + "\n")
                     for idx, answer in enumerate(question["answers"]):
                         file.write(f"Odp{idx + 1} {answer}\n")
                     file.write(str(question["correct"]) + "\n")
-                    file.write("---\n")
+                    
         except Exception as e:
             print(f"Błąd podczas zapisu pytań: {e}")
 
