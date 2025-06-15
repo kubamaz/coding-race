@@ -116,7 +116,7 @@ class Networking:
         self.looser_message = None
         self.server_shutdown = False
         self.recv_thread = None
-        self.position_updates = []
+        self.current_oponent_data = None
     
     def addr_to_str(self, addr):
         return f"{addr[0]}:{addr[1]}" if isinstance(addr, tuple) else str(addr)
@@ -177,7 +177,18 @@ class Networking:
             self.is_connected = False
 
         elif msg_type == "update_position":
-            self.position_updates.append(msg)
+            self.current_oponent_data = {
+                "x": msg.get("x"),
+                "y": msg.get("y"),
+                "angle": msg.get("angle"),
+                "speed": msg.get("speed"),
+                "boost": msg.get("boost"),
+                "lap": msg.get("lap"),
+                "correct_answer": msg.get("correct_answer"),
+                "questions": msg.get("questions"),
+                "is_answering": msg.get("is_answering"),
+                "player_id": msg.get("player_id")
+            }
 
         elif msg_type == "match":
             print("Match found")

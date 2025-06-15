@@ -230,7 +230,20 @@ def game_screen():
         # player 2
 
         # TODO : AKTUALIZACJA POZYCJI
-        # update_player2_position(...)
+        if networking.current_oponent_data is not None:
+            player2.update_position(
+                networking.current_oponent_data.get("x"),
+                networking.current_oponent_data.get("y"),
+                networking.current_oponent_data.get("angle")
+            )
+            right_panel.update_info_player2(
+                networking.current_oponent_data.get("correct_answer"),
+                networking.current_oponent_data.get("questions"),
+                networking.current_oponent_data.get("lap"),
+                player2.all_loops,
+                networking.current_oponent_data.get("speed"),
+                networking.current_oponent_data.get("boost")
+            )
         player2.blit_car()
 
         # TODO : AKTUALIZACJA INFORMACJI NA PANELU WYNIKOW
@@ -250,7 +263,21 @@ def game_screen():
         elif player2.finished:
             common_fun.RESULT = 0
             break
-
+        networking.send_data(
+        {
+                "type": "update_position",
+                "x": player1.topleft_x_pos,
+                "y": player1.topleft_y_pos,
+                "angle": player1.angle,
+                "speed": player1.get_real_velocity_str(),
+                "boost": player1.boosts,
+                "lap": player1.current_loop,
+                "correct_answer": player1.correct_answers,
+                "questions": player1.answers,
+                "is_answering": player1.is_answering,
+                "player_id": networking.addr_to_str(networking.player_id),
+            })
+        
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()

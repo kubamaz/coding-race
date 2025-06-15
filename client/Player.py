@@ -59,7 +59,10 @@ class Player:
 
         # others
         self.epsilon = 0.25
-
+    def update_position(self, topleft_x_pos, topleft_y_pos, angle):
+        self.topleft_x_pos = topleft_x_pos
+        self.topleft_y_pos = topleft_y_pos
+        self.angle = angle
     # blit
     def blit_car(self):
         self.rotated_image = pygame.transform.rotate(self.car_when_driving, self.angle)
