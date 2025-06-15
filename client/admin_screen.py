@@ -15,6 +15,8 @@ class AdminPanel:
         self.current_section = None
         self.correct_answer_index = 0
         self.answer_select_buttons = []
+        self.users_elements = []
+        self.user_form_elements = []
 
         # Główne przyciski menu
         self.btn_questions = pygame_gui.elements.UIButton(
@@ -125,7 +127,125 @@ class AdminPanel:
         except Exception as e:
             print(f"Błąd w show_questions_panel: {e}")
             traceback.print_exc()
+    def show_users_panel(self):
+        try:
+            self.current_section = "users"
+            self.btn_questions.hide()
+            self.btn_users.hide()
+            self.btn_back.hide()
 
+            self.create_users_panel()
+            self.refresh_users_list()
+        except Exception as e:
+            print(f"Błąd w show_users_panel: {e}")
+    def create_users_panel(self):
+        if self.users_elements:
+            for element in self.users_elements + self.user_form_elements:
+                element.show()
+            return
+
+        # Lista użytkowników
+        self.users_list = pygame_gui.elements.UISelectionList(
+            relative_rect=pygame.Rect(20, 40, 450, 600),
+            item_list=[],
+            manager=self.manager,
+        )
+        self.users_elements.append(self.users_list)
+
+        # Przycisk dodawania
+        self.btn_add_user = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(500, 40, 40, 40),
+            text="+",
+            manager=self.manager,
+        )
+        self.users_elements.append(self.btn_add_user)
+
+        # Przycisk powrotu
+        self.btn_back_users_panel = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(100, 650, 100, 40),
+            text="Powrót",
+            manager=self.manager,
+        )
+        self.users_elements.append(self.btn_back_users_panel)
+
+        # Formularz edycji użytkownika
+        y_pos = 100
+        self.user_login = pygame_gui.elements.UITextEntryLine(
+            relative_rect=pygame.Rect(500, y_pos, 300, 40),
+            placeholder_text="Login...",
+            manager=self.manager,
+        )
+        self.user_form_elements.append(self.user_login)
+
+        y_pos += 60
+        self.user_password = pygame_gui.elements.UITextEntryLine(
+            relative_rect=pygame.Rect(500, y_pos, 300, 40),
+            placeholder_text="Hasło...",
+            manager=self.manager,
+        )
+        self.user_form_elements.append(self.user_password)
+
+        y_pos += 60
+        self.btn_save_user = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(500, y_pos, 120, 40),
+            text="Zapisz",
+            manager=self.manager,
+        )
+        self.user_form_elements.append(self.btn_save_user)
+
+        self.btn_delete_user = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(640, y_pos, 120, 40),
+            text="Usuń",
+            manager=self.manager,
+        )
+        self.user_form_elements.append(self.btn_delete_user)
+
+        self.btn_cancel_user = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(780, y_pos, 120, 40),
+            text="Anuluj",
+            manager=self.manager,
+        )
+        self.user_form_elements.append(self.btn_cancel_user)
+
+        # Ukryj formularz na start
+        for element in self.user_form_elements:
+            element.hide()        
+    def hide_users_panel(self):
+        for element in self.users_elements + self.user_form_elements:
+            element.hide()
+
+        self.btn_questions.show()
+        self.btn_users.show()
+        self.btn_back.show()
+        self.current_section = None
+    def refresh_users_list(self):
+        student_titles = []
+        self.visible_student_indices = []  # <== Dodaj to przed pętlą
+        for idx, user in enumerate(self.users):
+            if user.get("role") == "student":
+                student_titles.append(f"{len(self.visible_student_indices) + 1}. {user.get('login', '[Brak loginu]')}")
+                self.visible_student_indices.append(idx)  # <== I to w środku pętli
+        self.users_list.set_item_list(student_titles)
+    def load_user_to_form(self):
+        if self.current_user_index < 0 or self.current_user_index >= len(self.users):
+            return
+        user = self.users[self.current_user_index]
+        self.user_login.set_text(user.get("login", ""))
+        self.user_password.set_text(user.get("password", ""))
+
+        for element in self.user_form_elements:
+            element.show()   
+    def clear_user_form(self):
+        self.user_login.set_text("")
+        self.user_password.set_text("")
+        for element in self.user_form_elements:
+            element.show()
+    def save_users_to_file(self):
+        try:
+            with open("users.json", "w", encoding="utf-8") as file:
+                json.dump({"users": self.users}, file, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"Błąd podczas zapisu użytkowników: {e}")        
     def hide_questions_panel(self):
         # Ukryj wszystkie elementy pytań
         for element in self.questions_elements:
@@ -280,6 +400,25 @@ class AdminPanel:
                         index = self.answer_select_buttons.index(event.ui_element)
                         self.correct_answer_index = index
                         self.update_correct_answer_buttons()
+                    elif event.ui_element == self.btn_back_users_panel:
+                        self.hide_users_panel()
+                    elif event.ui_element == self.btn_add_user:
+                        self.current_user_index = -1
+                        self.clear_user_form()
+                    elif event.ui_element == self.btn_save_user:
+                        self.save_user()
+                        self.refresh_users_list()
+                        for element in self.user_form_elements:
+                            element.hide()
+                    elif event.ui_element == self.btn_delete_user:
+                        self.delete_user()
+                        self.refresh_users_list()
+                        for element in self.user_form_elements:
+                            element.hide()
+                    elif event.ui_element == self.btn_cancel_user:
+                        for element in self.user_form_elements:
+                            element.hide()
+
                 elif event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                     if event.ui_element in self.answer_fields:
                         self.update_correct_answer_buttons()
@@ -297,9 +436,42 @@ class AdminPanel:
                         except Exception as e:
                             print(f"Błąd ładowania pytania: {e}")
 
+                    elif event.ui_element == self.users_list:
+                        try:
+                            idx_str = event.text.split('.')[0]
+                            if idx_str.isdigit():
+                                selected_idx = int(idx_str) - 1
+                                if 0 <= selected_idx < len(self.visible_student_indices):
+                                    self.current_user_index = self.visible_student_indices[selected_idx]
+                                    self.load_user_to_form()
+                        except Exception as e:
+                            print(f"Błąd ładowania użytkownika: {e}")
+
         except Exception as e:
             print(f"Błąd w handle_events: {e}")
 
+    def save_user(self):
+        login = self.user_login.get_text().strip()
+        password = self.user_password.get_text().strip()
+
+        if not login or not password:
+            print("Login i hasło nie mogą być puste!")
+            return
+
+        if self.current_user_index == -1:
+            self.users.append({"login": login, "password": password, "role": "student"})
+        else:
+            if 0 <= self.current_user_index < len(self.users):
+                self.users[self.current_user_index]["login"] = login
+                self.users[self.current_user_index]["password"] = password
+
+        self.save_users_to_file()
+
+    def delete_user(self):
+        if 0 <= self.current_user_index < len(self.users):
+            del self.users[self.current_user_index]
+            self.current_user_index = -1
+            self.save_users_to_file()
     def clear_question_form(self):
         self.question_text.set_text("")
         for field in self.answer_fields:
