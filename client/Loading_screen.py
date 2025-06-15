@@ -56,8 +56,6 @@ def cars_conf():
 
 
 def loading_screen():
-    logowanie_uzytkownika = 10 #SYMULACJA ZE PO 5 SEKUNDACH UZYTKOWNIK SIE ZALOGUJE - USUNAC TO POZNIEJ!!!!!!!!
-
     #Liczba kropek ktore maja sie wyswietlic przy napisie prosze czekac..
     number_of_dots = 1
 
@@ -68,6 +66,7 @@ def loading_screen():
     car_number3 = -1
     car_number4 = -1
 
+    print("Loading screen started")
     #Wyswietlam GUI
     waiting_information.show()
     please_wait.show()
@@ -75,12 +74,18 @@ def loading_screen():
 
     loading = True
     start_time = pygame.time.get_ticks()
-
+    if networking.is_connected:
+        networking.send_data({
+            "type": "join",
+            "player_id": networking.player_id
+        })
     while loading:
         current_time = pygame.time.get_ticks()
         time_delta = clock.tick(60) / 1000.0
         screen.blit(background_picture, (0, 0))
 
+        networking.looking_for_match = True
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 loading = False
@@ -89,6 +94,10 @@ def loading_screen():
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
                 if event.ui_element == back_button:
+                    print("Back button pressed")
+                    networking.send_data({
+                        "type": "leave",
+                    })
                     waiting_information.hide()
                     please_wait.hide()
                     back_button.hide()
@@ -141,14 +150,44 @@ def loading_screen():
             if number_of_dots == 4:
                 number_of_dots = 0
             please_wait.rebuild()
-
-            #CO SEKUNDE BEDE TEZ SPRAWDZAC CZY JAKIS UZYTKOWNIK SIE NIE ZALOGOWAL - TERAZ PRZYJMUJE ZE PO 5 SEKUNDACH SIE ZALOGUJE
-            logowanie_uzytkownika -= 1
-            if logowanie_uzytkownika == 0:
-                waiting_information.hide()
+        if networking.server_shutdown:
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            loading = False
+            networking.server_shutdown = False
+            networking.last_error = None
+            if not networking.is_connected:
+                waiting_information.text = 'BŁĄD POŁĄCZENIA Z SERWEREM'
+                waiting_information.rebuild()
+                waiting_information.show()
                 please_wait.hide()
-                back_button.hide()
-                loading = False
+                back_button.show()
+
+        if networking.found_match:
+            print("Match found")
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            loading = False    
+
+
+        if networking.couldnt_connect:
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            loading = False
+            networking.couldnt_connect = False
+            networking.last_error = None
+            networking.connect()
+            if not networking.is_connected:
+                waiting_information.text = 'BŁĄD POŁĄCZENIA Z SERWEREM'
+                waiting_information.rebuild()
+                waiting_information.show()
+                please_wait.hide()
+                back_button.show()    
+       
+        
 
 
         manager.update(time_delta)

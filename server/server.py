@@ -15,19 +15,37 @@ def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
 
     player_list.append(connection)
+    looking_for_opponent = True
+    while looking_for_opponent:
+        try:
+            data = connection.recv(1024).decode()
+            if not data:
+                print(f"[!] Gracz {connection.getpeername()} rozłączył się.")
+                connection.close()
+                player_list.remove(connection)
+                if connection in queue:
+                    queue.remove(connection)
+                return
+            
+            while '\n' in data:
+                message, data = data.split('\n', 1)
+                message = message.strip()
 
-    try:
-        connection.sendall((json.dumps({
-            "type": "queue",
-            "message": "Czekasz na przeciwnika...",
-            "player_id": connection.getpeername()
-        }) + '\n').encode())
-        queue.append(connection)
-    except Exception as e:
-        print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
-        connection.close()
-        player_list.remove(connection)
-        return
+                msg = json.loads(message)
+                if msg.get("type") == "join" and not connection in queue:
+                    print(f"[+] Gracz {connection.getpeername()} dołączył do gry.")
+                    queue.append(connection)
+                elif msg.get("type") == "leave":
+                    queue.remove(connection)
+                    print(f"[!] Gracz {connection.getpeername()} opuścił kolejkę.")
+                elif msg.get("type") == "match":
+                    return
+        except Exception as e:
+            print(f"Błąd odbierania danych od gracza {connection.getpeername()}: {e}")
+            connection.close()
+            player_list.remove(connection)
+            return
+
    
 def handle_game(player1 , player2):
     players = [player1, player2]
@@ -47,6 +65,7 @@ def handle_game(player1 , player2):
                         dane = dane.strip()
 
                         msg = json.loads(dane)
+                        print(f"[+] Otrzymano wiadomość od gracza {player.getpeername()}: {msg}")
                         if msg.get("type") == "winner":
                             print(f"Otrzymano komunikat o zwycięstwie: {msg.get('message')}")
                             game_active = False
@@ -90,14 +109,19 @@ def queue_system():
             try:
                 player1.sendall((json.dumps({
                     "type": "match",
-                    "message": "Znalazłeś przeciwnika!"
+                    "message": "Znalazłeś przeciwnika!",
+                    "player_id": player2.getpeername(),
+                    "car": 1,
                 }) + '\n').encode())
                 player2.sendall((json.dumps({
                     "type": "match",
-                    "message": "Znalazłeś przeciwnika!"
+                    "message": "Znalazłeś przeciwnika!",
+                    "player_id": player2.getpeername(),
+                    "car": 2,
                 }) + '\n').encode())
 
                 print(f"[+] Rozpoczynam grę między {player1.getpeername()} a {player2.getpeername()}")
+                time.sleep(3)  # Daj czas na wysłanie wiadomości do graczy
                 game_thread = threading.Thread(target=handle_game, args=(player1, player2), daemon=True)
                 game_thread.start()
                 

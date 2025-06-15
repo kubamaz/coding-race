@@ -53,23 +53,34 @@ while True:
                 set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
                 unit_screen()
                 loading_screen()
-                game_screen()
-
-                #Po grze robie podsumowanie
-                current_screen = SUMMARY
-                prev_screen = SUMMARY
-                set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
-
-
-                if RESULT:
-                    game_title.text = 'YOU WON !'
+                if networking.couldnt_connect:
+                    current_screen = MENU
+                    set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
+                    game_title.text = 'Connection Error'
+                    game_title.rebuild()
+                elif networking.server_shutdown:
+                    current_screen = MENU
+                    set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
+                    game_title.text = 'Server Shutdown'
+                    game_title.rebuild()
                 else:
-                    game_title.text = 'YOU LOST !'
+                    game_screen()
 
-                start_button.text = 'Play again'
+                    #Po grze robie podsumowanie
+                    current_screen = SUMMARY
+                    prev_screen = SUMMARY
+                    set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
 
-                game_title.rebuild()
-                start_button.rebuild()
+
+                    if RESULT:
+                        game_title.text = 'YOU WON !'
+                    else:
+                        game_title.text = 'YOU LOST !'
+
+                    start_button.text = 'Play again'
+
+                    game_title.rebuild()
+                    start_button.rebuild()
 
             elif event.ui_element == exit_button:
                 pygame.quit()

@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 import sys
-
+from Networking import Networking
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
@@ -174,3 +174,9 @@ background_picture = resize_img("assets/imgs/Background_pic.png",SCREEN_HEIGHT, 
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
 clock = pygame.time.Clock()
+
+# Inicjalizacja sieci
+networking = Networking(server_ip='127.0.0.1', port=12345)
+
+networking.connect()
+networking.start_receiving()

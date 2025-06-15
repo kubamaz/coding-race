@@ -142,9 +142,12 @@ exit_button = pygame_gui.elements.UIButton(
 
 exit_button.hide()
 
+player1 = None
+player2 = None
 # players
-player1 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
-player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
+
+
+
 # TODO : uzależnienie pozycji start_topleft_y od kolejności połączenia z serwerem -
 #  - jeden z graczy na poczatku musi byc wyżej, a drugi niżej
 
@@ -163,9 +166,17 @@ counter = pygame_gui.elements.UILabel(
 counter.hide()
 
 def game_screen():
+    global player1, player2
     start_time = pygame.time.get_ticks()
     time_counter = 3
-
+    if networking.car == 1:
+        print("Player 1 selected red car")
+        player1 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
+        player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
+    else:
+        print("Player 2 selected red car")
+        player2 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
+        player1 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
     player1.reset_everything()
     player2.reset_everything()
     right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
