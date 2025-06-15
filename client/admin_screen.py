@@ -540,7 +540,7 @@ class AdminPanel:
         try:
             with open("Questions", "w", encoding="utf-8") as file:
                 for question in self.questions:
-                    file.write("---\n" + "\n")
+                    file.write("---\n")
                     file.write(question["text"] + "\n")
                     for idx, answer in enumerate(question["answers"]):
                         file.write(f"Odp{idx + 1} {answer}\n")
