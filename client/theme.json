@@ -367,5 +367,122 @@
     "misc": {
         "text_shadow_size": "0"
     }
+  },
+  "#admin_button": {
+    "colours": {
+      "normal_bg": "transparent",
+      "hovered_bg": "transparent",
+      "normal_border": "#AE0909",
+      "hovered_border": "#F56914",
+      "normal_text": "#D96024",
+      "hovered_text": "#F56914"
+    },
+    "font": {
+      "name": "Michroma",
+      "size": 22
+    },
+    "misc": {
+      "border_width": 3,
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 10
+    }
+  },
+  
+  "#panel_button": {
+    "colours": {
+      "normal_bg": "transparent",
+      "hovered_bg": "transparent",
+      "normal_border": "#5A2A0A",
+      "hovered_border": "#7A3A1A",
+      "normal_text": "#5A2A0A",
+      "hovered_text": "#7A3A1A"
+    },
+    "font": {
+      "name": "Michroma",
+      "size": 16
+    },
+    "misc": {
+      "border_width": 2,
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 8
+    }
+  },
+  
+  "#list_item": {
+    "colours": {
+      "normal_bg": "rgba(90, 42, 10, 0.3)",
+      "selected_bg": "rgba(122, 58, 26, 0.5)",
+      "normal_text": "#E8D0B0",
+      "selected_text": "#FFFFFF"
+    },
+    "font": {
+      "name": "Michroma",
+      "size": 14
+    },
+    "misc": {
+      "border_width": 1,
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 5
+    }
+  },
+  
+  "#text_input": {
+    "colours": {
+    "normal_bg": "rgba(255, 255, 255, 0.1)",
+    "hovered_bg": "rgba(255, 255, 255, 0.2)",
+    "normal_border": "#D96024",
+    "hovered_border": "#F56914",
+    "selected_border": "#FF4500",
+    "normal_text": "#FFFFFF",
+    "active_bg": "rgba(90, 42, 10, 0.5)"
+},
+    "font": {
+      "name": "Michroma",
+      "size": 16
+    },
+    "misc": {
+      "border_width": 1,
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 5,
+      "padding": "5,5"
+    }
+  },
+  
+  "#form_button": {
+    "colours": {
+      "normal_bg": "rgba(90, 42, 10, 0.4)",
+      "hovered_bg": "rgba(122, 58, 26, 0.6)",
+      "normal_border": "#5A2A0A",
+      "hovered_border": "#7A3A1A",
+      "normal_text": "#E8D0B0",
+      "hovered_text": "#FFFFFF"
+    },
+    "font": {
+      "name": "Michroma",
+      "size": 14
+    },
+    "misc": {
+      "border_width": 1,
+      "shape": "rounded_rectangle",
+      "shape_corner_radius": 6
+    }
+  },
+  
+  "#correct_button": {
+    "colours": {
+      "normal_bg": "rgba(26, 122, 26, 0.3)",
+      "hovered_bg": "rgba(36, 142, 36, 0.5)",
+      "normal_border": "#1A7A1A",
+      "hovered_border": "#248E24"
+    },
+    "font": {
+    "name": "Michroma",
+    "size": "14"
+    },
+    "misc": {
+        "border_width": "1",
+        "shape": "rounded_rectangle",
+        "shape_corner_radius": "5"
+    }
   }
 }

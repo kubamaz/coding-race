@@ -13,44 +13,46 @@ class AdminPanel:
         self.manager = manager
         self.back_callback = back_callback
         self.current_section = None
-        self.correct_answer_index = 0  # domyślnie pierwsza odpowiedź
+        self.correct_answer_index = 0
         self.answer_select_buttons = []
 
-        self.main_panel = pygame_gui.elements.UIPanel(
-            relative_rect=pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
-            manager=manager
-        )
-
+        # Główne przyciski menu
         self.btn_questions = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(50, 50, 200, 50),
+            relative_rect=pygame.Rect(250, 180, 300, 75),
             text="Zarządzaj pytaniami",
             manager=manager,
-            container=self.main_panel
+            object_id="#dmin_button"
         )
 
         self.btn_users = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(50, 120, 200, 50),
+            relative_rect=pygame.Rect(250, 280, 300, 75),
             text="Zarządzaj użytkownikami",
             manager=manager,
-            container=self.main_panel
         )
 
         self.btn_back = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(50, 500, 100, 40),
+            relative_rect=pygame.Rect(250, 400, 150, 65),
             text="Powrót",
             manager=manager,
-            container=self.main_panel
         )
 
-        self.questions_panel = None
-        self.users_panel = None
+        # Listy elementów GUI
+        self.questions_elements = []  # Elementy listy pytań
+        self.form_elements = []       # Elementy formularza edycji pytania
+        
+        # Zmienne stanu
         self.current_question_index = -1
         self.current_user_index = -1
         self.questions = self.load_questions()
         self.users = self.load_users()
+        
+        # Inicjalizacja panelu pytań
+        self.create_questions_panel()
+        
+        # Ukryj elementy pytań na starcie
+        self.hide_questions_panel()
 
     def load_questions(self):
-        # Twój kod bez zmian
         questions = []
         try:
             if os.path.exists("Questions"):
@@ -110,96 +112,116 @@ class AdminPanel:
     def show_questions_panel(self):
         try:
             self.current_section = "questions"
-            self.main_panel.hide()
+            # Ukryj główne przyciski
+            self.btn_questions.hide()
+            self.btn_users.hide()
+            self.btn_back.hide()
 
-            if self.questions_panel is None:
-                self.create_questions_panel()
-            else:
-                self.questions_panel.show()
-                self.refresh_questions_list()
+            # Pokaż elementy panelu pytań
+            for element in self.questions_elements:
+                element.show()
+                
+            self.refresh_questions_list()
         except Exception as e:
             print(f"Błąd w show_questions_panel: {e}")
             traceback.print_exc()
 
+    def hide_questions_panel(self):
+        # Ukryj wszystkie elementy pytań
+        for element in self.questions_elements:
+            element.hide()
+            
+        # Ukryj formularz
+        for element in self.form_elements:
+            element.hide()
+            
+        # Pokaż główne przyciski
+        self.btn_questions.show()
+        self.btn_users.show()
+        self.btn_back.show()
+        self.current_section = None
+
     def create_questions_panel(self):
         try:
-            self.questions_panel = pygame_gui.elements.UIPanel(
-                relative_rect=pygame.Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
-                manager=self.manager
-            )
-
+            # Lista pytań
             titles = self.get_questions_titles() if self.questions else ["Brak pytań"]
-
             self.questions_list = pygame_gui.elements.UISelectionList(
-                relative_rect=pygame.Rect(20, 20, 300, 500),
+                relative_rect=pygame.Rect(20, 40, 450, 600),
                 item_list=titles,
                 manager=self.manager,
-                container=self.questions_panel
             )
+            self.questions_elements.append(self.questions_list)
 
+            # Przycisk dodaj pytanie
             self.btn_add_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(330, 20, 40, 40),
+                relative_rect=pygame.Rect(500, 40, 40, 40),
                 text="+",
                 manager=self.manager,
-                container=self.questions_panel
             )
+            self.questions_elements.append(self.btn_add_question)
 
-            self.question_form_panel = pygame_gui.elements.UIPanel(
-                relative_rect=pygame.Rect(380, 20, 400, 560),
+            # Przycisk powrotu
+            self.btn_back_questions_panel = pygame_gui.elements.UIButton(
+                relative_rect=pygame.Rect(100, 650, 100, 40),
+                text="Powrót",
                 manager=self.manager,
-                container=self.questions_panel
             )
+            self.questions_elements.append(self.btn_back_questions_panel)
 
-            y_pos = 20
+            # Formularz edycji pytania
+            y_pos = 40
             self.question_text = pygame_gui.elements.UITextEntryBox(
-                relative_rect=pygame.Rect(10, y_pos, 380, 100),
+                relative_rect=pygame.Rect(500, y_pos, 380, 100),
                 placeholder_text="Treść pytania...",
                 manager=self.manager,
-                container=self.question_form_panel
             )
+            self.form_elements.append(self.question_text)
 
             self.answer_fields = []
             for i in range(4):
                 y_pos += 110 if i == 0 else 40
                 field = pygame_gui.elements.UITextEntryLine(
-                    relative_rect=pygame.Rect(10, y_pos, 300, 30),
+                    relative_rect=pygame.Rect(500, y_pos, 300, 30),
                     placeholder_text=f"Odpowiedź {i + 1}...",
                     manager=self.manager,
-                    container=self.question_form_panel
                 )
                 self.answer_fields.append(field)
+                self.form_elements.append(field)
 
                 select_button = pygame_gui.elements.UIButton(
-                    relative_rect=pygame.Rect(320, y_pos, 50, 30),
+                    relative_rect=pygame.Rect(820, y_pos, 50, 30),
                     text="",
                     manager=self.manager,
-                    container=self.question_form_panel
                 )
                 self.answer_select_buttons.append(select_button)
+                self.form_elements.append(select_button)
 
             y_pos += 50
             self.btn_save_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(10, y_pos, 120, 40),
+                relative_rect=pygame.Rect(500, y_pos, 120, 40),
                 text="Zapisz",
                 manager=self.manager,
-                container=self.question_form_panel
             )
+            self.form_elements.append(self.btn_save_question)
 
             self.btn_delete_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(140, y_pos, 120, 40),
+                relative_rect=pygame.Rect(640, y_pos, 120, 40),
                 text="Usuń",
                 manager=self.manager,
-                container=self.question_form_panel
             )
+            self.form_elements.append(self.btn_delete_question)
 
             self.btn_back_questions = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(270, y_pos, 120, 40),
+                relative_rect=pygame.Rect(780, y_pos, 120, 40),
                 text="Anuluj",
                 manager=self.manager,
-                container=self.question_form_panel
             )
+            self.form_elements.append(self.btn_back_questions)
 
-            self.question_form_panel.hide()
+            # Na starcie ukryj formularz
+            for element in self.form_elements:
+                element.hide()
+
         except Exception as e:
             print(f"Błąd w create_questions_panel: {e}")
             traceback.print_exc()
@@ -236,19 +258,24 @@ class AdminPanel:
                         self.show_users_panel()
                     elif event.ui_element == self.btn_back:
                         self.back_callback()
-                    elif hasattr(self, 'btn_back_users') and event.ui_element == self.btn_back_users:
-                        self.users_panel.hide()
-                        self.main_panel.show()
+                    elif event.ui_element == self.btn_back_questions_panel:
+                        self.hide_questions_panel()
                     elif event.ui_element == self.btn_add_question:
                         self.current_question_index = -1
                         self.clear_question_form()
-                        self.question_form_panel.show()
+                        for element in self.form_elements:
+                            element.show()
                     elif event.ui_element == self.btn_save_question:
                         self.save_question()
+                        for element in self.form_elements:
+                            element.hide()
                     elif event.ui_element == self.btn_delete_question:
                         self.delete_question()
+                        for element in self.form_elements:
+                            element.hide()
                     elif event.ui_element == self.btn_back_questions:
-                        self.question_form_panel.hide()
+                        for element in self.form_elements:
+                            element.hide()
                     elif event.ui_element in self.answer_select_buttons:
                         index = self.answer_select_buttons.index(event.ui_element)
                         self.correct_answer_index = index
@@ -265,7 +292,8 @@ class AdminPanel:
                                 self.current_question_index = int(idx_str) - 1
                                 if 0 <= self.current_question_index < len(self.questions):
                                     self.load_question_to_form()
-                                    self.question_form_panel.show()
+                                    for element in self.form_elements:
+                                        element.show()
                         except Exception as e:
                             print(f"Błąd ładowania pytania: {e}")
 
@@ -323,7 +351,6 @@ class AdminPanel:
 
             self.save_questions_to_file()
             self.refresh_questions_list()
-            self.question_form_panel.hide()
 
         except Exception as e:
             print(f"Błąd w save_question: {e}")
@@ -334,7 +361,6 @@ class AdminPanel:
                 del self.questions[self.current_question_index]
                 self.save_questions_to_file()
                 self.refresh_questions_list()
-                self.question_form_panel.hide()
         except Exception as e:
             print(f"Błąd w delete_question: {e}")
 
@@ -387,8 +413,13 @@ def main():
     manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     admin_panel = AdminPanel(screen, manager, back_to_main_menu)
+    background_image = pygame.image.load("assets/imgs/background.png").convert()
+    background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    logo_image = pygame.image.load("assets/imgs/logo.png").convert_alpha()
+    logo_image = pygame.transform.scale(logo_image, (350, 350))
     running = True
+    
     while running:
         time_delta = clock.tick(60) / 1000.0
         for event in pygame.event.get():
@@ -398,9 +429,33 @@ def main():
             admin_panel.handle_events(event)
             manager.process_events(event)
 
+        # Rysowanie tła
+        screen.blit(background_image, (0, 0))
+        
+        # Mgiełka
+        fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        fog_surface.set_alpha(120)
+        fog_surface.fill((200, 200, 200))
+        screen.blit(fog_surface, (0, 0))
+        if admin_panel.current_section != "questions":
+            
+        # Logo z cieniem
+            shadow_offset = 30
+            shadow = pygame.Surface((350, 350), pygame.SRCALPHA)
+            shadow.fill((0, 0, 0, 100))
+            
+            # Pozycja logo (prawe górne ramię z lekkim marginesem)
+            logo_x = SCREEN_WIDTH - 590
+            logo_y = 120
+            
+            # Rysowanie cienia i logo
+            screen.blit(shadow, (logo_x + shadow_offset, logo_y + shadow_offset))
+            screen.blit(logo_image, (logo_x, logo_y))
+        
+        # Aktualizacja i rysowanie GUI
         manager.update(time_delta)
-        screen.fill((0, 0, 0))
         manager.draw_ui(screen)
+        
         pygame.display.flip()
 
     pygame.quit()
