@@ -1,14 +1,19 @@
 {
-  "users":[
-    {
-    "login": "Jan Nowak",
-    "password": "haslo123",
-    "role": "student"
-    },
-    {
-    "login": "Piotr Duch",
-    "password": "maslo123",
-    "role": "admin"
-    }
-  ]
+    "users": [
+        {
+            "login": "Jan Nowak",
+            "password": "haslo123",
+            "role": "student"
+        },
+        {
+            "login": "Piotr Duch",
+            "password": "maslo123",
+            "role": "admin"
+        },
+        {
+            "login": "Anna Klimczak",
+            "password": "nowehaslo",
+            "role": "student"
+        }
+    ]
 }

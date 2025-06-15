@@ -4,6 +4,7 @@ import subprocess
 import sys
 import json
 import math
+from admin_screen import run_admin_panel
 pygame.init()
 
 
@@ -13,6 +14,8 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 window_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ekran startowy')
+background_image = pygame.image.load("assets/imgs/background.png").convert()
+background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 def create_circular_masked_surface(surface, feather_radius):
     width, height = surface.get_size()
@@ -32,7 +35,7 @@ def create_circular_masked_surface(surface, feather_radius):
                 alpha = 255
             elif dist < max_radius:
                 fade = (max_radius - dist) / feather_radius
-                alpha = int(255 * (fade ** 2))  # możesz testować też fade**3
+                alpha = int(255 * (fade ** 2)) 
             else:
                 alpha = 0
 
@@ -40,14 +43,7 @@ def create_circular_masked_surface(surface, feather_radius):
             masked_surface.set_at((x, y), (r, g, b, min(alpha, a)))
 
     return masked_surface
-# original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha() 
 
-# # Skala (np. 0.3 to 30% oryginalnego rozmiaru) — TUTAJ REGULUJESZ WIELKOŚĆ
-# scale_factor = 0.3
-# logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
-
-# # Skalowanie z wygładzeniem
-# logo = pygame.transform.smoothscale(original_logo, logo_size)
 original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha()
 scale_factor = 0.3
 logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
@@ -109,7 +105,7 @@ error_label = pygame_gui.elements.UILabel(
 )
 clock = pygame.time.Clock()
 is_running = True
-
+next_action = None
 while is_running:
     time_delta = clock.tick(60) / 1000.0 
 
@@ -133,11 +129,15 @@ while is_running:
                                 break
                         if found_user:
                             if found_user['role'] == 'student':
+                                next_action = "student"
+                                is_running = False
                                 pygame.quit()
+                                print("Uruchamiam main.py jako student...")
                                 subprocess.run([sys.executable, 'main.py'])
                             elif found_user['role'] == 'admin':
-                                #do uzupełnienia po zrobieniu panelu administratora
-                                print("zalogowano jako administrator")
+                                is_running = False
+                                pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                                run_admin_panel()
                         else:
                             error_label.set_text('Nieprawidłowy login lub hasło.')
                     except FileNotFoundError:
@@ -167,7 +167,13 @@ while is_running:
 
     manager.update(time_delta)
 
-    window_surface.fill(background_color)
+    window_surface.blit(background_image, (0,0))
+    
+    fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    fog_surface.set_alpha(80)
+    fog_surface.fill((200, 200, 200))
+    window_surface.blit(fog_surface, (0, 0))
+
     manager.draw_ui(window_surface)
         # Oblicz pozycję do wyśrodkowania logo
     logo_x = (SCREEN_WIDTH - logo.get_width()) // 2
