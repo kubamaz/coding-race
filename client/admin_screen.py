@@ -607,9 +607,10 @@ def main():
         
         # Mgiełka
         fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-        fog_surface.set_alpha(120)
+        fog_surface.set_alpha(80)
         fog_surface.fill((200, 200, 200))
         screen.blit(fog_surface, (0, 0))
+        
         if admin_panel.current_section is None:
             
         # Logo z cieniem

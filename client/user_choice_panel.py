@@ -14,7 +14,8 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 window_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ekran startowy')
-
+background_image = pygame.image.load("assets/imgs/background.png").convert()
+background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 def run_admin_panel():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -209,7 +210,13 @@ while is_running:
 
     manager.update(time_delta)
 
-    window_surface.fill(background_color)
+    window_surface.blit(background_image, (0,0))
+    
+    fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    fog_surface.set_alpha(80)
+    fog_surface.fill((200, 200, 200))
+    window_surface.blit(fog_surface, (0, 0))
+
     manager.draw_ui(window_surface)
         # Oblicz pozycję do wyśrodkowania logo
     logo_x = (SCREEN_WIDTH - logo.get_width()) // 2
