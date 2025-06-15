@@ -21,21 +21,23 @@ class AdminPanel:
         # Główne przyciski menu
         self.btn_questions = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(250, 180, 300, 75),
-            text="Zarządzaj pytaniami",
+            text="Pytania",
             manager=manager,
-            object_id="#dmin_button"
+            object_id="#panel_button"
         )
 
         self.btn_users = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(250, 280, 300, 75),
-            text="Zarządzaj użytkownikami",
+            text="Użytkownicy",
             manager=manager,
+            object_id="#panel_button"
         )
 
         self.btn_back = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(250, 400, 150, 65),
             text="Zamknij",
             manager=manager,
+            object_id="#panel_button"
         )
 
         # Listy elementów GUI
@@ -149,6 +151,7 @@ class AdminPanel:
             relative_rect=pygame.Rect(20, 40, 450, 600),
             item_list=[],
             manager=self.manager,
+            object_id="#users_list"
         )
         self.users_elements.append(self.users_list)
 
@@ -157,6 +160,7 @@ class AdminPanel:
             relative_rect=pygame.Rect(500, 40, 40, 40),
             text="+",
             manager=self.manager,
+            object_id=pygame_gui.core.ObjectID(class_id="@add_button", object_id="#add_button")
         )
         self.users_elements.append(self.btn_add_user)
 
@@ -269,6 +273,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(20, 40, 450, 600),
                 item_list=titles,
                 manager=self.manager,
+                object_id="#questions_list"
             )
             self.questions_elements.append(self.questions_list)
 
@@ -277,6 +282,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(500, 40, 40, 40),
                 text="+",
                 manager=self.manager,
+                object_id=pygame_gui.core.ObjectID(class_id="@add_button", object_id="#add_button")
             )
             self.questions_elements.append(self.btn_add_question)
 
@@ -321,6 +327,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(500, y_pos, 120, 40),
                 text="Zapisz",
                 manager=self.manager,
+                object_id="#form_button"
             )
             self.form_elements.append(self.btn_save_question)
 
@@ -328,6 +335,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(640, y_pos, 120, 40),
                 text="Usuń",
                 manager=self.manager,
+                object_id="#form_button"
             )
             self.form_elements.append(self.btn_delete_question)
 
@@ -335,6 +343,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(780, y_pos, 120, 40),
                 text="Anuluj",
                 manager=self.manager,
+                object_id="#form_button"
             )
             self.form_elements.append(self.btn_back_questions)
 
@@ -544,7 +553,7 @@ class AdminPanel:
                     file.write(question["text"] + "\n")
                     for idx, answer in enumerate(question["answers"]):
                         file.write(f"Odp{idx + 1} {answer}\n")
-                    file.write(str(question["correct"]) + "\n")
+                    file.write(str(question["correct"]))
                     
         except Exception as e:
             print(f"Błąd podczas zapisu pytań: {e}")
@@ -577,13 +586,10 @@ class AdminPanel:
 def back_to_main_menu():
     print("Powrót do menu głównego")
 
-
-def main():
-    pygame.init()
-    pygame.display.set_caption("Panel administratora")
+def run_admin_panel():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
+    manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
     admin_panel = AdminPanel(screen, manager, back_to_main_menu)
     background_image = pygame.image.load("assets/imgs/background.png").convert()
@@ -602,37 +608,31 @@ def main():
             admin_panel.handle_events(event)
             manager.process_events(event)
 
-        # Rysowanie tła
         screen.blit(background_image, (0, 0))
         
-        # Mgiełka
         fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
         fog_surface.set_alpha(80)
         fog_surface.fill((200, 200, 200))
         screen.blit(fog_surface, (0, 0))
-        
+
         if admin_panel.current_section is None:
-            
-        # Logo z cieniem
             shadow_offset = 30
             shadow = pygame.Surface((350, 350), pygame.SRCALPHA)
-            shadow.fill((0, 0, 0, 100))
-            
-            # Pozycja logo (prawe górne ramię z lekkim marginesem)
+            shadow.fill((0, 0, 0, 100))          
             logo_x = SCREEN_WIDTH - 590
-            logo_y = 120
-            
-            # Rysowanie cienia i logo
+            logo_y = 120           
             screen.blit(shadow, (logo_x + shadow_offset, logo_y + shadow_offset))
             screen.blit(logo_image, (logo_x, logo_y))
         
-        # Aktualizacja i rysowanie GUI
         manager.update(time_delta)
-        manager.draw_ui(screen)
-        
+        manager.draw_ui(screen)       
         pygame.display.flip()
 
     pygame.quit()
+def main():
+    pygame.init()
+    pygame.display.set_caption("Panel administratora")
+    run_admin_panel()
 
 
 if __name__ == "__main__":
