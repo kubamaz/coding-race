@@ -156,7 +156,6 @@ def loading_screen():
             back_button.hide()
             loading = False
             networking.server_shutdown = False
-            networking.last_error = None
             if not networking.is_connected:
                 waiting_information.text = 'BŁĄD POŁĄCZENIA Z SERWEREM'
                 waiting_information.rebuild()
@@ -178,7 +177,6 @@ def loading_screen():
             back_button.hide()
             loading = False
             networking.couldnt_connect = False
-            networking.last_error = None
             networking.connect()
             if not networking.is_connected:
                 waiting_information.text = 'BŁĄD POŁĄCZENIA Z SERWEREM'

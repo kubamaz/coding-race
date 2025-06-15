@@ -107,13 +107,7 @@ class Networking:
         self.looking_for_match = False
         self.found_match = False
         self.car = None
-        self.last_message = None
-        self.last_error = None
-        self.queue_message = None
-        self.match_message = None
         self.opponent_disconnected = False
-        self.winner_message = None
-        self.looser_message = None
         self.server_shutdown = False
         self.recv_thread = None
         self.current_oponent_data = None
@@ -127,7 +121,6 @@ class Networking:
             self.client.connect((self.server_ip, self.port))
             self.is_connected = True
         except Exception as e:
-            self.last_error = f"Błąd połączenia z serwerem: {e}"
             self.couldnt_connect = True
     
     def send_data(self, data=None):
@@ -150,8 +143,7 @@ class Networking:
             # }
             self.client.sendall((json.dumps(msg) + '\n').encode())
         except Exception as e:
-            self.last_error = f"Błąd wysyłania danych: {e}"
-    
+            pass
     
     def receive_data(self):
         while self.is_connected:
@@ -164,12 +156,10 @@ class Networking:
                         msg = json.loads(line)
                         self.handle_message(msg)
             except Exception as e:
-                self.last_error = f"Błąd odbierania danych: {e}"
                 self.is_connected = False
                 break
     
     def handle_message(self, msg):
-        self.last_message = msg
         msg_type = msg.get("type")
 
         if msg_type == "server_shutdown":
@@ -195,7 +185,6 @@ class Networking:
             self.is_playing = True
             self.found_match = True
             self.looking_for_match = False
-            self.match_message = msg.get("message")
             self.car = msg.get("car", None)
             print(self.car)
             self.player_id = msg.get("player_id", self.player_id)
@@ -210,19 +199,14 @@ class Networking:
             self.is_connected = False
 
         elif msg_type == "winner":
-            self.winner_message = msg.get("message")
             self.is_playing = False
             self.is_connected = False
             self.client.close()
 
         elif msg_type == "looser":
-            self.looser_message = msg.get("message")
             self.is_playing = False
             self.is_connected = False
             self.client.close()
-
-        else:
-            self.last_error = f"Nieznany komunikat: {msg}"
         
     
     def start_receiving(self):
