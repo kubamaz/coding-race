@@ -315,28 +315,31 @@
     },
     "#login_label": {
         "font": {
-            "size": 14
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": 20
         },
         "colours": {
             "normal_text": "#000000",
-            "text_shadow": "#000000"
+            "text_shadow": "#ae3209"
         },
         "misc": {
-            "text_shadow_size": "0",
+            "text_shadow_size": "2",
             "padding": "5"
         }
     },
     "#password_label": {
-        "font": {
-            "name": "default",
-            "size": "5"
+       "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": 20
         },
         "colours": {
             "normal_text": "#000000",
-            "text_shadow": "#000000"
+            "text_shadow": "#ae3209"
         },
         "misc": {
-            "text_shadow_size": "0",
+            "text_shadow_size": "2",
             "padding": "5"
         }
     },

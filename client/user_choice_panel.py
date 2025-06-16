@@ -14,43 +14,12 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
 window_surface = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ekran startowy')
-background_image = pygame.image.load("assets/imgs/background.png").convert()
-background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
-
-def create_circular_masked_surface(surface, feather_radius):
-    width, height = surface.get_size()
-    center_x = width // 2
-    center_y = height // 2
-    max_radius = min(center_x, center_y)
-
-    masked_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-
-    for y in range(height):
-        for x in range(width):
-            dx = x - center_x
-            dy = y - center_y
-            dist = math.sqrt(dx*dx + dy*dy)
-
-            if dist < (max_radius - feather_radius):
-                alpha = 255
-            elif dist < max_radius:
-                fade = (max_radius - dist) / feather_radius
-                alpha = int(255 * (fade ** 2)) 
-            else:
-                alpha = 0
-
-            r, g, b, a = surface.get_at((x, y))
-            masked_surface.set_at((x, y), (r, g, b, min(alpha, a)))
-
-    return masked_surface
 
 original_logo = pygame.image.load("assets/imgs/logo.png").convert_alpha()
-scale_factor = 0.3
+scale_factor = 0.6
 logo_size = (int(original_logo.get_width() * scale_factor), int(original_logo.get_height() * scale_factor))
 scaled_logo = pygame.transform.smoothscale(original_logo, logo_size)
-logo = create_circular_masked_surface(scaled_logo, feather_radius=10)
-
-background_color = (255, 217, 179)
+logo = scaled_logo
 
 
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
@@ -64,13 +33,13 @@ password_y = 320
 button_y = 400
 
 login_input = pygame_gui.elements.UITextEntryLine(
-    relative_rect=pygame.Rect((input_x, login_y), (input_width, input_height)),
+    relative_rect=pygame.Rect((input_x, login_y +225), (input_width, input_height)),
     manager=manager,
     object_id="#login_input"
 )
 
 password_input = pygame_gui.elements.UITextEntryLine(
-    relative_rect=pygame.Rect((input_x, password_y), (input_width, input_height)),
+    relative_rect=pygame.Rect((input_x, password_y+225), (input_width, input_height)),
     manager=manager,
     object_id="#password_input"
 )
@@ -78,27 +47,27 @@ password_input = pygame_gui.elements.UITextEntryLine(
 password_input.set_text_hidden(True) 
 
 login_label = pygame_gui.elements.UILabel(
-    relative_rect=pygame.Rect((input_x - 100, login_y), (100, input_height)),
+    relative_rect=pygame.Rect((input_x - 100, login_y+225), (100, input_height)),
     text='Login:',
     manager=manager,
     object_id="#login_label"
 )
 
 password_label = pygame_gui.elements.UILabel(
-    relative_rect=pygame.Rect((input_x - 100, password_y), (100, input_height)),
+    relative_rect=pygame.Rect((input_x - 100, password_y+225), (100, input_height)),
     text='Hasło:',
     manager=manager,
     object_id="#password_label"
 )
 
 login_button = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((input_x, button_y), (input_width, 40)),
+    relative_rect=pygame.Rect((input_x, button_y+225), (input_width, 55)),
     text='Zaloguj',
     manager=manager,
-    object_id='#login_button'
+    object_id='#button'
 )
 error_label = pygame_gui.elements.UILabel(
-    relative_rect=pygame.Rect((input_x, button_y + 60), (input_width, 40)),
+    relative_rect=pygame.Rect((input_x, button_y + 285), (input_width, 40)),
     text='',
     manager=manager,
     object_id="#error_label"
@@ -167,20 +136,16 @@ while is_running:
 
     manager.update(time_delta)
 
-    window_surface.blit(background_image, (0,0))
-    
-    fog_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-    fog_surface.set_alpha(80)
-    fog_surface.fill((200, 200, 200))
-    window_surface.blit(fog_surface, (0, 0))
+    window_surface.fill((45, 55, 64))
 
-    manager.draw_ui(window_surface)
-        # Oblicz pozycję do wyśrodkowania logo
     logo_x = (SCREEN_WIDTH - logo.get_width()) // 2
-    logo_y = login_y - logo.get_height() - 40  # odstęp nad loginem
-
-    # Rysuj logo
+    logo_y = login_y - logo.get_height() +180 # nad loginem
     window_surface.blit(logo, (logo_x, logo_y))
+    
+    manager.draw_ui(window_surface)
+    
+
+
     pygame.display.update()
 
 pygame.quit()
