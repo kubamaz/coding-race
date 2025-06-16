@@ -548,15 +548,17 @@ class AdminPanel:
     def save_questions_to_file(self):
         try:
             with open("Questions", "w", encoding="utf-8") as file:
-                for question in self.questions:
-                    file.write("---\n")
-                    file.write(question["text"] + "\n")
+                for i, question in enumerate(self.questions):
+                    if i != 0:
+                        file.write("\n---\n")  
+
+                    file.write(question["text"].strip() + "\n")
                     for idx, answer in enumerate(question["answers"]):
-                        file.write(f"Odp{idx + 1} {answer}\n")
+                        file.write(f"Odp{idx + 1} {answer.strip()}\n")
                     file.write(str(question["correct"]))
-                    
         except Exception as e:
             print(f"Błąd podczas zapisu pytań: {e}")
+
 
     def update_correct_answer_buttons(self):
         try:
