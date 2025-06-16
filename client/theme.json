@@ -4,7 +4,7 @@
             "normal_bg": "rgba(0, 0, 0, 0)",
             "hovered_bg": "rgba(0, 0, 0, 0)",
             "selected_bg": "rgba(0, 0, 0, 0)",
-            "normal_border": "#AE0909",
+            "normal_border": "#FF0000",
             "hovered_border": "#F56914",
             "selected_border": "#FF4500",
             "normal_text": "#D96024",
