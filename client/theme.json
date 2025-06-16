@@ -5,7 +5,7 @@
             "hovered_bg": "rgba(0, 0, 0, 0)",
             "selected_bg": "rgba(0, 0, 0, 0)",
             "normal_border": "#AE0909",
-            "hovered_border": "#F56914",
+            "hovered_border": "#0000FF",
             "selected_border": "#FF4500",
             "normal_text": "#D96024",
             "hovered_text": "#F56914",
