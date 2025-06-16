@@ -20,26 +20,32 @@ class AdminPanel:
 
         # Główne przyciski menu
         self.btn_questions = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(250, 180, 300, 75),
+            relative_rect=pygame.Rect((SCREEN_WIDTH-380)//2, 325, 380, 75),
             text="Pytania",
             manager=manager,
-            object_id="#panel_button"
+            object_id="#button"
         )
 
         self.btn_users = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(250, 280, 300, 75),
+            relative_rect=pygame.Rect((SCREEN_WIDTH-380)//2, 425, 380, 75),
             text="Użytkownicy",
             manager=manager,
-            object_id="#panel_button"
+            object_id="#button"
         )
 
         self.btn_back = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(250, 400, 150, 65),
+            relative_rect=pygame.Rect((SCREEN_WIDTH-380)//2 + 77.5, 555, 225, 65),
             text="Zamknij",
             manager=manager,
-            object_id="#panel_button"
+            object_id="#button"
         )
 
+        self.label_title = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((SCREEN_WIDTH - 750) // 2, 150, 800, 100),
+            text="WYBIERZ OPCJE",
+            manager=manager,
+            object_id="#game_title"
+        )
         # Listy elementów GUI
         self.questions_elements = []  # Elementy listy pytań
         self.form_elements = []       # Elementy formularza edycji pytania
@@ -120,6 +126,7 @@ class AdminPanel:
             self.btn_questions.hide()
             self.btn_users.hide()
             self.btn_back.hide()
+            self.label_title.hide()
 
             # Pokaż elementy panelu pytań
             for element in self.questions_elements:
@@ -135,6 +142,7 @@ class AdminPanel:
             self.btn_questions.hide()
             self.btn_users.hide()
             self.btn_back.hide()
+            self.label_title.hide()
 
             self.create_users_panel()
             self.refresh_users_list()
@@ -151,7 +159,7 @@ class AdminPanel:
             relative_rect=pygame.Rect(20, 40, 450, 600),
             item_list=[],
             manager=self.manager,
-            object_id="#users_list"
+            object_id="#admin_list",
         )
         self.users_elements.append(self.users_list)
 
@@ -166,7 +174,7 @@ class AdminPanel:
 
         # Przycisk powrotu
         self.btn_back_users_panel = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(100, 650, 100, 40),
+            relative_rect=pygame.Rect(100, 650, 170, 40),
             text="Powrót",
             manager=self.manager,
         )
@@ -221,6 +229,7 @@ class AdminPanel:
         self.btn_questions.show()
         self.btn_users.show()
         self.btn_back.show()
+        self.label_title.show()
         self.current_section = None
     def refresh_users_list(self):
         student_titles = []
@@ -263,6 +272,7 @@ class AdminPanel:
         self.btn_questions.show()
         self.btn_users.show()
         self.btn_back.show()
+        self.label_title.show()
         self.current_section = None
 
     def create_questions_panel(self):
@@ -273,7 +283,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(20, 40, 450, 600),
                 item_list=titles,
                 manager=self.manager,
-                object_id="#questions_list"
+                object_id="#admin_list"
             )
             self.questions_elements.append(self.questions_list)
 
@@ -288,7 +298,7 @@ class AdminPanel:
 
             # Przycisk powrotu
             self.btn_back_questions_panel = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(100, 650, 100, 40),
+                relative_rect=pygame.Rect(100, 650, 165, 60),
                 text="Powrót",
                 manager=self.manager,
             )
@@ -391,6 +401,7 @@ class AdminPanel:
                         self.hide_questions_panel()
                     elif event.ui_element == self.btn_add_question:
                         self.current_question_index = -1
+                        self.btn_add_question.hide()
                         self.clear_question_form()
                         for element in self.form_elements:
                             element.show()
@@ -403,6 +414,7 @@ class AdminPanel:
                         for element in self.form_elements:
                             element.hide()
                     elif event.ui_element == self.btn_back_questions:
+                        self.btn_add_question.show()
                         for element in self.form_elements:
                             element.hide()
                     elif event.ui_element in self.answer_select_buttons:
@@ -435,6 +447,7 @@ class AdminPanel:
                 elif event.user_type == pygame_gui.UI_SELECTION_LIST_NEW_SELECTION:
                     if event.ui_element == self.questions_list and self.questions:
                         try:
+                            self.btn_add_question.hide()
                             idx_str = event.text.split('.')[0]
                             if idx_str.isdigit():
                                 self.current_question_index = int(idx_str) - 1
@@ -634,8 +647,8 @@ def run_admin_panel():
             shadow.fill((0, 0, 0, 100))          
             logo_x = SCREEN_WIDTH - 590
             logo_y = 120           
-            screen.blit(shadow, (logo_x + shadow_offset, logo_y + shadow_offset))
-            screen.blit(logo_image, (logo_x, logo_y))
+            # screen.blit(shadow, (logo_x + shadow_offset, logo_y + shadow_offset + 50))
+            # screen.blit(logo_image, (logo_x, logo_y+50))
         
         manager.update(time_delta)
         manager.draw_ui(screen)       
