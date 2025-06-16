@@ -73,8 +73,10 @@ while True:
 
                     if networking.winner:
                         game_title.text = 'YOU WON !'
+                        information.show()
                     else:
                         game_title.text = 'YOU LOST !'
+                        information.hide()
 
                     start_button.text = 'Play again'
 
@@ -100,8 +102,10 @@ while True:
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
                     if networking.winner:
                         game_title.text = 'YOU WON !'
+                        information.show()
                     else:
                         game_title.text = 'YOU LOST !'
+                        information.hide()
                     game_title.rebuild()
         elif event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == volume_slider:
             volume = event.value

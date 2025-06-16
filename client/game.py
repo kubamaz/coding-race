@@ -298,7 +298,7 @@ def game_screen():
             {
                     "type": "winner"
                 })
-            
+            networking.clean()
             break
        
         
