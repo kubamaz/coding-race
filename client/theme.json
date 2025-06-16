@@ -544,6 +544,33 @@
     "shadow_width": "0",
      "text_shadow_size": "0"
   }
+},
+"#admin_panel_button":{
+  "colours": {
+            "normal_bg": "rgba(0, 0, 0, 0)",
+            "hovered_bg": "rgba(0, 0, 0, 0)",
+            "selected_bg": "rgba(0, 0, 0, 0)",
+            "normal_border": "#AE0909",
+            "hovered_border": "#F56914",
+            "selected_border": "#FF4500",
+            "normal_text": "#D96024",
+            "hovered_text": "#F56914",
+            "active_bg": "rgb(120,120,120)",
+            "active_border": "rgb(100,100,100)",
+            "text_shadow": "#000000"
+
+        },
+        "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "20"
+        },
+        "misc": {
+            "border_width": "5",
+            "shape": "rounded_rectangle",
+            "shape_corner_radius": "15",
+            "text_shadow_size": "2"
+        }
 }
 
 }

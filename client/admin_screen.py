@@ -177,6 +177,7 @@ class AdminPanel:
             relative_rect=pygame.Rect(100, 650, 170, 40),
             text="Powrót",
             manager=self.manager,
+            object_id="#admin_panel_button"
         )
         self.users_elements.append(self.btn_back_users_panel)
 
@@ -199,23 +200,26 @@ class AdminPanel:
 
         y_pos += 60
         self.btn_save_user = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(500, y_pos, 120, 40),
+            relative_rect=pygame.Rect(500, y_pos, 120, 50),
             text="Zapisz",
             manager=self.manager,
+            object_id="#admin_panel_button"
         )
         self.user_form_elements.append(self.btn_save_user)
 
         self.btn_delete_user = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(640, y_pos, 120, 40),
+            relative_rect=pygame.Rect(640, y_pos, 120, 50),
             text="Usuń",
             manager=self.manager,
+            object_id="#admin_panel_button"
         )
         self.user_form_elements.append(self.btn_delete_user)
 
         self.btn_cancel_user = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(780, y_pos, 120, 40),
+            relative_rect=pygame.Rect(780, y_pos, 120, 50),
             text="Anuluj",
             manager=self.manager,
+            object_id="#admin_panel_button"
         )
         self.user_form_elements.append(self.btn_cancel_user)
 
@@ -301,6 +305,7 @@ class AdminPanel:
                 relative_rect=pygame.Rect(100, 650, 165, 60),
                 text="Powrót",
                 manager=self.manager,
+                object_id="#admin_panel_button"
             )
             self.questions_elements.append(self.btn_back_questions_panel)
 
@@ -334,26 +339,26 @@ class AdminPanel:
 
             y_pos += 50
             self.btn_save_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(500, y_pos, 120, 40),
+                relative_rect=pygame.Rect(500, y_pos, 120, 50),
                 text="Zapisz",
                 manager=self.manager,
-                object_id="#form_button"
+                object_id="#admin_panel_button"
             )
             self.form_elements.append(self.btn_save_question)
 
             self.btn_delete_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(640, y_pos, 120, 40),
+                relative_rect=pygame.Rect(640, y_pos, 120, 50),
                 text="Usuń",
                 manager=self.manager,
-                object_id="#form_button"
+                object_id="#admin_panel_button"
             )
             self.form_elements.append(self.btn_delete_question)
 
             self.btn_back_questions = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(780, y_pos, 120, 40),
+                relative_rect=pygame.Rect(780, y_pos, 120, 50),
                 text="Anuluj",
                 manager=self.manager,
-                object_id="#form_button"
+                object_id="#admin_panel_button"
             )
             self.form_elements.append(self.btn_back_questions)
 
