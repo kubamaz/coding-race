@@ -361,8 +361,7 @@
     },
     "#error_label": {
     "font": {
-      "name": "default",
-      "size": "18"
+      "size": "20"
     },
     "colours": {
       "normal_text": "#FF0000"

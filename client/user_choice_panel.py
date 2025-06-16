@@ -117,6 +117,7 @@ while is_running:
                 if login_input.is_focused:
                     login_input.unfocus()
                     password_input.focus()
+                    password_input.set_text_hidden(True)
                 elif password_input.is_focused:
                     password_input.unfocus()
                     login_input.focus()
@@ -133,7 +134,7 @@ while is_running:
 
 
         manager.process_events(event)
-
+    password_input.set_text_hidden(True)
     manager.update(time_delta)
 
     window_surface.fill((45, 55, 64))
