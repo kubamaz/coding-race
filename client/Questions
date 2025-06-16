@@ -1,79 +1,120 @@
-Tutaj jest pytanie1 aaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaa
-Odp1 niepoprawna
-Odp2 niepoprawna
-Odp3 poprawna
-Odp4 niepoprawna
+Jakiego operatora używamy do pobierania adresu zmiennej w języku C?
+Znak "*"
+Znak "&"
+Znak "%"
+Znak "~"
+2
+---
+Który z poniższych typów danych zajmuje zazwyczaj 4 bajty w pamięci?
+char
+double
+short
+int
+4
+---
+Która firma stworzyła język C?
+Bell Labs
+IBM
+Microsoft
+1
+---
+Co oznacza skrót IDE?
+Incremental Debug Environment
+Internal Debug Executor
+Integrated Development Environment
 3
 ---
-Tutaj jest pytanie2aaa aaaaaaaaa aaaaaaaaaaaa aaaaaaaaa aaaaaaaaaa
-Odp1 poprawna
-Odp2 niepoprawna
-Odp3 niepoprawna
-Odp4 niepoprawna
+Który język programowania został zaprojektowany przez Dennisa Ritchie?
+C++
+C
+Java
+Erlang
+2
+---
+Jak nazywa się praktyka poprawiania błędów w kodzie?
+Debugowanie
+Parsing
+Kompilacja
+Testowanie
 1
 ---
-Tutaj jest pytanie3
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
+Które wywołanie funkcji realloc jest równoznaczne z wywołaniem malloc(10)?
+realloc(10, NULL)
+realloc(5, 2)
+realloc(NULL, 10)
+3
+---
+Które z poniższych stwierdzeń poprawnie opisuje działanie dyrektywy #define w języku C?
+Tworzy nową zmienną o zadanej wartości
+Rezerwuje miejsce w pamięci na stałą
+Zastępuje wszystkie wystąpienia identyfikatora zdefiniowaną wartością
+Tworzy dynamiczny wskaźnik do wartości
+3
+---
+Co robi dyrektywa #ifdef?
+Sprawdza, czy zmienna jest większa od zera
+Włącza debugowanie
+Sprawdza, czy makro zostało wcześniej zdefiniowane
+Definiuje funkcję
+3
+---
+Co się stanie, jeśli plik nagłówkowy zostanie załączony dwa razy bez zabezpieczenia?
+Program się skompiluje, ale będzie wolniejszy
+Kompilator zignoruje duplikaty
+Zadziała poprawnie bez żadnych skutków ubocznych
+Może wystąpić błąd wielokrotnej definicji ✅
+4
+---
+Co robi dyrektywa #undef?
+Usuwa zmienną z pamięci
+Kasuje wcześniej zdefiniowane makro
+Wyłącza plik nagłówkowy
+Czyści bufor konsoli
+2
+---
+Co zwróci wyrażenie 5 & 3 (w systemie dziesiętnym)?
+Zwróci 1
+Zwróci 2
+Zwróci 7
+Zwróci 0
 1
 ---
-Tutaj jest pytanie4
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Który z poniższych zapisów ustawia tylko trzeci bit (licząc od 0) na 1?
+x & 0x08
+x | 0x08
+x ^ 0x08
+x << 3
+2
 ---
-Tutaj jest pytanie5
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Dlaczego we wzorcu makra w języku C wszystkie parametry powinny być ujęte w nawiasy?
+Aby poprawić czytelność kodu
+Aby uniknąć błędów składni przy kompilacji
+Aby zapewnić poprawną kolejność obliczeń podczas rozwinięcia makra
+Ponieważ preprocesor wymaga tego formalnie
+3
 ---
-Tutaj jest pytanie6
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Która firma jest odpowiedzialna za stworzenie Objective-C - rozszerzenie języka C o możliwości obiektowe?
+Microsoft
+Apple
+Oracle
+2
 ---
-Tutaj jest pytanie7
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Kto stworzył język Python?
+James Gosling
+Guido van Rossum
+Dennis Ritchie
+Bjarne Stroustrup
+2
 ---
-Tutaj jest pytanie8
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Dlaczego język programowania Python zawdzięcza swoją nazwę Monty Pythonowi?
+Twórca języka był członkiem zespołu Monty Pythona
+Nazwa została wybrana przypadkowo, bez związku z Monty Pythonem
+Twórca chciał, aby język był łatwy i zabawny, jak skecze Monty Pythona
+3
 ---
-Tutaj jest pytanie9
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie10
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie11
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie12
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-dsad
-Odp1 asdasd
-Odp2 sdsadasd
-Odp3 asdasd
+Jaka jest podstawowa różnica między językami C i C++?
+C++ to język funkcyjny, a C to obiektowy
+C++ wspiera programowanie obiektowe, a C jest językiem proceduralnym
+C++ nie obsługuje wskaźników, a C tak
+C nie ma typów danych, a C++ tak
 2
