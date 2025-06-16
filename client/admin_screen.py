@@ -442,6 +442,7 @@ class AdminPanel:
                                     self.load_question_to_form()
                                     for element in self.form_elements:
                                         element.show()
+                                        self.update_delete_button_visibility()
                         except Exception as e:
                             print(f"Błąd ładowania pytania: {e}")
 
@@ -487,6 +488,7 @@ class AdminPanel:
             field.set_text("")
         self.correct_answer_index = 0
         self.update_correct_answer_buttons()
+        self.update_delete_button_visibility()
 
     def load_question_to_form(self):
         try:
@@ -505,9 +507,11 @@ class AdminPanel:
 
             self.correct_answer_index = question.get("correct", 1) - 1
             self.update_correct_answer_buttons()
+            self.update_delete_button_visibility()
 
         except Exception as e:
             print(f"Błąd w load_question_to_form: {e}")
+        
 
     def save_question(self):
         try:
@@ -538,6 +542,10 @@ class AdminPanel:
 
     def delete_question(self):
         try:
+            if len(self.questions) <=9:
+                print("Nie można usunąć pytania, ponieważ musi pozostać co najmniej 9 pytań.")
+                return
+            
             if 0 <= self.current_question_index < len(self.questions):
                 del self.questions[self.current_question_index]
                 self.save_questions_to_file()
@@ -550,15 +558,13 @@ class AdminPanel:
             with open("Questions", "w", encoding="utf-8") as file:
                 for i, question in enumerate(self.questions):
                     if i != 0:
-                        file.write("\n---\n")  
-
+                        file.write("\n---\n")
                     file.write(question["text"].strip() + "\n")
                     for idx, answer in enumerate(question["answers"]):
                         file.write(f"Odp{idx + 1} {answer.strip()}\n")
                     file.write(str(question["correct"]))
         except Exception as e:
             print(f"Błąd podczas zapisu pytań: {e}")
-
 
     def update_correct_answer_buttons(self):
         try:
@@ -584,6 +590,11 @@ class AdminPanel:
         except Exception as e:
             print(f"Błąd w update_correct_answer_buttons: {e}")
 
+    def update_delete_button_visibility(self):
+        if len(self.questions) <= 9:
+            self.btn_delete_question.hide()
+        else:
+            self.btn_delete_question.show()
 
 def back_to_main_menu():
     print("Powrót do menu głównego")
