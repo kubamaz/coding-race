@@ -539,6 +539,11 @@ class AdminPanel:
 
     def save_question(self):
         try:
+            question_text = self.question_text.get_text().strip()
+            if not question_text:
+                print("Treść pytania nie może być pusta!")
+                return
+        
             answers = [field.get_text().strip() for field in self.answer_fields]
             non_empty_answers = [ans for ans in answers if ans]
 
