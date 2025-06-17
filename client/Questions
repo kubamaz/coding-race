@@ -1,73 +1,90 @@
-Tutaj jest pytanie1 aaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaa
-Odp1 niepoprawna
-Odp2 niepoprawna
-Odp3 poprawna
-Odp4 niepoprawna
+Jakiego operatora używamy do pobierania adresu zmiennej w języku C?
+Odp Znak "*"
+Odp Znak "&"
+Odp Znak "%"
+Odp Znak "~"
+2
+---
+Który z poniższych typów danych zajmuje zazwyczaj 4 bajty w pamięci?
+Odp char
+Odp double
+Odp short
+Odp int
+4
+---
+Która firma stworzyła język C?
+Odp Bell Labs
+Odp IBM
+Odp Microsoft
+1
+---
+Co oznacza litera I w IDE?
+Odp Incremental
+Odp Internal
+Odp Integrated
 3
 ---
-Tutaj jest pytanie2aaa aaaaaaaaa aaaaaaaaaaaa aaaaaaaaa aaaaaaaaaa
-Odp1 poprawna
-Odp2 niepoprawna
-Odp3 niepoprawna
-Odp4 niepoprawna
+Który język programowania został zaprojektowany przez Dennisa Ritchie?
+Odp C++
+Odp C
+Odp Java
+Odp Erlang
+2
+---
+Jak nazywa się praktyka poprawiania błędów w kodzie?
+Odp Debugowanie
+Odp Parsing
+Odp Kompilacja
+Odp Testowanie
 1
 ---
-Tutaj jest pytanie3
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
+Które wywołanie funkcji realloc jest równoznaczne z wywołaniem malloc(10)?
+Odp realloc(10, NULL)
+Odp realloc(5, 2)
+Odp realloc(NULL, 10)
+3
+---
+Które ze stwierdzeń poprawnie opisuje działanie #define w C?
+Odp Alokuje pamięć
+Odp Tworzy zmienną
+Odp Zamienia tekst
+3
+---
+Co zwróci wyrażenie 5 & 3 (w systemie dziesiętnym)?
+Odp Zwróci 1
+Odp Zwróci 2
+Odp Zwróci 7
+Odp Zwróci 0
 1
 ---
-Tutaj jest pytanie4
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Który z poniższych zapisów ustawia tylko trzeci bit (licząc od 0) na 1?
+Odp x & 0x08
+Odp x | 0x08
+Odp x ^ 0x08
+Odp x << 3
+2
 ---
-Tutaj jest pytanie5
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Która firma jest odpowiedzialna za stworzenie Objective-C?
+Odp Microsoft
+Odp Apple
+Odp Oracle
+2
 ---
-Tutaj jest pytanie6
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Kto stworzył język Python?
+Odp James Gosling
+Odp Guido van Rossum
+Odp Dennis Ritchie
+Odp Bjarne Stroustrup
+2
 ---
-Tutaj jest pytanie7
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Nazwa języka Pyhon zawdzięcza swoją nazwę:
+Odp wężowi
+Odp przypadkowi
+Odp grupie Monty Pythona
+3
 ---
-Tutaj jest pytanie8
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie9
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie10
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie11
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
----
-Tutaj jest pytanie12
-Odp1 poprawna
-Odp2 npop
-Odp3 npop
-1
+Jaką własność posiada C++, której nie posiada C?
+Odp Język skryptowyy
+Odp Obiektowość
+Odp Obsługa wskaźników
+2
