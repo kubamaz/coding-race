@@ -1,120 +1,120 @@
 Jakiego operatora używamy do pobierania adresu zmiennej w języku C?
-Znak "*"
-Znak "&"
-Znak "%"
-Znak "~"
+Odp Znak "*"
+Odp Znak "&"
+Odp Znak "%"
+Odp Znak "~"
 2
 ---
 Który z poniższych typów danych zajmuje zazwyczaj 4 bajty w pamięci?
-char
-double
-short
-int
+Odp char
+Odp double
+Odp short
+Odp int
 4
 ---
 Która firma stworzyła język C?
-Bell Labs
-IBM
-Microsoft
+Odp Bell Labs
+Odp IBM
+Odp Microsoft
 1
 ---
 Co oznacza skrót IDE?
-Incremental Debug Environment
-Internal Debug Executor
-Integrated Development Environment
+Odp Incremental Debug Environment
+Odp Internal Debug Executor
+Odp Integrated Development Environment
 3
 ---
 Który język programowania został zaprojektowany przez Dennisa Ritchie?
-C++
-C
-Java
-Erlang
+Odp C++
+Odp C
+Odp Java
+Odp Erlang
 2
 ---
 Jak nazywa się praktyka poprawiania błędów w kodzie?
-Debugowanie
-Parsing
-Kompilacja
-Testowanie
+Odp Debugowanie
+Odp Parsing
+Odp Kompilacja
+Odp Testowanie
 1
 ---
 Które wywołanie funkcji realloc jest równoznaczne z wywołaniem malloc(10)?
-realloc(10, NULL)
-realloc(5, 2)
-realloc(NULL, 10)
+Odp realloc(10, NULL)
+Odp realloc(5, 2)
+Odp realloc(NULL, 10)
 3
 ---
 Które z poniższych stwierdzeń poprawnie opisuje działanie dyrektywy #define w języku C?
-Tworzy nową zmienną o zadanej wartości
-Rezerwuje miejsce w pamięci na stałą
-Zastępuje wszystkie wystąpienia identyfikatora zdefiniowaną wartością
-Tworzy dynamiczny wskaźnik do wartości
+Odp Tworzy nową zmienną o zadanej wartości
+Odp Rezerwuje miejsce w pamięci na stałą
+Odp Zastępuje wszystkie wystąpienia identyfikatora zdefiniowaną wartością
+Odp Tworzy dynamiczny wskaźnik do wartości
 3
 ---
 Co robi dyrektywa #ifdef?
-Sprawdza, czy zmienna jest większa od zera
-Włącza debugowanie
-Sprawdza, czy makro zostało wcześniej zdefiniowane
-Definiuje funkcję
+Odp Sprawdza, czy zmienna jest większa od zera
+Odp Włącza debugowanie
+Odp Sprawdza, czy makro zostało wcześniej zdefiniowane
+Odp Definiuje funkcję
 3
 ---
 Co się stanie, jeśli plik nagłówkowy zostanie załączony dwa razy bez zabezpieczenia?
-Program się skompiluje, ale będzie wolniejszy
-Kompilator zignoruje duplikaty
-Zadziała poprawnie bez żadnych skutków ubocznych
-Może wystąpić błąd wielokrotnej definicji ✅
+Odp Program się skompiluje, ale będzie wolniejszy
+Odp Kompilator zignoruje duplikaty
+Odp Zadziała poprawnie bez żadnych skutków ubocznych
+Odp Może wystąpić błąd wielokrotnej definicji
 4
 ---
 Co robi dyrektywa #undef?
-Usuwa zmienną z pamięci
-Kasuje wcześniej zdefiniowane makro
-Wyłącza plik nagłówkowy
-Czyści bufor konsoli
+Odp Usuwa zmienną z pamięci
+Odp Kasuje wcześniej zdefiniowane makro
+Odp Wyłącza plik nagłówkowy
+Odp Czyści bufor konsoli
 2
 ---
 Co zwróci wyrażenie 5 & 3 (w systemie dziesiętnym)?
-Zwróci 1
-Zwróci 2
-Zwróci 7
-Zwróci 0
+Odp Zwróci 1
+Odp Zwróci 2
+Odp Zwróci 7
+Odp Zwróci 0
 1
 ---
 Który z poniższych zapisów ustawia tylko trzeci bit (licząc od 0) na 1?
-x & 0x08
-x | 0x08
-x ^ 0x08
-x << 3
+Odp x & 0x08
+Odp x | 0x08
+Odp x ^ 0x08
+Odp x << 3
 2
 ---
 Dlaczego we wzorcu makra w języku C wszystkie parametry powinny być ujęte w nawiasy?
-Aby poprawić czytelność kodu
-Aby uniknąć błędów składni przy kompilacji
-Aby zapewnić poprawną kolejność obliczeń podczas rozwinięcia makra
-Ponieważ preprocesor wymaga tego formalnie
+Odp Aby poprawić czytelność kodu
+Odp Aby uniknąć błędów składni przy kompilacji
+Odp Aby zapewnić poprawną kolejność obliczeń podczas rozwinięcia makra
+Odp Ponieważ preprocesor wymaga tego formalnie
 3
 ---
 Która firma jest odpowiedzialna za stworzenie Objective-C - rozszerzenie języka C o możliwości obiektowe?
-Microsoft
-Apple
-Oracle
+Odp Microsoft
+Odp Apple
+Odp Oracle
 2
 ---
 Kto stworzył język Python?
-James Gosling
-Guido van Rossum
-Dennis Ritchie
-Bjarne Stroustrup
+Odp James Gosling
+Odp Guido van Rossum
+Odp Dennis Ritchie
+Odp Bjarne Stroustrup
 2
 ---
 Dlaczego język programowania Python zawdzięcza swoją nazwę Monty Pythonowi?
-Twórca języka był członkiem zespołu Monty Pythona
-Nazwa została wybrana przypadkowo, bez związku z Monty Pythonem
-Twórca chciał, aby język był łatwy i zabawny, jak skecze Monty Pythona
+Odp Twórca języka był członkiem zespołu Monty Pythona
+Odp Nazwa została wybrana przypadkowo, bez związku z Monty Pythonem
+Odp Twórca chciał, aby język był łatwy i zabawny, jak skecze Monty Pythona
 3
 ---
 Jaka jest podstawowa różnica między językami C i C++?
-C++ to język funkcyjny, a C to obiektowy
-C++ wspiera programowanie obiektowe, a C jest językiem proceduralnym
-C++ nie obsługuje wskaźników, a C tak
-C nie ma typów danych, a C++ tak
+Odp C++ to język funkcyjny, a C to obiektowy
+Odp C++ wspiera programowanie obiektowe, a C jest językiem proceduralnym
+Odp C++ nie obsługuje wskaźników, a C tak
+Odp C nie ma typów danych, a C++ tak
 2
