@@ -1,5 +1,4 @@
 import socket
-# import time
 import json
 import threading
 
@@ -24,7 +23,7 @@ class Networking:
         self.winner = None
     
     def clean(self):
-        if self.is_connected and self.client:
+        if self.client:
             try:
                 self.client.close()
             except Exception as e:

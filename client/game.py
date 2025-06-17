@@ -284,12 +284,15 @@ def game_screen():
         if networking.server_shutdown:
             #wyświetlenie komunikatu o zamknięciu serwera
             networking.winner = -1
+            networking.clean()
             break
         elif networking.opponent_disconnected:
             #wyświetlenie komunikatu o rozłączeniu się przeciwnika
             networking.winner = 2
+            networking.clean()
             break
         elif networking.winner == 0:
+            networking.clean()
             break
         elif player1.finished:
             networking.winner = 1

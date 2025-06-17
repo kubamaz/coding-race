@@ -178,6 +178,3 @@ clock = pygame.time.Clock()
 
 # Inicjalizacja sieci
 networking = Networking(server_ip='127.0.0.1', port=12345)
-
-networking.connect()
-networking.start_receiving()

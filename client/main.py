@@ -49,6 +49,9 @@ while True:
             click_sound.play()
 
             if event.ui_element == start_button:
+                if not networking.is_connected:
+                    networking.connect()
+                    networking.start_receiving()
                 #NAJPIERW PRZEJDE DO EKRANU, W KTORYM BEDE WYBIERAC DZIAL W DANTE, A DOPIERO POTEM GAEM
                 current_screen = GAME
                 set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
