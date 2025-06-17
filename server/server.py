@@ -88,7 +88,7 @@ def handle_player(player, opponent):
                 opponent.sendall((json.dumps(msg) + '\n').encode())
 
         except Exception as e:
-            print(f"Błąd odbierania danych od gracza {player.getpeername()}")
+            # print(f"Błąd odbierania danych od gracza {player.getpeername()}")
             player.close()
             try:
                 if player in player_list:
