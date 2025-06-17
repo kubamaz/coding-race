@@ -165,7 +165,7 @@ class AdminPanel:
 
         # Przycisk dodawania
         self.btn_add_user = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(500, 40, 40, 40),
+            relative_rect=pygame.Rect(500, 40, 40, 50),
             text="+",
             manager=self.manager,
             object_id=pygame_gui.core.ObjectID(class_id="@add_button", object_id="#add_button")
@@ -184,21 +184,23 @@ class AdminPanel:
         # Formularz edycji użytkownika
         y_pos = 100
         self.user_login = pygame_gui.elements.UITextEntryLine(
-            relative_rect=pygame.Rect(500, y_pos, 300, 40),
+            relative_rect=pygame.Rect(500, y_pos, 300, 45),
             placeholder_text="Login...",
             manager=self.manager,
+            object_id = "#login_password_entry"
         )
         self.user_form_elements.append(self.user_login)
 
         y_pos += 60
         self.user_password = pygame_gui.elements.UITextEntryLine(
-            relative_rect=pygame.Rect(500, y_pos, 300, 40),
+            relative_rect=pygame.Rect(500, y_pos, 300, 45),
             placeholder_text="Hasło...",
             manager=self.manager,
+            object_id = "#login_password_entry"
         )
         self.user_form_elements.append(self.user_password)
 
-        y_pos += 60
+        y_pos += 90
         self.btn_save_user = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(500, y_pos, 120, 50),
             text="Zapisz",
@@ -293,7 +295,7 @@ class AdminPanel:
 
             # Przycisk dodaj pytanie
             self.btn_add_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(500, 40, 40, 40),
+                relative_rect=pygame.Rect(500, 40, 40, 50),
                 text="+",
                 manager=self.manager,
                 object_id=pygame_gui.core.ObjectID(class_id="@add_button", object_id="#add_button")
@@ -310,29 +312,32 @@ class AdminPanel:
             self.questions_elements.append(self.btn_back_questions_panel)
 
             # Formularz edycji pytania
-            y_pos = 40
+            y_pos = 45
             self.question_text = pygame_gui.elements.UITextEntryBox(
-                relative_rect=pygame.Rect(500, y_pos, 380, 100),
+                relative_rect=pygame.Rect(500, y_pos, 540, 220),
                 placeholder_text="Treść pytania...",
                 manager=self.manager,
+                object_id="#question_text_entry"
             )
             self.form_elements.append(self.question_text)
 
             self.answer_fields = []
             for i in range(4):
-                y_pos += 110 if i == 0 else 40
+                y_pos += 240 if i == 0 else 65
                 field = pygame_gui.elements.UITextEntryLine(
-                    relative_rect=pygame.Rect(500, y_pos, 300, 30),
+                    relative_rect=pygame.Rect(500, y_pos, 480, 40),
                     placeholder_text=f"Odpowiedź {i + 1}...",
                     manager=self.manager,
+                    object_id="#login_password_entry"
                 )
                 self.answer_fields.append(field)
                 self.form_elements.append(field)
 
                 select_button = pygame_gui.elements.UIButton(
-                    relative_rect=pygame.Rect(820, y_pos, 50, 30),
+                    relative_rect=pygame.Rect(1000, y_pos, 50, 50),
                     text="",
                     manager=self.manager,
+                    
                 )
                 self.answer_select_buttons.append(select_button)
                 self.form_elements.append(select_button)
@@ -414,6 +419,7 @@ class AdminPanel:
                         self.save_question()
                         for element in self.form_elements:
                             element.hide()
+                        self.btn_add_question.show()
                     elif event.ui_element == self.btn_delete_question:
                         self.delete_question()
                         for element in self.form_elements:
@@ -533,6 +539,11 @@ class AdminPanel:
 
     def save_question(self):
         try:
+            question_text = self.question_text.get_text().strip()
+            if not question_text:
+                print("Treść pytania nie może być pusta!")
+                return
+        
             answers = [field.get_text().strip() for field in self.answer_fields]
             non_empty_answers = [ans for ans in answers if ans]
 
@@ -579,7 +590,7 @@ class AdminPanel:
                         file.write("\n---\n")
                     file.write(question["text"].strip() + "\n")
                     for idx, answer in enumerate(question["answers"]):
-                        file.write(f"Odp{idx + 1} {answer.strip()}\n")
+                        file.write(f"Odp {answer.strip()}\n")
                     file.write(str(question["correct"]))
         except Exception as e:
             print(f"Błąd podczas zapisu pytań: {e}")
@@ -615,7 +626,8 @@ class AdminPanel:
             self.btn_delete_question.show()
 
 def back_to_main_menu():
-    print("Powrót do menu głównego")
+    pygame.quit()
+    os._exit(0)
 
 def run_admin_panel():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
