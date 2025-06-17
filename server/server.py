@@ -33,7 +33,7 @@ def handle_client(connection):
 
                 msg = json.loads(message)
                 if msg.get("type") == "join" and not connection in queue:
-                    print(f"[+] Gracz {connection.getpeername()} dołączył do gry.")
+                    print(f"[+] Gracz {connection.getpeername()} dołączył do kolejki.")
                     queue.append(connection)
                 elif msg.get("type") == "leave":
                     queue.remove(connection)

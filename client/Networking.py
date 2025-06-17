@@ -99,12 +99,10 @@ class Networking:
             }
 
         elif msg_type == "match":
-            print("Match found")
             self.is_playing = True
             self.found_match = True
             self.looking_for_match = False
             self.car = msg.get("car", None)
-            print(self.car)
             self.player_id = msg.get("player_id", self.player_id)
             self.send_data({
                 "type": "match"

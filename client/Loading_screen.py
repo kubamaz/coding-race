@@ -90,7 +90,6 @@ def loading_screen():
     car_number3 = -1
     car_number4 = -1
 
-    print("Loading screen started")
     #Wyswietlam GUI
     waiting_information.show()
     please_wait.show()
@@ -118,7 +117,6 @@ def loading_screen():
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
                 if event.ui_element == back_button:
-                    print("Back button pressed")
                     networking.send_data({
                         "type": "leave",
                     })
