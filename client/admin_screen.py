@@ -165,7 +165,7 @@ class AdminPanel:
 
         # Przycisk dodawania
         self.btn_add_user = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect(500, 40, 40, 40),
+            relative_rect=pygame.Rect(500, 40, 40, 50),
             text="+",
             manager=self.manager,
             object_id=pygame_gui.core.ObjectID(class_id="@add_button", object_id="#add_button")
@@ -295,7 +295,7 @@ class AdminPanel:
 
             # Przycisk dodaj pytanie
             self.btn_add_question = pygame_gui.elements.UIButton(
-                relative_rect=pygame.Rect(500, 40, 40, 40),
+                relative_rect=pygame.Rect(500, 40, 40, 50),
                 text="+",
                 manager=self.manager,
                 object_id=pygame_gui.core.ObjectID(class_id="@add_button", object_id="#add_button")
@@ -312,29 +312,32 @@ class AdminPanel:
             self.questions_elements.append(self.btn_back_questions_panel)
 
             # Formularz edycji pytania
-            y_pos = 40
+            y_pos = 45
             self.question_text = pygame_gui.elements.UITextEntryBox(
-                relative_rect=pygame.Rect(500, y_pos, 380, 100),
+                relative_rect=pygame.Rect(500, y_pos, 540, 220),
                 placeholder_text="Treść pytania...",
                 manager=self.manager,
+                object_id="#question_text_entry"
             )
             self.form_elements.append(self.question_text)
 
             self.answer_fields = []
             for i in range(4):
-                y_pos += 110 if i == 0 else 40
+                y_pos += 240 if i == 0 else 65
                 field = pygame_gui.elements.UITextEntryLine(
-                    relative_rect=pygame.Rect(500, y_pos, 300, 30),
+                    relative_rect=pygame.Rect(500, y_pos, 480, 40),
                     placeholder_text=f"Odpowiedź {i + 1}...",
                     manager=self.manager,
+                    object_id="#login_password_entry"
                 )
                 self.answer_fields.append(field)
                 self.form_elements.append(field)
 
                 select_button = pygame_gui.elements.UIButton(
-                    relative_rect=pygame.Rect(820, y_pos, 50, 30),
+                    relative_rect=pygame.Rect(1000, y_pos, 50, 50),
                     text="",
                     manager=self.manager,
+                    
                 )
                 self.answer_select_buttons.append(select_button)
                 self.form_elements.append(select_button)
@@ -416,6 +419,7 @@ class AdminPanel:
                         self.save_question()
                         for element in self.form_elements:
                             element.hide()
+                        self.btn_add_question.show()
                     elif event.ui_element == self.btn_delete_question:
                         self.delete_question()
                         for element in self.form_elements:
@@ -617,7 +621,8 @@ class AdminPanel:
             self.btn_delete_question.show()
 
 def back_to_main_menu():
-    print("Powrót do menu głównego")
+    pygame.quit()
+    os._exit(0)
 
 def run_admin_panel():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))

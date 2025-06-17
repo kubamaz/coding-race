@@ -537,24 +537,27 @@
     "normal_border": "rgba(0, 0, 0, 0)",
     "hovered_border": "rgba(0, 0, 0, 0)",
     "active_border": "rgba(0, 0, 0, 0)",
-    "normal_text": "#AE0909",
+    "normal_text": "#ae0909",
     "hovered_text": "#F56914",
-    "active_text": "#FF4500"
+    "active_text": "#FF4500",
+    "normal_text_shadow": "#aa0909",
+    "hovered_text_shadow": "#ae0909"
   },
   "font": {
     "name": "Michroma",
-    "size": 32
+    "size": "40"
   },
   "misc": {
     "border_width": "0",
     "shadow_width": "0",
-    "padding": "0,0"
+    "padding": "0,0",
+    "text_shadow_size": "2"
   }
 },
 "#admin_list": {
   "colours": {
     "dark_bg": "#999999",
-    "normal_border":"#1a1a1a"
+    "normal_border":"#aa0909"
   },
   "misc": {
     "border_width": "4",
@@ -629,5 +632,22 @@
     "caret_width": 2
   }
 }
-
+,
+"#question_text_entry": {
+  "colours": {
+    "normal_text": "#000000",
+    "dark_bg": "#bfbfbf",
+    "normal_border": "#A0A0A0",
+    "text_cursor": "#000000"
+  },
+  "font": {
+    "name": "Michroma",
+    "size": "16"
+  },
+  "misc": {
+    "text_horiz_alignment": "left",
+    "shape": "rounded_rectangle",
+    "shape_corner_radius": "15"
+  }
+}
 }
