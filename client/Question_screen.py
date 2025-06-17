@@ -12,6 +12,9 @@ def import_questions(file_name):
         line = part.strip().split('\n')
         question = line[0]
         answers = line[1:len(line) - 1]
+        # Usuwamy pierwsze 4 znaki z każdego elementu
+        answers = [ans[4:] for ans in answers]
+
         ind_correct_answer = int(line[len(line) - 1]) - 1 #indeks poprawnej odpowiedzi
         questions.append((question,answers,ind_correct_answer))
     return questions
