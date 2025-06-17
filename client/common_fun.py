@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 import sys
-
+from Networking import Networking
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 832
@@ -15,7 +15,6 @@ UNITS = ['1. Pliki', '2. Struktury', '3. Unie', '4. Dynamiczna alokacja pamięci
          '9. Operacje bitowe oraz dyrektywy preprocesora', '10. Dynamiczne struktury danych']
 
 
-RESULT = 1 #To jest stala ktora okresla czy wygralismy czy przegralismy: 0 - przegrana, 1 - wygrana
 
 #Ustawia dźwięk muzyki w tle ekranu głównego i zwraca dźwięk klikania
 def set_sounds(music_volume, click_volume):
@@ -40,7 +39,7 @@ def set_elements(manager, screen_height, screen_width):
 
     game_title = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -240), (650, 95)),
+        relative_rect=pygame.Rect((0, -240), (1200, 150)),
         text='Coding Race',
         manager=manager,
         object_id='#game_title',
@@ -141,11 +140,12 @@ def set_elements(manager, screen_height, screen_width):
 
 def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume, control_label, arrows_label, boost_label, spacebar_label):
     if current_screen == 'menu':
+        game_title.show()
         control_label.hide()
         arrows_label.hide()
         boost_label.hide()
         spacebar_label.hide()
-
+        
         information.hide()
         information2.hide()
         start_button.show()
@@ -157,6 +157,7 @@ def set_screen(current_screen, information, information2, start_button, settings
         sound_volume.hide()
         sound_slider.hide()
     elif current_screen == 'settings':
+        game_title.show()
         control_label.show()
         arrows_label.show()
         boost_label.show()
@@ -228,3 +229,6 @@ background_picture = resize_img("assets/imgs/Background_pic.png",SCREEN_HEIGHT, 
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "theme.json")
 
 clock = pygame.time.Clock()
+
+# Inicjalizacja sieci
+networking = Networking(server_ip='127.0.0.1', port=12345)

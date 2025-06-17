@@ -1,6 +1,5 @@
 from common_fun import *
 
-
 game_title = pygame_gui.elements.UILabel(
 
         relative_rect=pygame.Rect((0, -220), (650, 95)),
@@ -54,7 +53,7 @@ def unit_screen():
                     running = False
                     game_title.hide()
                     drop_down.hide()
-                    ok_button.hide()
+                    ok_button.hide()  
             manager.process_events(event)
 
 

@@ -34,6 +34,20 @@ def handle_checkpoints_collisions():
             if player1.answers % 3 == int(checkpoint_id - 1):
                 player1.answers += 1
                 player1.is_answering = True
+                networking.send_data(
+                {
+                        "type": "update_position",
+                        "x": player1.topleft_x_pos,
+                        "y": player1.topleft_y_pos,
+                        "angle": player1.angle,
+                        "speed": 0,
+                        "boost": player1.boosts,
+                        "lap": player1.current_loop,
+                        "correct_answer": player1.correct_answers,
+                        "questions": player1.answers,
+                        "is_answering": player1.is_answering,
+                        "player_id": networking.addr_to_str(networking.player_id),
+                    })
                 # question screen
                 if question_screen():
                     handle_correct_answer()
@@ -142,9 +156,12 @@ exit_button = pygame_gui.elements.UIButton(
 
 exit_button.hide()
 
+player1 = None
+player2 = None
 # players
-player1 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
-player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
+
+
+
 # TODO : uzależnienie pozycji start_topleft_y od kolejności połączenia z serwerem -
 #  - jeden z graczy na poczatku musi byc wyżej, a drugi niżej
 
@@ -163,9 +180,15 @@ counter = pygame_gui.elements.UILabel(
 counter.hide()
 
 def game_screen():
+    global player1, player2
     start_time = pygame.time.get_ticks()
     time_counter = 3
-
+    if networking.car == 1:
+        player1 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
+        player2 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
+    else:
+        player2 = Player(screen, "assets/imgs/red-car.png", 625, 35, track_border_mask, track_border_init_pos)
+        player1 = Player(screen, "assets/imgs/purple-car.png", 625, 75, track_border_mask, track_border_init_pos)
     player1.reset_everything()
     player2.reset_everything()
     right_panel.update_info_player2(player2.correct_answers, player2.correct_answers, player2.current_loop, player2.all_loops, player2.velocity, player2.boosts)
@@ -177,6 +200,22 @@ def game_screen():
     # exit_button.show()
     running = True
     counter.show()
+
+    networking.send_data(
+            {
+                    "type": "update_position",
+                    "x": player1.topleft_x_pos,
+                    "y": player1.topleft_y_pos,
+                    "angle": player1.angle,
+                    "speed": player1.get_real_velocity_str(),
+                    "boost": player1.boosts,
+                    "lap": player1.current_loop,
+                    "correct_answer": player1.correct_answers,
+                    "questions": player1.answers,
+                    "is_answering": player1.is_answering,
+                    "player_id": networking.addr_to_str(networking.player_id),
+                })
+
     while running:
         time_delta = clock.tick(60) / 1000.0
         current_time = pygame.time.get_ticks()
@@ -219,11 +258,22 @@ def game_screen():
         # player 2
 
         # TODO : AKTUALIZACJA POZYCJI
-        # update_player2_position(...)
+        if networking.current_oponent_data is not None:
+            player2.update_position(
+                networking.current_oponent_data.get("x"),
+                networking.current_oponent_data.get("y"),
+                networking.current_oponent_data.get("angle")
+            )
+            right_panel.update_info_player2(
+                networking.current_oponent_data.get("correct_answer"),
+                networking.current_oponent_data.get("questions"),
+                networking.current_oponent_data.get("lap"),
+                player2.all_loops,
+                networking.current_oponent_data.get("speed"),
+                networking.current_oponent_data.get("boost")
+            )
         player2.blit_car()
 
-        # TODO : AKTUALIZACJA INFORMACJI NA PANELU WYNIKOW
-        # right_panel.update_info_player2(...)
 
         # kolizje
         handle_collisions()
@@ -231,15 +281,46 @@ def game_screen():
         # prawy panel
         right_panel.set_gamer1_velocity(player1.get_real_velocity_str() + "km/h")
         right_panel.blit_panel()
-
-        # czy koniec gry
-        if player1.finished:
-            common_fun.RESULT = 1
+        if networking.server_shutdown:
+            #wyświetlenie komunikatu o zamknięciu serwera
+            networking.winner = -1
             break
-        elif player2.finished:
-            common_fun.RESULT = 0
+        elif networking.opponent_disconnected:
+            #wyświetlenie komunikatu o rozłączeniu się przeciwnika
+            networking.winner = 2
             break
+        elif networking.winner == 0:
+            break
+        elif player1.finished:
+            networking.winner = 1
+            networking.send_data(
+            {
+                    "type": "winner"
+                })
+            break
+       
+        
+        if player1.angle != player1.last_angle or player1.last_topleft_x_pos != player1.topleft_x_pos or player1.last_topleft_y_pos != player1.topleft_y_pos:
+            player1.last_topleft_x_pos = player1.topleft_x_pos
+            player1.last_topleft_y_pos = player1.topleft_y_pos
+            player1.last_angle = player1.angle
 
+
+            networking.send_data(
+            {
+                    "type": "update_position",
+                    "x": player1.topleft_x_pos,
+                    "y": player1.topleft_y_pos,
+                    "angle": player1.angle,
+                    "speed": player1.get_real_velocity_str(),
+                    "boost": player1.boosts,
+                    "lap": player1.current_loop,
+                    "correct_answer": player1.correct_answers,
+                    "questions": player1.answers,
+                    "is_answering": player1.is_answering,
+                    "player_id": networking.addr_to_str(networking.player_id),
+                })
+            
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.flip()

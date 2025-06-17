@@ -11,12 +11,32 @@ NUMBER_OF_CARS = 8
 #TWORZE GUI 
 waiting_information = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0,-200), (1500, 400)),
+        relative_rect=pygame.Rect((0,-200), (1500, 800)),
         text='POSZUKIWANIE UCZESTNIKA',
         manager=manager,
         object_id="#game_title",
         anchors={'center': 'center'}
 )
+
+error_information = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0,-200), (1500, 800)),
+        text='BLAD POLACZENIA Z SERWEREM',
+        manager=manager,
+        object_id="#error_information",
+        anchors={'center': 'center'}
+)
+
+error_explanation = pygame_gui.elements.UILabel(
+
+        relative_rect=pygame.Rect((0,-150), (1500, 800)),
+        text=' ',
+        manager=manager,
+        object_id="#error_information",
+        anchors={'center': 'center'}
+)
+
+
 please_wait = pygame_gui.elements.UILabel(
 
         relative_rect=pygame.Rect((0,-100), (1500, 400)),
@@ -34,6 +54,9 @@ back_button = pygame_gui.elements.UIButton(
 waiting_information.hide()
 please_wait.hide()
 back_button.hide()
+error_information.hide()
+error_explanation.hide()
+
 
 #Obsluga samochodzikow
 class Car:
@@ -56,8 +79,7 @@ def cars_conf():
 
 
 def loading_screen():
-    logowanie_uzytkownika = 10 #SYMULACJA ZE PO 5 SEKUNDACH UZYTKOWNIK SIE ZALOGUJE - USUNAC TO POZNIEJ!!!!!!!!
-
+    show_cars = True
     #Liczba kropek ktore maja sie wyswietlic przy napisie prosze czekac..
     number_of_dots = 1
 
@@ -75,12 +97,18 @@ def loading_screen():
 
     loading = True
     start_time = pygame.time.get_ticks()
-
+    if networking.is_connected:
+        networking.send_data({
+            "type": "join",
+            "player_id": networking.player_id
+        })
     while loading:
         current_time = pygame.time.get_ticks()
         time_delta = clock.tick(60) / 1000.0
         screen.blit(background_picture, (0, 0))
 
+        networking.looking_for_match = True
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 loading = False
@@ -89,46 +117,82 @@ def loading_screen():
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 click_sound.play()
                 if event.ui_element == back_button:
+                    networking.send_data({
+                        "type": "leave",
+                    })
                     waiting_information.hide()
                     please_wait.hide()
                     back_button.hide()
-                    unit_screen()
+                    error_information.hide()
+                    error_explanation.hide()
+                    return -1
+
             manager.process_events(event)
 
+        if show_cars and networking.server_shutdown:
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            networking.server_shutdown = False
+            if not networking.is_connected:
+                error_information.show()
+                error_explanation.text = 'Server Shutdown'
+                error_explanation.rebuild()
+                error_explanation.show()
+                show_cars = False
+                please_wait.hide()
+                back_button.show()
+
+        if show_cars and networking.couldnt_connect: 
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            networking.couldnt_connect = False
+            networking.connect()
+            if not networking.is_connected:
+                error_information.show()
+                error_explanation.text = 'Connection Error'
+                error_explanation.rebuild()
+                error_explanation.show()
+                show_cars = False
+                please_wait.hide()
+                back_button.show()    
+
         #Tutaj jest cala obsluga przejezdzajacych na gorze samochodzikow
-        screen.blit(cars[car_number1].img, (cars[car_number1].x, cars[car_number1].y))
-        cars[car_number1].x += 2  
-        if car_number2 >= 0 : 
-            screen.blit(cars[car_number2].img, (cars[car_number2].x, cars[car_number2].y))
-            cars[car_number2].x += 2  
-        if car_number3 >= 0 : 
-            screen.blit(cars[car_number3].img, (cars[car_number3].x, cars[car_number3].y))
-            cars[car_number3].x += 2  
-        if car_number4 >= 0 : 
-            screen.blit(cars[car_number4].img, (cars[car_number4].x, cars[car_number4].y))
-            cars[car_number4].x += 2  
+        if show_cars:
+            screen.blit(cars[car_number1].img, (cars[car_number1].x, cars[car_number1].y))
+            cars[car_number1].x += 2  
+            if car_number2 >= 0 : 
+                screen.blit(cars[car_number2].img, (cars[car_number2].x, cars[car_number2].y))
+                cars[car_number2].x += 2  
+            if car_number3 >= 0 : 
+                screen.blit(cars[car_number3].img, (cars[car_number3].x, cars[car_number3].y))
+                cars[car_number3].x += 2  
+            if car_number4 >= 0 : 
+                screen.blit(cars[car_number4].img, (cars[car_number4].x, cars[car_number4].y))
+                cars[car_number4].x += 2  
 
-        if car_number2 == -1 and cars[car_number1].x > SCREEN_WIDTH//4: #Dokladam nowy samochodzik w polowie
-            car_number2+=2
+            if car_number2 == -1 and cars[car_number1].x > SCREEN_WIDTH//4: #Dokladam nowy samochodzik w polowie
+                car_number2+=2
 
-        if car_number3 == -1 and cars[car_number1].x > SCREEN_WIDTH//2: #Dokladam nowy samochodzik w polowie
-            car_number3+=3
+            if car_number3 == -1 and cars[car_number1].x > SCREEN_WIDTH//2: #Dokladam nowy samochodzik w polowie
+                car_number3+=3
 
-        if car_number4 == -1 and cars[car_number1].x > (SCREEN_WIDTH//2 + SCREEN_WIDTH//4): #Dokladam nowy samochodzik w polowie
-            car_number4+=4
+            if car_number4 == -1 and cars[car_number1].x > (SCREEN_WIDTH//2 + SCREEN_WIDTH//4): #Dokladam nowy samochodzik w polowie
+                car_number4+=4
 
-        if cars[car_number1].x > SCREEN_WIDTH:
-            cars[car_number1].x = BEGIN_X
+            if cars[car_number1].x > SCREEN_WIDTH:
+                cars[car_number1].x = BEGIN_X
 
-        if car_number2 != -1 and cars[car_number2].x > SCREEN_WIDTH:
-            cars[car_number2].x = BEGIN_X
+            if car_number2 != -1 and cars[car_number2].x > SCREEN_WIDTH:
+                cars[car_number2].x = BEGIN_X
 
-        
-        if car_number3!= -1 and cars[car_number3].x > SCREEN_WIDTH:
-            cars[car_number3].x = BEGIN_X
+            
+            if car_number3!= -1 and cars[car_number3].x > SCREEN_WIDTH:
+                cars[car_number3].x = BEGIN_X
 
-        if car_number4!= -1 and cars[car_number4].x > SCREEN_WIDTH:
-            cars[car_number4].x = BEGIN_X
+            if car_number4!= -1 and cars[car_number4].x > SCREEN_WIDTH:
+                cars[car_number4].x = BEGIN_X
 
 
         #Jesli minela sekunda to wchodze do ifa
@@ -142,15 +206,18 @@ def loading_screen():
                 number_of_dots = 0
             please_wait.rebuild()
 
-            #CO SEKUNDE BEDE TEZ SPRAWDZAC CZY JAKIS UZYTKOWNIK SIE NIE ZALOGOWAL - TERAZ PRZYJMUJE ZE PO 5 SEKUNDACH SIE ZALOGUJE
-            logowanie_uzytkownika -= 1
-            if logowanie_uzytkownika == 0:
-                waiting_information.hide()
-                please_wait.hide()
-                back_button.hide()
-                loading = False
+        
+
+        if networking.found_match:
+            waiting_information.hide()
+            please_wait.hide()
+            back_button.hide()
+            loading = False    
+       
+        
 
 
         manager.update(time_delta)
         manager.draw_ui(screen)
         pygame.display.update()
+    return 1

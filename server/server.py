@@ -15,70 +15,105 @@ def handle_client(connection):
     print(f"[+] Nowy gracz: {connection.getpeername()}")
 
     player_list.append(connection)
+    looking_for_opponent = True
+    while looking_for_opponent:
+        try:
+            data = connection.recv(1024).decode()
+            if not data:
+                print(f"[!] Gracz {connection.getpeername()} rozłączył się.")
+                connection.close()
+                player_list.remove(connection)
+                if connection in queue:
+                    queue.remove(connection)
+                return
+            
+            while '\n' in data:
+                message, data = data.split('\n', 1)
+                message = message.strip()
 
-    try:
-        connection.sendall((json.dumps({
-            "type": "queue",
-            "message": "Czekasz na przeciwnika...",
-            "player_id": connection.getpeername()
-        }) + '\n').encode())
-        queue.append(connection)
-    except Exception as e:
-        print(f"Błąd wysyłania danych do gracza {connection.getpeername()}: {e}")
-        connection.close()
-        player_list.remove(connection)
-        return
-   
-def handle_game(player1 , player2):
-    players = [player1, player2]
-    game_active = True
-    while game_active:
-        for player in players:
-            try:
-                data = player.recv(1024).decode()
-                if not data:
-                    print(f"[!] Gracz {player.getpeername()} rozłączył się.")
-                    player.close()
-                    players.remove(player)
+                msg = json.loads(message)
+                if msg.get("type") == "join" and not connection in queue:
+                    print(f"[+] Gracz {connection.getpeername()} dołączył do kolejki.")
+                    queue.append(connection)
+                elif msg.get("type") == "leave":
+                    queue.remove(connection)
+                    print(f"[!] Gracz {connection.getpeername()} opuścił kolejkę.")
+                elif msg.get("type") == "match":
                     return
-                else:
-                    while '\n' in data:
-                        dane, data = data.split('\n', 1)
-                        dane = dane.strip()
+        except Exception as e:
+            print(f"Błąd odbierania danych od gracza")
+            connection.close()
+            if connection in player_list:
+                player_list.remove(connection)
+            return
 
-                        msg = json.loads(dane)
-                        if msg.get("type") == "winner":
-                            print(f"Otrzymano komunikat o zwycięstwie: {msg.get('message')}")
-                            game_active = False
-                            oponent = player2 if player == player1 else player1
-                            oponent.sendall((json.dumps({
-                                "type": "looser",
-                                "message": "Twój przeciwnik wygrał!",
-                            })+ '\n').encode())
-                            if player in player_list:
-                                player_list.remove(player)
-                            if oponent in player_list:
-                                player_list.remove(oponent)
-
-
-                        oponent = player2 if player == player1 else player1
-                        oponent.sendall((json.dumps(msg)+ '\n').encode())
-            except Exception as e:
-                print(f"Błąd odbierania danych od gracza {player.getpeername()}: {e}")
+def handle_player(player, opponent):
+    while Running or player in player_list:
+        try:
+            data = player.recv(2048).decode()
+            if not data:
+                print(f"[!] Gracz {player.getpeername()} rozłączył się.")
                 player.close()
-                if player in player_list:
-                    player_list.remove(player)
-                players.remove(player)
-                oponent = player2 if player == player1 else player1
-                oponent.sendall((json.dumps({
+                # Powiadom przeciwnika o rozłączeniu
+                opponent.sendall((json.dumps({
                     "type": "opponent_disconnected",
                     "message": "Twój przeciwnik rozłączył się."
                 }) + '\n').encode())
-                if oponent in player_list:
-                    player_list.remove(oponent)
-                if len(players) < 2:
-                    print("[!] Gra została przerwana z powodu rozłączenia gracza.")
+                break
+
+            while '\n' in data:
+                dane, data = data.split('\n', 1)
+                dane = dane.strip()
+                if not dane:
+                    continue
+
+                msg = json.loads(dane)
+
+                if msg.get("type") == "winner":
+                    # Powiadom przeciwnika, że przegrał
+                    opponent.sendall((json.dumps({
+                        "type": "looser",
+                        "message": "Twój przeciwnik wygrał!",
+                    }) + '\n').encode())
+                    # Zamknij oba połączenia
+                    if player in player_list:
+                        player_list.remove(player)
+                    if opponent in player_list:
+                        player_list.remove(opponent)
+                    
+                    time.sleep(1)  # Daj czas na wysłanie wiadomości do graczy
+                    player.close()
+                    opponent.close()
                     return
+
+                opponent.sendall((json.dumps(msg) + '\n').encode())
+
+        except Exception as e:
+            print(f"Błąd odbierania danych od gracza")
+            player.close()
+            try:
+                if player in player_list:
+                    player_list.remove(player)
+                
+                opponent.sendall((json.dumps({
+                    "type": "opponent_disconnected",
+                    "message": "Twój przeciwnik rozłączył się."
+                }) + '\n').encode())
+                opponent.close()
+                if opponent in player_list:
+                    player_list.remove(opponent)
+            except:
+                pass
+            break
+def handle_game(player1 , player2):
+    t1 = threading.Thread(target=handle_player, args=(player1, player2))
+    t2 = threading.Thread(target=handle_player, args=(player2, player1))
+
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
                 
 
 def queue_system():
@@ -90,19 +125,24 @@ def queue_system():
             try:
                 player1.sendall((json.dumps({
                     "type": "match",
-                    "message": "Znalazłeś przeciwnika!"
+                    "message": "Znalazłeś przeciwnika!",
+                    "player_id": player1.getpeername(),
+                    "car": 1,
                 }) + '\n').encode())
                 player2.sendall((json.dumps({
                     "type": "match",
-                    "message": "Znalazłeś przeciwnika!"
+                    "message": "Znalazłeś przeciwnika!",
+                    "player_id": player2.getpeername(),
+                    "car": 2,
                 }) + '\n').encode())
 
                 print(f"[+] Rozpoczynam grę między {player1.getpeername()} a {player2.getpeername()}")
+                time.sleep(3)  # Daj czas na wysłanie wiadomości do graczy
                 game_thread = threading.Thread(target=handle_game, args=(player1, player2), daemon=True)
                 game_thread.start()
                 
             except Exception as e:
-                print(f"Błąd wysyłania danych do graczy: {e}")
+                print(f"Błąd wysyłania danych do graczy:")
                 player1.close()
                 player2.close()
                 if player1 in player_list:
@@ -121,6 +161,7 @@ def server_console():
                     "type": "server_shutdown",
                     "message": "Serwer jest zamykany, do zobaczenia!"
                 }) + '\n').encode())
+            for player in player_list:
                 player.close()
                 player_list.remove(player)
             print("[SERVER] Zamykanie serwera...")
