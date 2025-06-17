@@ -146,6 +146,7 @@ def loading_screen():
                 back_button.show()
 
         if show_cars and networking.couldnt_connect: 
+            waiting_information.hide()
             please_wait.hide()
             back_button.hide()
             networking.couldnt_connect = False
