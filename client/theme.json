@@ -614,7 +614,7 @@
 "#login_password_entry": {
   "colours": {
     "normal_text": "#000000",
-    "dark_bg": "#F0F0F0",
+    "dark_bg": "#bfbfbf",
     "normal_border": "#A0A0A0",
     "text_cursor": "#000000"
   },

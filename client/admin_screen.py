@@ -184,7 +184,7 @@ class AdminPanel:
         # Formularz edycji użytkownika
         y_pos = 100
         self.user_login = pygame_gui.elements.UITextEntryLine(
-            relative_rect=pygame.Rect(500, y_pos, 300, 40),
+            relative_rect=pygame.Rect(500, y_pos, 300, 45),
             placeholder_text="Login...",
             manager=self.manager,
             object_id = "#login_password_entry"
@@ -193,14 +193,14 @@ class AdminPanel:
 
         y_pos += 60
         self.user_password = pygame_gui.elements.UITextEntryLine(
-            relative_rect=pygame.Rect(500, y_pos, 300, 40),
+            relative_rect=pygame.Rect(500, y_pos, 300, 45),
             placeholder_text="Hasło...",
             manager=self.manager,
             object_id = "#login_password_entry"
         )
         self.user_form_elements.append(self.user_password)
 
-        y_pos += 60
+        y_pos += 90
         self.btn_save_user = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(500, y_pos, 120, 50),
             text="Zapisz",
@@ -581,7 +581,7 @@ class AdminPanel:
                         file.write("\n---\n")
                     file.write(question["text"].strip() + "\n")
                     for idx, answer in enumerate(question["answers"]):
-                        file.write(f"Odp{idx + 1} {answer.strip()}\n")
+                        file.write(f"Odp {answer.strip()}\n")
                     file.write(str(question["correct"]))
         except Exception as e:
             print(f"Błąd podczas zapisu pytań: {e}")
