@@ -39,7 +39,7 @@ def set_elements(manager, screen_height, screen_width):
 
     game_title = pygame_gui.elements.UILabel(
 
-        relative_rect=pygame.Rect((0, -240), (650, 95)),
+        relative_rect=pygame.Rect((0, -240), (1200, 150)),
         text='Coding Race',
         manager=manager,
         object_id='#game_title',
@@ -106,6 +106,7 @@ def set_elements(manager, screen_height, screen_width):
 
 def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume):
     if current_screen == 'menu':
+        game_title.show()
         information.hide()
         information2.hide()
         start_button.show()
@@ -117,6 +118,7 @@ def set_screen(current_screen, information, information2, start_button, settings
         sound_volume.hide()
         sound_slider.hide()
     elif current_screen == 'settings':
+        game_title.show()
         information.hide()
         information2.hide()
         start_button.hide()
