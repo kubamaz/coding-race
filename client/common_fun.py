@@ -137,10 +137,15 @@ def set_elements(manager, screen_height, screen_width):
     volume_slider.hide()
     back_button.hide()
     music_volume.hide()
-    return game_title, start_button, settings_button, exit_button, volume_slider, back_button, music_volume, sound_volume, sound_slider
+    return game_title, start_button, settings_button, exit_button, volume_slider, back_button, music_volume, sound_volume, sound_slider, control_label, arrows_label, boost_label, spacebar_label
 
-def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume):
+def set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume, control_label, arrows_label, boost_label, spacebar_label):
     if current_screen == 'menu':
+        control_label.hide()
+        arrows_label.hide()
+        boost_label.hide()
+        spacebar_label.hide()
+
         information.hide()
         information2.hide()
         start_button.show()
@@ -152,6 +157,11 @@ def set_screen(current_screen, information, information2, start_button, settings
         sound_volume.hide()
         sound_slider.hide()
     elif current_screen == 'settings':
+        control_label.show()
+        arrows_label.show()
+        boost_label.show()
+        spacebar_label.show()
+
         information.hide()
         information2.hide()
         start_button.hide()
@@ -163,6 +173,11 @@ def set_screen(current_screen, information, information2, start_button, settings
         sound_volume.show()
         sound_slider.show()
     elif current_screen == 'game':
+        control_label.hide()
+        arrows_label.hide()
+        boost_label.hide()
+        spacebar_label.hide()
+
         information.hide()
         information2.hide()
         game_title.hide()
@@ -175,6 +190,11 @@ def set_screen(current_screen, information, information2, start_button, settings
         sound_volume.hide()
         sound_slider.hide()
     elif current_screen == 'summary':
+        control_label.hide()
+        arrows_label.hide()
+        boost_label.hide()
+        spacebar_label.hide()
+
         information.show()
         information2.show()
         game_title.show()
