@@ -38,7 +38,14 @@ które mogą wpłynąć na prędkość pojazdu.
    ```bash
    pip install pygame pygame_gui
 
-3. Uruchom grę:
+3. Uruchom serwer (może to zrobić dowolna osoba):
+
+   ```bash
+   cd server
+   python server.py
+   cd ..
+
+4. Uruchom grę (koniecznie przy uruchomionym serwerze!):
 
    ```bash
    cd client
