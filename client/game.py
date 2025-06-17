@@ -282,17 +282,16 @@ def game_screen():
         right_panel.set_gamer1_velocity(player1.get_real_velocity_str() + "km/h")
         right_panel.blit_panel()
         if networking.server_shutdown:
-            #TODO: wyświetlenie komunikatu o zamknięciu serwera
+            #wyświetlenie komunikatu o zamknięciu serwera
+            networking.winner = -1
             break
-        if networking.opponent_disconnected:
-            networking.winner = 1
-            #TODO: wyświetlenie komunikatu o rozłączeniu się przeciwnika
+        elif networking.opponent_disconnected:
+            #wyświetlenie komunikatu o rozłączeniu się przeciwnika
+            networking.winner = 2
             break
-
-        if networking.winner == 0:
+        elif networking.winner == 0:
             break
-
-        if player1.finished:
+        elif player1.finished:
             networking.winner = 1
             networking.send_data(
             {

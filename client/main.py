@@ -10,7 +10,7 @@ SUMMARY = 'summary'
 
 information = pygame_gui.elements.UILabel(
 
-    relative_rect=pygame.Rect((0, -170), (800, 70)),
+    relative_rect=pygame.Rect((0, -170), (1050, 80)),
     manager=manager,
     text="Zdobywasz 1 punkt do wybranego dzialu Dante!",
     anchors={'center': 'center'},
@@ -64,11 +64,25 @@ while True:
                     prev_screen = SUMMARY
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
 
-                    if networking.winner:
+                    if networking.winner == -1:
+                        game_title.text = 'Server Shutdown'
+                        information.text = "Serwer zostal zamkniety"
+                        information.rebuild()
+                        information.show()
+                        information2.hide()
+                    elif networking.winner == 2:
+                        game_title.text = 'YOU WON - OPPONENT LEFT!'
+                        information.text = "Zdobywasz 1 punkt do wybranego dzialu Dante!"
+                        information.rebuild
+                        information.show()
+                    elif networking.winner == 1:
                         game_title.text = 'YOU WON !'
+                        information.text = "Zdobywasz 1 punkt do wybranego dzialu Dante!"
+                        information.rebuild
                         information.show()
                     else:
                         game_title.text = 'YOU LOST !'
+                        information2.hide()
                         information.hide()
 
                     start_button.text = 'Play again'
