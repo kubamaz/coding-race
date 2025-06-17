@@ -18,10 +18,10 @@ Odp IBM
 Odp Microsoft
 1
 ---
-Co oznacza skrót IDE?
-Odp Incremental Debug Environment
-Odp Internal Debug Executor
-Odp Integrated Development Environment
+Co oznacza litera I w IDE?
+Odp Incremental
+Odp Internal
+Odp Integrated
 3
 ---
 Który język programowania został zaprojektowany przez Dennisa Ritchie?
@@ -44,33 +44,11 @@ Odp realloc(5, 2)
 Odp realloc(NULL, 10)
 3
 ---
-Które z poniższych stwierdzeń poprawnie opisuje działanie dyrektywy #define w języku C?
-Odp Tworzy nową zmienną o zadanej wartości
-Odp Rezerwuje miejsce w pamięci na stałą
-Odp Zastępuje wszystkie wystąpienia identyfikatora zdefiniowaną wartością
-Odp Tworzy dynamiczny wskaźnik do wartości
+Które ze stwierdzeń poprawnie opisuje działanie #define w C?
+Odp Alokuje pamięć
+Odp Tworzy zmienną
+Odp Zamienia tekst
 3
----
-Co robi dyrektywa #ifdef?
-Odp Sprawdza, czy zmienna jest większa od zera
-Odp Włącza debugowanie
-Odp Sprawdza, czy makro zostało wcześniej zdefiniowane
-Odp Definiuje funkcję
-3
----
-Co się stanie, jeśli plik nagłówkowy zostanie załączony dwa razy bez zabezpieczenia?
-Odp Program się skompiluje, ale będzie wolniejszy
-Odp Kompilator zignoruje duplikaty
-Odp Zadziała poprawnie bez żadnych skutków ubocznych
-Odp Może wystąpić błąd wielokrotnej definicji
-4
----
-Co robi dyrektywa #undef?
-Odp Usuwa zmienną z pamięci
-Odp Kasuje wcześniej zdefiniowane makro
-Odp Wyłącza plik nagłówkowy
-Odp Czyści bufor konsoli
-2
 ---
 Co zwróci wyrażenie 5 & 3 (w systemie dziesiętnym)?
 Odp Zwróci 1
@@ -86,14 +64,7 @@ Odp x ^ 0x08
 Odp x << 3
 2
 ---
-Dlaczego we wzorcu makra w języku C wszystkie parametry powinny być ujęte w nawiasy?
-Odp Aby poprawić czytelność kodu
-Odp Aby uniknąć błędów składni przy kompilacji
-Odp Aby zapewnić poprawną kolejność obliczeń podczas rozwinięcia makra
-Odp Ponieważ preprocesor wymaga tego formalnie
-3
----
-Która firma jest odpowiedzialna za stworzenie Objective-C - rozszerzenie języka C o możliwości obiektowe?
+Która firma jest odpowiedzialna za stworzenie Objective-C?
 Odp Microsoft
 Odp Apple
 Odp Oracle
@@ -106,15 +77,14 @@ Odp Dennis Ritchie
 Odp Bjarne Stroustrup
 2
 ---
-Dlaczego język programowania Python zawdzięcza swoją nazwę Monty Pythonowi?
-Odp Twórca języka był członkiem zespołu Monty Pythona
-Odp Nazwa została wybrana przypadkowo, bez związku z Monty Pythonem
-Odp Twórca chciał, aby język był łatwy i zabawny, jak skecze Monty Pythona
+Nazwa języka Pyhon zawdzięcza swoją nazwę:
+Odp wężowi
+Odp przypadkowi
+Odp grupie Monty Pythona
 3
 ---
-Jaka jest podstawowa różnica między językami C i C++?
-Odp C++ to język funkcyjny, a C to obiektowy
-Odp C++ wspiera programowanie obiektowe, a C jest językiem proceduralnym
-Odp C++ nie obsługuje wskaźników, a C tak
-Odp C nie ma typów danych, a C++ tak
+Jaką własność posiada C++, której nie posiada C?
+Odp Język skryptowyy
+Odp Obiektowość
+Odp Obsługa wskaźników
 2
