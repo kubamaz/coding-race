@@ -131,7 +131,7 @@ def loading_screen():
 
             manager.process_events(event)
 
-        if show_cars and networking.server_shutdown: #TODO: obsługa zamknięcia serwera zrobione na szybko ale zle dziala wiec osoba od GUI niech się tym zajmie
+        if show_cars and networking.server_shutdown:
             waiting_information.hide()
             please_wait.hide()
             back_button.hide()
@@ -145,8 +145,7 @@ def loading_screen():
                 please_wait.hide()
                 back_button.show()
 
-        if show_cars and networking.couldnt_connect: #TODO: obsługa braku połączenia z serwerem zrobione na szybko ale zle dziala wiec osoba od GUI niech się tym zajmie
-            waiting_information.hide()
+        if show_cars and networking.couldnt_connect: 
             please_wait.hide()
             back_button.hide()
             networking.couldnt_connect = False
