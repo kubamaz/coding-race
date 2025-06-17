@@ -35,6 +35,7 @@ current_screen = MENU
 prev_screen = MENU
 set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
 
+
 while True:
     time_delta = clock.tick(60) / 1000.0
 
@@ -52,20 +53,12 @@ while True:
                 current_screen = GAME
                 set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
                 unit_screen()
-                loading_screen()
-                if networking.couldnt_connect:
+                if loading_screen() == -1:
+                    BACK_BUTTON_LOADING = False
                     current_screen = MENU
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
-                    game_title.text = 'Connection Error'
-                    game_title.rebuild()
-                elif networking.server_shutdown:
-                    current_screen = MENU
-                    set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
-                    game_title.text = 'Server Shutdown'
-                    game_title.rebuild()
                 else:
                     game_screen()
-
                     #Po grze robie podsumowanie
                     current_screen = SUMMARY
                     prev_screen = SUMMARY
@@ -82,7 +75,6 @@ while True:
 
                     game_title.rebuild()
                     start_button.rebuild()
-
             elif event.ui_element == exit_button:
                 pygame.quit()
                 sys.exit()
