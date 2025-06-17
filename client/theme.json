@@ -415,8 +415,6 @@
   },
   "#admin_button": {
     "colours": {
-      "normal_bg": "transparent",
-      "hovered_bg": "transparent",
       "normal_border": "#AE0909",
       "hovered_border": "#F56914",
       "normal_text": "#D96024",
@@ -435,8 +433,8 @@
   
   "#list_item": {
     "colours": {
-      "normal_bg": "rgba(90, 42, 10, 0.3)",
-      "selected_bg": "rgba(122, 58, 26, 0.5)",
+      "normal_bg": "rgb(90, 42, 10)",
+      "selected_bg": "rgb(122, 58, 26)",
       "normal_text": "#E8D0B0",
       "selected_text": "#FFFFFF"
     },
@@ -453,13 +451,13 @@
   
   "#text_input": {
     "colours": {
-    "normal_bg": "rgba(255, 255, 255, 0.1)",
-    "hovered_bg": "rgba(255, 255, 255, 0.2)",
+    "normal_bg": "rgb(255, 255, 255)",
+    "hovered_bg": "rgb(255, 255, 255)",
     "normal_border": "#D96024",
     "hovered_border": "#F56914",
     "selected_border": "#FF4500",
     "normal_text": "#FFFFFF",
-    "active_bg": "rgba(90, 42, 10, 0.5)"
+    "active_bg": "rgb(90, 42, 10)"
 },
     "font": {
       "name": "Michroma",
@@ -479,8 +477,8 @@
     "size": 18
   },
   "colours": {
-    "normal_bg": "rgba(90, 42, 10, 0.4)",
-    "hovered_bg": "rgba(122, 58, 26, 0.6)",
+    "normal_bg": "rgb(90, 42, 10)",
+    "hovered_bg": "rgb(122, 58, 26)",
     "normal_text": "#E8D0B0",
     "hovered_text": "#FFFFFF"
   },
@@ -493,8 +491,8 @@
   
   "#correct_button": {
     "colours": {
-      "normal_bg": "rgba(26, 122, 26, 0.3)",
-      "hovered_bg": "rgba(36, 142, 36, 0.5)",
+      "normal_bg": "rgb(26, 122, 26)",
+      "hovered_bg": "rgb(36, 142, 36)",
       "normal_border": "#1A7A1A",
       "hovered_border": "#248E24"
     },
@@ -516,7 +514,6 @@
     "normal_text": "#5A2A0A",
     "hovered_text": "#7A3A1A",
     
-    "normal_border": "transparent",
     "hovered_border": "#7A3A1A"
   },
   "font": {
