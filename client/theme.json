@@ -96,6 +96,21 @@
             "text_shadow_size": "3"
         }
     },
+    "#control_label": {
+        "colours": {
+            "normal_text": "#D96024",
+            "text_shadow": "#000000"
+        },
+        "font": {
+            "name": "Michroma",
+            "regular_path": "assets/Fonts/Michroma-Regular.ttf",
+            "size": "30"
+        },
+        "misc": {
+            "text_shadow_size": "3"
+        }
+    },
+
     "text_box": {
         "colours": {
             "normal_text": "#D96024",
