@@ -187,6 +187,7 @@ class AdminPanel:
             relative_rect=pygame.Rect(500, y_pos, 300, 40),
             placeholder_text="Login...",
             manager=self.manager,
+            object_id = "#login_password_entry"
         )
         self.user_form_elements.append(self.user_login)
 
@@ -195,6 +196,7 @@ class AdminPanel:
             relative_rect=pygame.Rect(500, y_pos, 300, 40),
             placeholder_text="Hasło...",
             manager=self.manager,
+            object_id = "#login_password_entry"
         )
         self.user_form_elements.append(self.user_password)
 

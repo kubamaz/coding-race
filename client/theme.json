@@ -610,6 +610,24 @@
             "shape_corner_radius": "15",
             "text_shadow_size": "2"
         }
+},
+"#login_password_entry": {
+  "colours": {
+    "normal_text": "#000000",
+    "dark_bg": "#F0F0F0",
+    "normal_border": "#A0A0A0",
+    "text_cursor": "#000000"
+  },
+  "font": {
+    "name": "Michroma",
+    "size": 18
+  },
+  "misc": {
+    "border_width": 1,
+    "padding": [6, 4],
+    "shadow_width": 0,
+    "caret_width": 2
+  }
 }
 
 }
