@@ -41,9 +41,10 @@ def handle_client(connection):
                 elif msg.get("type") == "match":
                     return
         except Exception as e:
-            print(f"Błąd odbierania danych od gracza {connection.getpeername()}")
+            print(f"Błąd odbierania danych od gracza")
             connection.close()
-            player_list.remove(connection)
+            if connection in player_list:
+                player_list.remove(connection)
             return
 
 def handle_player(player, opponent):
@@ -88,7 +89,7 @@ def handle_player(player, opponent):
                 opponent.sendall((json.dumps(msg) + '\n').encode())
 
         except Exception as e:
-            # print(f"Błąd odbierania danych od gracza {player.getpeername()}")
+            print(f"Błąd odbierania danych od gracza")
             player.close()
             try:
                 if player in player_list:
@@ -160,6 +161,7 @@ def server_console():
                     "type": "server_shutdown",
                     "message": "Serwer jest zamykany, do zobaczenia!"
                 }) + '\n').encode())
+            for player in player_list:
                 player.close()
                 player_list.remove(player)
             print("[SERVER] Zamykanie serwera...")

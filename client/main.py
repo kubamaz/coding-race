@@ -66,7 +66,6 @@ while True:
                     current_screen = SUMMARY
                     prev_screen = SUMMARY
                     set_screen(current_screen, information, information2, start_button, settings_button, exit_button, volume_slider, back_button, game_title, music_volume, sound_slider, sound_volume)
-
                     if networking.winner == -1:
                         game_title.text = 'Server Shutdown'
                         information.text = "Serwer zostal zamkniety"
@@ -74,20 +73,21 @@ while True:
                         information.show()
                         information2.hide()
                     elif networking.winner == 2:
-                        game_title.text = 'YOU WON - OPPONENT LEFT!'
+                        game_title.text = 'YOU WON - OPPONENT LEFT !'
                         information.text = "Zdobywasz 1 punkt do wybranego dzialu Dante!"
-                        information.rebuild
+                        information.rebuild()
                         information.show()
                     elif networking.winner == 1:
                         game_title.text = 'YOU WON !'
                         information.text = "Zdobywasz 1 punkt do wybranego dzialu Dante!"
-                        information.rebuild
+                        information.rebuild()
                         information.show()
                     else:
                         game_title.text = 'YOU LOST !'
                         information2.hide()
                         information.hide()
 
+                    networking.clean()
                     start_button.text = 'Play again'
 
                     game_title.rebuild()
