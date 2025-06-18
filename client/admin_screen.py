@@ -489,7 +489,7 @@ class AdminPanel:
         password = self.user_password.get_text().strip()
 
         if not login or not password:
-            print("Login i hasło nie mogą być puste!")
+            self.show_error_message("Login i hasło nie mogą być puste!")
             return
 
         if self.current_user_index == -1:
@@ -541,7 +541,7 @@ class AdminPanel:
         try:
             question_text = self.question_text.get_text().strip()
             if not question_text:
-                print("Treść pytania nie może być pusta!")
+                self.show_error_message("Treść pytania nie może być pusta!")
                 return
         
             answers = [field.get_text().strip() for field in self.answer_fields]
@@ -549,6 +549,7 @@ class AdminPanel:
 
             if len(non_empty_answers) < 3:
                 print("Wymagane co najmniej 3 odpowiedzi, aby zapisać pytanie!")
+                self.show_error_message("Wymagane co najmniej 3 odpowiedzi, aby zapisać pytanie!")
                 return
 
             new_question = {
@@ -572,7 +573,7 @@ class AdminPanel:
     def delete_question(self):
         try:
             if len(self.questions) <=9:
-                print("Nie można usunąć pytania, ponieważ musi pozostać co najmniej 9 pytań.")
+                self.show_error_message("Nie można usunąć pytania, ponieważ musi pozostać co najmniej 9 pytań.")
                 return
             
             if 0 <= self.current_question_index < len(self.questions):
@@ -624,7 +625,22 @@ class AdminPanel:
             self.btn_delete_question.hide()
         else:
             self.btn_delete_question.show()
-
+    def show_error_message(self, message):
+        window = pygame_gui.windows.UIMessageWindow(
+            rect=pygame.Rect((SCREEN_WIDTH - 400) // 2, (SCREEN_HEIGHT - 150) // 2, 400, 150),
+            html_message=message,
+            manager=self.manager,
+            window_title="Błąd",
+            object_id=pygame_gui.core.ObjectID(class_id="message_window", object_id="#message_window")
+        )
+        window.dismiss_button.set_text("Zamknij")
+        try:
+            window.dismiss_button.tool_tip_text = None  
+            if window.dismiss_button.tool_tip is not None:
+                window.dismiss_button.tool_tip.kill()
+                window.dismiss_button.tool_tip = None
+        except Exception as e:
+            print("Nie udało się usunąć tooltipa:", e)
 def back_to_main_menu():
     pygame.quit()
     os._exit(0)
